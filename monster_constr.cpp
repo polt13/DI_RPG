@@ -1,6 +1,6 @@
 //  File Name:  monster_constr.cpp
 
-#include "classes_constr.hpp"
+#include "rpg_lib.hpp"
 #include <iostream>
 
 using namespace std;

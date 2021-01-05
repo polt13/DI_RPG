@@ -1,6 +1,6 @@
 //  File Name:  main.cpp
 
-#include "classes_constr.hpp"
+#include "rpg_lib.hpp"
 #include <cstdlib>
 #include <ctime>
 #include <iostream>

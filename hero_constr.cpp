@@ -1,5 +1,5 @@
 //  File Name:  hero_constr.cpp
-#include "classes_constr.hpp"
+#include "rpg_lib.hpp"
 #include <cmath>
 #include <iostream>
 

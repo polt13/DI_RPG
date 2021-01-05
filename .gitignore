@@ -1,5 +1,6 @@
 .vscode/
 CMakeFiles/
+*.cmake
 *.txt
 *.exe
 *.log

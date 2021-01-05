@@ -1,5 +1,4 @@
-#include "item.hpp"
-#include "classes_constr.hpp"
+#include "rpg_lib.hpp"
 
 using std::string;
 

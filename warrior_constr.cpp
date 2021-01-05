@@ -1,7 +1,7 @@
 //  File Name:  warrior_constr.cpp
 
 #include <iostream>
-#include "classes_constr.hpp"
+#include "rpg_lib.hpp"
 
 using namespace std;
 
