@@ -17,7 +17,9 @@ Monster::~Monster()
     cout << endl;
 }
 
-Monster::Monster(const string MyName, int LowDMG, int HighDMG, int DEF, int MissChance) : minDMG(LowDMG), maxDMG(HighDMG), Defense(DEF), Dodge(MissChance), Living(MyName, 250)
+Monster::Monster(const string MyName, int LowDMG, int HighDMG, int DEF, int MissChance)
+        : minDMG(LowDMG), maxDMG(HighDMG), Defense(DEF), Dodge(MissChance),
+        Living(MyName, 250)
 {
     //cout << "A New Monster has been created!" << endl;
     cout << Name << endl;
@@ -29,13 +31,23 @@ Monster::Monster(const string MyName, int LowDMG, int HighDMG, int DEF, int Miss
     cout << endl;
 }
 
+int Monster::get_defense()
+{
+    return Defense;
+}
+
+int Monster::get_dodge()
+{
+    return Dodge;
+}
+
 void Monster::attack(Hero* MyHero)
 {
     if(MyHero->get_hp() == 0)
         return;
     if( rand() % 100 > MyHero->get_agility() )
     {
-        int DMGdealt = rand() % (maxDMG-minDMG + 1) + minDMG;   //Generate num from minDMG-maxDMG included
+        int DMGdealt = (rand() % (maxDMG-minDMG + 1) + minDMG)/* - MyHero->get_armor_def() */;   //Generate num from minDMG-maxDMG included
         cout << get_name() << " dealt " << DMGdealt << " DMG to " << MyHero->get_name() << "!" << endl;
         MyHero->decrease_hp(DMGdealt);
         if(MyHero->get_hp() <= 0)

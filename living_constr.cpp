@@ -11,7 +11,9 @@ Living::~Living()
     //cout << endl;
 }
 
-Living::Living(const string MyName, const int HP) : Name(MyName), Level(1), HealthPower(HP), Faint(false)
+Living::Living(const string MyName, const int HP)
+        : Name(MyName), Level(1),
+        HealthPower(HP), Faint(false)
 {
     //cout << "A New Living has been created!" << endl;
     //cout << endl;

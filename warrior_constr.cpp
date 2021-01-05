@@ -10,7 +10,8 @@ Warrior::~Warrior()
     cout << "A Warrior to be destroyed!" << endl << endl;
 }
 
-Warrior::Warrior(const string MyName) : Hero(MyName, 4, 2, 3)
+Warrior::Warrior(const string MyName)
+        : Hero(MyName, 4, 2, 3)
 {
     cout << "A New Warrior has been created!" << endl << endl;
 }

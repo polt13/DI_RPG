@@ -23,20 +23,28 @@ class Hero: public Living
 {
     protected:
         int MagicPower;
-        int Strenght;
+        int Strength;
         int Dexterity;
         int Agility;
         int Money;
         int Experience;
         int XPmax;
+        //Weapon* MyWeapon;
+        //Armor* MyArmor;
+        //Potion* MyPotion;
+        //vector se items
     public:
         Hero(const std::string, int, int, int);
         virtual ~Hero() = 0;
 
-        int get_agility();
-
         void set_xp(const int);
 
+        int get_agility() const;
+        //int get_weap_dmg() const;
+        //int get_armor_def() const;
+
+        void attack(Monster*);
+        virtual void levelUp() = 0;
         virtual void levelUp(int, int, int);
 };
 
@@ -78,6 +86,9 @@ class Monster: public Living
         Monster(const std::string, int, int, int, int);
         virtual ~Monster() = 0;
 
+        int get_defense();
+        int get_dodge();
+
         void attack(Hero*);
 };
 
@@ -101,3 +112,26 @@ class Spirit: public Monster
         Spirit(const std::string);
         ~Spirit();
 };
+
+/*
+class Item
+{
+    protected:
+        ...
+    public:
+        Item();
+        virtual ~Item() = 0;
+};
+
+class Weapon: public Item
+{
+    public:
+        void equip();
+};
+
+class Potion: public Item
+{
+    public:
+        void use();
+}
+*/

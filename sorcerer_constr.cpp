@@ -10,7 +10,8 @@ Sorcerer::~Sorcerer()
     cout << "A Sorcerer to be destroyed!" << endl << endl;
 }
 
-Sorcerer::Sorcerer(const string MyName) : Hero(MyName, 2, 4, 3)
+Sorcerer::Sorcerer(const string MyName)
+        : Hero(MyName, 2, 4, 3)
 {
     cout << "A New Sorcerer has been created!" << endl << endl;
 }

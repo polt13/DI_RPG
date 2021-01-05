@@ -11,7 +11,16 @@ int main()
 {
     srand((unsigned int)time(NULL));
 
-    //Hero* war1 = new Hero("Christos", 460, 100, 4, 2, 3);
+    Hero* war1 = new Warrior("Christos");
+    war1->set_xp(200);
+    war1->levelUp();
+
+    Hero* sor1 = new Sorcerer("PEPEGA");
+    sor1->set_xp(200);
+    sor1->levelUp();
+    
+    delete sor1;
+    delete war1;
     /*
     Warrior* war1 = new Warrior("Abbathor");
     cout << endl;
@@ -28,14 +37,9 @@ int main()
     Spirit* spi1 = new Spirit("Moradin");
     */
 
-   Hero* war1 = new Warrior("Christos");
-   Monster* dra1 = new Dragon("Ehlonna");
-   dra1->attack(war1);
-   dra1->attack(war1);
-   dra1->attack(war1);
-   dra1->attack(war1);
-   dra1->attack(war1);
-   dra1->attack(war1);
+   //Hero* war1 = new Warrior("Christos");
+   //Monster* dra1 = new Dragon("Ehlonna");
+   //dra1->attack(war1);
 
     return 0;
 }

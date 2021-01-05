@@ -13,7 +13,7 @@ Hero::~Hero()
     cout << "Level: " << Level << endl;
     cout << "HP: " << HealthPower << endl;
     cout << "MP: " << MagicPower << endl << endl;
-    cout << "STR: " << Strenght << endl;
+    cout << "STR: " << Strength << endl;
     cout << "DEX: " << Dexterity << endl;
     cout << "AG: " << Agility << endl << endl;
     cout << "Money: " << Money << endl;
@@ -21,14 +21,18 @@ Hero::~Hero()
     cout << endl;
 }
 
-Hero::Hero(const string MyName, int STR, int DEX, int AG) : MagicPower(150), Strenght(STR), Dexterity(DEX), Agility(AG), Money(0), Experience(0), XPmax(125), Living(MyName, 400)
+Hero::Hero(const string MyName, int STR, int DEX, int AG)
+        : MagicPower(150), Strength(STR), Dexterity(DEX),
+        Agility(AG), Money(0), Experience(0), XPmax(125),
+        /*MyWeapon(NULL), MyArmor(NULL), MyPotion(NULL),*/
+        Living(MyName, 400)
 {
     //cout << "A New Hero has been created!" << endl << endl;
     cout << Name << endl;
     cout << "Level: " << Level << endl;
     cout << "HP: " << HealthPower << endl;
     cout << "MP: " << MagicPower << endl << endl;
-    cout << "STR: " << Strenght << endl;
+    cout << "STR: " << Strength << endl;
     cout << "DEX: " << Dexterity << endl;
     cout << "AG: " << Agility << endl << endl;
     cout << "Money: " << Money << endl;
@@ -36,14 +40,46 @@ Hero::Hero(const string MyName, int STR, int DEX, int AG) : MagicPower(150), Str
     cout << endl;
 }
 
-int Hero::get_agility()
+int Hero::get_agility() const
 {
     return Agility;
 }
 
+/*
+int Hero::get_weap_dmg() const
+{
+    return MyWeapon->get_dmg();
+}
+
+int Hero::get_armor_def() const
+{
+    return MyArmor->get_defense();
+}
+*/
+
 void Hero::set_xp(const int value)
 {
     Experience = value;
+}
+
+void Hero::attack(Monster* MyMonster)
+{
+    if(MyMonster->get_hp() == 0)
+        return;
+    if( rand() % 100 > MyMonster->get_dodge() )
+    {
+        int DMGdealt = Strength - MyMonster->get_defense()/* + get_weap_dmg()*/;
+        cout << get_name() << " dealt " << DMGdealt << " DMG to " << MyMonster->get_name() << "!" << endl;
+        MyMonster->decrease_hp(DMGdealt);
+        if(MyMonster->get_hp() <= 0)
+        {
+            MyMonster->pass_out();
+            return;
+        }
+    }
+    else
+        cout << MyMonster->get_name() << " DODGED the Attack!" << endl;
+    cout << MyMonster->get_name() << " HP is: " << MyMonster->get_hp() << endl;
 }
 
 void Hero::levelUp(int str, int dex, int ag)
@@ -53,7 +89,7 @@ void Hero::levelUp(int str, int dex, int ag)
         Experience -= XPmax;
         XPmax += round(XPmax*0.25);
         Level++;
-        Strenght += str;
+        Strength += str;
         Dexterity += dex;
         Agility += ag;
     }
