@@ -36,6 +36,11 @@ Hero::Hero(const string MyName, int STR, int DEX, int AG) : MagicPower(150), Str
     cout << endl;
 }
 
+int Hero::get_agility()
+{
+    return Agility;
+}
+
 void Hero::set_xp(const int value)
 {
     Experience = value;

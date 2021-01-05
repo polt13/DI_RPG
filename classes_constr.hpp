@@ -6,9 +6,17 @@ class Living
         std::string Name;
         int Level;
         int HealthPower;
+        bool Faint;
     public:
         Living(const std::string, const int);
         virtual ~Living() = 0;
+
+        void decrease_hp(int);
+
+        std::string get_name();
+        int get_hp();
+
+        void pass_out();
 };
 
 class Hero: public Living
@@ -24,6 +32,8 @@ class Hero: public Living
     public:
         Hero(const std::string, int, int, int);
         virtual ~Hero() = 0;
+
+        int get_agility();
 
         void set_xp(const int);
 
@@ -67,6 +77,8 @@ class Monster: public Living
     public:
         Monster(const std::string, int, int, int, int);
         virtual ~Monster() = 0;
+
+        void attack(Hero*);
 };
 
 class Dragon: public Monster

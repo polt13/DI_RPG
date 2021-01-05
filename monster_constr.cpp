@@ -28,3 +28,23 @@ Monster::Monster(const string MyName, int LowDMG, int HighDMG, int DEF, int Miss
     cout << "DODGE: " << Dodge << "%" << endl;
     cout << endl;
 }
+
+void Monster::attack(Hero* MyHero)
+{
+    if(MyHero->get_hp() == 0)
+        return;
+    if( rand() % 100 > MyHero->get_agility() )
+    {
+        int DMGdealt = rand() % (maxDMG-minDMG + 1) + minDMG;   //Generate num from minDMG-maxDMG included
+        cout << get_name() << " dealt " << DMGdealt << " DMG to " << MyHero->get_name() << "!" << endl;
+        MyHero->decrease_hp(DMGdealt);
+        if(MyHero->get_hp() <= 0)
+        {
+            MyHero->pass_out();
+            return;
+        }
+    }
+    else
+        cout << MyHero->get_name() << " DODGED the Attack!" << endl;
+    cout << MyHero->get_name() << " HP is: " << MyHero->get_hp() << endl;
+}
