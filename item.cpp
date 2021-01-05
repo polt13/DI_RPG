@@ -40,9 +40,9 @@ Potion::Potion(const string& _name, const int price, const int lvl, cstats type)
 
 void Potion::buff(Hero& h)
 {
-    if (potion_type == cstats::AGIL) {
-        
-    }
+    int& statToIncrease = h.getStat(potion_type);
+    //get Hero's stat by reference and increase it
+    statToIncrease += buffAmount;
 }
 
 Spell::Spell(const string& _name, const int price, const int lvl, const int mindmg, const int maxdmg, const int mp, const int dur)
