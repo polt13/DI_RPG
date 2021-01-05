@@ -1,9 +1,9 @@
 //  File Name:  main.cpp
 
-#include <iostream>
+#include "classes_constr.hpp"
 #include <cstdlib>
 #include <ctime>
-#include "classes_constr.hpp"
+#include <iostream>
 
 using namespace std;
 
@@ -18,9 +18,11 @@ int main()
     Hero* sor1 = new Sorcerer("PEPEGA");
     sor1->set_xp(200);
     sor1->levelUp();
-    
+    Potion* p = new Potion("P", 5, 3, cstats::HP);
     delete sor1;
     delete war1;
+    Monster* m = new Dragon("Coco");
+    war1->attack(m);
     /*
     Warrior* war1 = new Warrior("Abbathor");
     cout << endl;
@@ -37,9 +39,9 @@ int main()
     Spirit* spi1 = new Spirit("Moradin");
     */
 
-   //Hero* war1 = new Warrior("Christos");
-   //Monster* dra1 = new Dragon("Ehlonna");
-   //dra1->attack(war1);
+    //Hero* war1 = new Warrior("Christos");
+    //Monster* dra1 = new Dragon("Ehlonna");
+    //dra1->attack(war1);
 
     return 0;
 }

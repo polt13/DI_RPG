@@ -1,4 +1,6 @@
 .vscode/
+CMakeFiles/
+*.txt
 *.exe
 *.log
 main.exe

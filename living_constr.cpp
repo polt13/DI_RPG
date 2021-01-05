@@ -1,7 +1,7 @@
 //  File Name:  living_constr.cpp
 
-#include <iostream>
 #include "classes_constr.hpp"
+#include <iostream>
 
 using namespace std;
 
@@ -12,8 +12,10 @@ Living::~Living()
 }
 
 Living::Living(const string MyName, const int HP)
-        : Name(MyName), Level(1),
-        HealthPower(HP), Faint(false)
+    : Name(MyName)
+    , Level(1)
+    , HealthPower(HP)
+    , Faint(false)
 {
     //cout << "A New Living has been created!" << endl;
     //cout << endl;
@@ -22,8 +24,10 @@ Living::Living(const string MyName, const int HP)
 void Living::decrease_hp(int dealt)
 {
     HealthPower -= dealt;
-    if(HealthPower < 0)
+    if (HealthPower <= 0) {
         HealthPower = 0;
+        pass_out();
+    }
 }
 
 string Living::get_name()

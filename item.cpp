@@ -1,4 +1,5 @@
 #include "item.hpp"
+#include "classes_constr.hpp"
 
 using std::string;
 
@@ -40,9 +41,9 @@ Potion::Potion(const string& _name, const int price, const int lvl, cstats type)
 
 void Potion::buff(Hero& h)
 {
-    if (potion_type == cstats::AGIL) {
-        
-    }
+    int& statToIncrease = h.getStat(potion_type);
+    //get Hero's stat by reference and increase it
+    statToIncrease += buffAmount;
 }
 
 Spell::Spell(const string& _name, const int price, const int lvl, const int mindmg, const int maxdmg, const int mp, const int dur)
@@ -51,6 +52,16 @@ Spell::Spell(const string& _name, const int price, const int lvl, const int mind
     , max_dmg(maxdmg)
     , duration(dur)
     , mp_cost(mp) {};
+
+int Spell::getMPcost(void)
+{
+    return mp_cost;
+}
+
+int Spell::getSpellDmg(void)
+{
+    return (rand() % (max_dmg - min_dmg + 1) + min_dmg);
+}
 
 IceSpell::IceSpell(const string& _name, const int price, const int lvl, const int mindmg, const int maxdmg, const int mp, const int dur)
     : Spell(_name, price, lvl, mindmg, maxdmg, mp, dur)
