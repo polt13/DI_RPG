@@ -1,5 +1,8 @@
 //  File Name:  classes_constr.hpp
 
+#include "item.hpp"
+
+
 class Living
 {
     protected:
@@ -18,6 +21,8 @@ class Living
 
         void pass_out();
 };
+
+class Monster;
 
 class Hero: public Living
 {
@@ -42,6 +47,7 @@ class Hero: public Living
         int get_agility() const;
         //int get_weap_dmg() const;
         //int get_armor_def() const;
+        int& getStat(cstats);
 
         void attack(Monster*);
         virtual void levelUp() = 0;

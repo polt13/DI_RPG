@@ -45,6 +45,20 @@ int Hero::get_agility() const
     return Agility;
 }
 
+int& Hero::getStat(cstats potion_t)
+{
+    if(potion_t == cstats::HP)
+        return HealthPower;
+    else if(potion_t == cstats::MP)
+        return MagicPower;
+    else if(potion_t == cstats::DEX)
+        return Dexterity;
+    else if(potion_t == cstats::STR)
+        return Strength;
+    else
+        return Agility;    
+}
+
 /*
 int Hero::get_weap_dmg() const
 {
