@@ -50,7 +50,7 @@ string Potion::typeToString() const
     case (cstats::HP):
         return "HP";
     case (cstats::MP):
-        return "Magic Power";
+        return "MP";
     case (cstats::AGIL):
         return "AGIL";
     case (cstats::DEX):

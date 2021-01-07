@@ -103,7 +103,7 @@ void Hero::castSpell(Monster* m, int whichSpell)
         std::cout << " Dealt  " << final_damage << " to " << m->get_name() << '\n';
         s->apply_effect(m);
     } else {
-        std::cout << "Not enough mana\n";
+        std::cout << "Not enough MP\n";
         return;
     }
 }
