@@ -1,21 +1,18 @@
 //  File Name:  monster_constr.cpp
 
 #include "rpg_lib.hpp"
-#include <iostream>
-
-using namespace std;
-
+using std::string;
 Monster::~Monster()
 {
-    //cout << "A Monster to be destroyed!" << endl;
-    cout << Name << endl;
-    cout << "Level: " << Level << endl;
-    cout << "HP: " << HealthPower << endl
-         << endl;
-    cout << "DMG: " << minDMG << " - " << maxDMG << endl;
-    cout << "DEF: " << Defense << endl;
-    cout << "DODGE: " << Dodge << "%" << endl;
-    cout << endl;
+    //cout << "A Monster to be destroyed!" <'\n';
+   std::cout<< Name <<'\n';
+   std::cout<< "Level: " << Level << '\n';
+   std::cout<< "HP: " << HealthPower <<"\n\n";
+   
+   std::cout<< "DMG: " << minDMG << " - " << maxDMG <<'\n';
+   std::cout<< "DEF: " << Defense <<'\n';
+   std::cout<< "DODGE: " << Dodge << "%" <<'\n';
+   std::cout << std::endl;
 }
 
 Monster::Monster(const string MyName, int LowDMG, int HighDMG, int DEF, int MissChance)
@@ -23,25 +20,24 @@ Monster::Monster(const string MyName, int LowDMG, int HighDMG, int DEF, int Miss
     , maxDMG(HighDMG)
     , Defense(DEF)
     , Dodge(MissChance)
-    , Living(MyName, 250)
+    , Living(MyName, 250),debuffStatus{{spellType::ICE,0},{spellType::FIRE,0},{spellType::LIGHTNING,0}}
 {
-    //cout << "A New Monster has been created!" << endl;
-    cout << Name << endl;
-    cout << "Level: " << Level << endl;
-    cout << "HP: " << HealthPower << endl
-         << endl;
-    cout << "DMG: " << minDMG << " - " << maxDMG << endl;
-    cout << "DEF: " << Defense << endl;
-    cout << "DODGE: " << Dodge << "%" << endl;
-    cout << endl;
+    //cout << "A New Monster has been created!" <'\n';
+   std::cout<< Name <<'\n';
+   std::cout<< "Level: " << Level <<'\n';
+   std::cout<< "HP: " << HealthPower <<"\n\n";
+   std::cout<< "DMG: " << minDMG << " - " << maxDMG <<'\n';
+   std::cout<< "DEF: " << Defense <<'\n';
+   std::cout<< "DODGE: " << Dodge << "%" <<'\n';
+   std::cout<< std::endl;
 }
 
-int Monster::get_defense()
+int Monster::get_defense() const
 {
     return Defense;
 }
 
-int Monster::get_dodge()
+int Monster::get_dodge() const
 {
     return Dodge;
 }
@@ -52,9 +48,18 @@ void Monster::attack(Hero* MyHero)
         return;
     if (rand() % 100 > MyHero->get_agility()) {
         int DMGdealt = (rand() % (maxDMG - minDMG + 1) + minDMG) /* - MyHero->get_armor_def() */; //Generate num from minDMG-maxDMG included
-        cout << get_name() << " dealt " << DMGdealt << " DMG to " << MyHero->get_name() << "!" << endl;
+       std::cout<< get_name() << " dealt " << DMGdealt << " DMG to " << MyHero->get_name() << "!" <<'\n';
         MyHero->decrease_hp(DMGdealt);
     } else
-        cout << MyHero->get_name() << " DODGED the Attack!" << endl;
-    cout << MyHero->get_name() << " HP is: " << MyHero->get_hp() << endl;
+       std::cout<< MyHero->get_name() << " DODGED the Attack!" <<'\n';
+   std::cout<< MyHero->get_name() << " HP is: " << MyHero->get_hp() << std::endl;
 }
+
+void Monster::debuff(spellType st, int rounds){
+    debuffStatus[st]+=rounds; //debuff lasts for + rounds
+    //add round_start(),round_end()
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+

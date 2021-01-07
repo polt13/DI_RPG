@@ -2,24 +2,24 @@
 #include "rpg_lib.hpp"
 #include <cmath>
 #include <iostream>
+#include <map>
 
-using namespace std;
+using std::string;
 
 Hero::~Hero()
 {
-    //cout << "A Hero to be destroyed!" << endl;
-    cout << Name << endl;
-    cout << "Level: " << Level << endl;
-    cout << "HP: " << HealthPower << endl;
-    cout << "MP: " << MagicPower << endl
-         << endl;
-    cout << "STR: " << Strength << endl;
-    cout << "DEX: " << Dexterity << endl;
-    cout << "AG: " << Agility << endl
-         << endl;
-    cout << "Money: " << Money << endl;
-    cout << "XP: " << Experience << " / " << XPmax << endl;
-    cout << endl;
+    //std::cout << "A Hero to be destroyed!" <<'\n';
+    std::cout << Name << '\n';
+    std::cout << "Level: " << Level << '\n';
+    std::cout << "HP: " << HealthPower << '\n';
+    std::cout << "MP: " << MagicPower << '\n';
+    std::cout << "STR: " << Strength << '\n';
+    std::cout << "DEX: " << Dexterity << '\n';
+    std::cout << "AG: " << Agility 
+         << "\n\n";
+    std::cout << "Money: " << Money << '\n';
+    std::cout << "XP: " << Experience << " / " << XPmax << '\n';
+    std::cout << std::endl;
 }
 
 Hero::Hero(const string MyName, int STR, int DEX, int AG)
@@ -34,19 +34,18 @@ Hero::Hero(const string MyName, int STR, int DEX, int AG)
     //do next ____ MyWeapon(NULL), MyArmor(NULL), MyPotion(NULL)
     Living(MyName, 400)
 {
-    //cout << "A New Hero has been created!" << endl << endl;
-    cout << Name << endl;
-    cout << "Level: " << Level << endl;
-    cout << "HP: " << HealthPower << endl;
-    cout << "MP: " << MagicPower << endl
-         << endl;
-    cout << "STR: " << Strength << endl;
-    cout << "DEX: " << Dexterity << endl;
-    cout << "AG: " << Agility << endl
-         << endl;
-    cout << "Money: " << Money << endl;
-    cout << "XP: " << Experience << " / " << XPmax << endl;
-    cout << endl;
+    //std::cout << "A New Hero has been created!" << endl <<'\n';
+    std::cout << Name <<'\n';
+    std::cout << "Level: " << Level <<'\n';
+    std::cout << "HP: " << HealthPower <<'\n';
+    std::cout << "MP: " << MagicPower 
+         <<'\n';
+    std::cout << "STR: " << Strength <<'\n';
+    std::cout << "DEX: " << Dexterity <<'\n';
+    std::cout << "AG: " << Agility << "\n\n";
+    std::cout << "Money: " << Money <<'\n';
+    std::cout << "XP: " << Experience << " / " << XPmax <<'\n';
+    std::cout <<'\n';
 }
 
 int Hero::get_agility() const
@@ -68,18 +67,6 @@ int& Hero::getStat(cstats potion_t)
         return Agility;
 }
 
-/*
-int Hero::get_weap_dmg() const
-{
-    return MyWeapon->get_dmg();
-}
-
-int Hero::get_armor_def() const
-{
-    return MyArmor->get_defense();
-}
-*/
-
 void Hero::set_xp(const int value)
 {
     Experience = value;
@@ -91,12 +78,15 @@ void Hero::attack(Monster* MyMonster)
         return;
     if ((rand() % 100) > MyMonster->get_dodge()) {
         int DMGdealt = Strength - MyMonster->get_defense() + 0; //DO NEXT -- ADD WEAPON DAMAGE!!!!!!!!!
-        std::cout
-            << get_name() << " dealt " << DMGdealt << " DMG to " << MyMonster->get_name() << "!" << endl;
+        std::cout << get_name() << " dealt " << DMGdealt << " DMG to " << MyMonster->get_name() << "!" <<'\n';
         MyMonster->decrease_hp(DMGdealt);
     } else
-        cout << MyMonster->get_name() << " DODGED the Attack!" << endl;
-    cout << MyMonster->get_name() << " HP is: " << MyMonster->get_hp() << endl;
+        std::cout << MyMonster->get_name() << " DODGED the Attack!" <<'\n';
+    std::cout << MyMonster->get_name() << " HP is: " << MyMonster->get_hp() <<'\n';
+}
+
+int Hero::getMoney() const{
+    return Money;
 }
 
 void Hero::castSpell(Monster* m, int whichSpell)
@@ -111,6 +101,7 @@ void Hero::castSpell(Monster* m, int whichSpell)
         MagicPower -= s->getMPcost();
         m->decrease_hp(final_damage);
         std::cout << " Dealt  " << final_damage << " to " << m->get_name() << '\n';
+        s->apply_effect(m);
     } else {
         std::cout << "Not enough mana\n";
         return;
@@ -119,7 +110,7 @@ void Hero::castSpell(Monster* m, int whichSpell)
 
 void Hero::levelUp(int str, int dex, int ag)
 {
-    while (Experience >= XPmax) {
+    while (Experience >= XPmax) { //in case where XP from a battle is enough for more than 1 level up..
         Experience -= XPmax;
         XPmax += round(XPmax * 0.25);
         Level++;
@@ -127,4 +118,8 @@ void Hero::levelUp(int str, int dex, int ag)
         Dexterity += dex;
         Agility += ag;
     }
+}
+
+void Hero::addToInv(Item* i){
+    inv.push_back(i);
 }
