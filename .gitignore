@@ -1,0 +1,9 @@
+.vscode/
+CMakeFiles/
+*.cmake
+*.txt
+*.exe
+*.log
+DI_RPG
+main.exe
+main
