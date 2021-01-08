@@ -1,4 +1,4 @@
-//  File Name:  exoskeleton_constr.cpp
+//  File Name:  exoskeleton.cpp
 
 #include <iostream>
 #include "rpg_lib.hpp"

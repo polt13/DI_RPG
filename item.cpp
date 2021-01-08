@@ -9,9 +9,19 @@ Item::Item(const string& _name, const int price, const int lvl)
 {
 }
 
+string Item::get_name() const
+{
+    return name;
+}
+
 int Item::getPrice() const
 {
     return buy_price;
+}
+
+int Item::get_minlvl() const
+{
+    return min_level;
 }
 
 Weapon::Weapon(const string& _name, const int price, const int lvl, const int damage, const bool grip)
@@ -27,15 +37,25 @@ void Weapon::print() const
               << name << "Price: " << buy_price << " Damage: " << dmg << (two_handed == true ? " Two Handed " : " One Handed ") << " Minimum level req. : " << min_level << std::endl;
 }
 
-int Weapon::getDamage(void)
+int Weapon::getDamage(void) const
 {
     return dmg;
+}
+
+bool Weapon::get_grip() const
+{
+    return two_handed;
 }
 
 Armor::Armor(const string& _name, const int price, const int lvl, const int defense)
     : Item(_name, price, lvl)
     , def(defense)
 {
+}
+
+int Armor::get_def() const
+{
+    return def;
 }
 
 void Armor::print() const
