@@ -4,6 +4,8 @@ CMakeFiles/
 *.txt
 *.exe
 *.log
+item.o
+Makefile
 DI_RPG
 main.exe
 main
