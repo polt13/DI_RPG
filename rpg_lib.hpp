@@ -18,11 +18,8 @@ enum class spellType {
     LIGHTNING
 };
 
-enum class itemType {
-    WEAPON,
+enum class gearType {
     ARMOR,
-    POTION,
-    SPELL,
     RWEAPON,
     LWEAPON
 };
@@ -35,10 +32,9 @@ protected:
     const std::string name;
     const int buy_price;
     const int min_level;
-    itemType _type;
 
 public:
-    Item(const std::string&, const int, const int,itemType);
+    Item(const std::string&, const int, const int);
     std::string get_name() const;
     int getPrice() const;
     int get_minlvl() const;
@@ -139,13 +135,13 @@ protected:
     int Money;
     int Experience;
     int XPmax;
-    std::vector<Potion*> potions;
-    std::vector<Spell*> spells;
     Weapon* RightHand;
     Weapon* LeftHand;
     Armor* MyArmor;
-    //Potion* MyPotion;
-    std::vector<Item*> inv;
+    std::vector<Weapon*> WeaponsInv;
+    std::vector<Armor*> ArmorsInv;
+    std::vector<Potion*> PotionsInv;
+    std::vector<Spell*> SpellsInv;
 
 public:
     void displayStats() const;
@@ -163,12 +159,14 @@ public:
     void attack(Monster*);
     void castSpell(Monster*, int);
 
+    void use(int);
+
     virtual void levelUp() = 0;
     virtual void levelUp(int, int, int);
 
-    void equip(Weapon*, int = 1);
-    void equip(Armor*);
-    void unequip(itemType);
+    void equip(int, int = 1);
+    void equip(int);
+    void unequip(gearType);
     void checkInventory() const;
     void addToInv(Item*);
 };
@@ -247,13 +245,16 @@ public:
 };
 
 class market : public block {
-    std::vector<Item*> items;
+    std::vector<Armor*> armorStock;
+    std::vector<Weapon*> weaponStock;
+    std::vector<Spell*> spellStock;
+    std::vector<Potion*> potionStock;
 
 public:
     void move(std::vector<Hero*>&);
     void display(); //display shop
     void print() const; //print as 'M' on map
-    void purchase(Hero&, int);
+    void purchase(Hero&);
     market();
     ~market();
 };

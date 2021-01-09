@@ -34,7 +34,6 @@ Hero::Hero(const string MyName, int STR, int DEX, int AG)
     , RightHand(nullptr)
     , LeftHand(nullptr)
     , MyArmor(nullptr)
-    //do next ____ MyPotion(nullptr)
     , Living(MyName, 50)
 {
     //std::cout << "A New Hero has been created!" << endl <<'\n';
@@ -120,7 +119,7 @@ void Hero::castSpell(Monster* MyMonster, int whichSpell)
 {
     if (MyMonster->get_hp() == 0)
         return;
-    Spell* s = spells[whichSpell];
+    Spell* s = SpellsInv[whichSpell];
     int DMGdealt = s->getSpellDmg() + Dexterity - MyMonster->get_defense();
     if (DMGdealt < 0) {
         std::cout << "Higher defense than dmg\n";
@@ -152,21 +151,37 @@ void Hero::levelUp(int str, int dex, int ag)
     }
 }
 
-void Hero::equip(Weapon* MyWeapon, int hand)
+void Hero::use(int whichPotion)
 {
+    if (whichPotion < 0 || (whichPotion > PotionsInv.size() - 1)) {
+        std::cout << "Please give a valid position of Potion (0 - " << PotionsInv.size() - 1 << ")\n ";
+        return;
+    }
+    PotionsInv[whichPotion]->buff(*this);
+    PotionsInv.erase(PotionsInv.begin() + whichPotion);
+}
+
+void Hero::equip(int whichWeapon, int hand)
+{
+    if (whichWeapon < 0 || (whichWeapon > WeaponsInv.size() - 1)) {
+        std::cout << "Please give a valid position of Weapon (0 - " << WeaponsInv.size() - 1 << ")\n ";
+        return;
+    }
     if ((hand != 1) && (hand != 2)) {
         std::cout << "Please give a valid number for Hand (1 - Primary / 2 - Secondary / Empty - 1 by Default)\n";
         return;
     }
+    Weapon* MyWeapon = WeaponsInv[whichWeapon];
     if (MyWeapon->get_minlvl() <= Level) {
         if (MyWeapon->isTwoHanded() == true) {
             if ((RightHand != nullptr) && (LeftHand == nullptr))
-                unequip(itemType::RWEAPON);
+                unequip(gearType::RWEAPON);
             else if ((RightHand != nullptr) && (LeftHand != nullptr)) {
-                unequip(itemType::RWEAPON);
-                unequip(itemType::LWEAPON);
+                unequip(gearType::RWEAPON);
+                unequip(gearType::LWEAPON);
             }
             RightHand = MyWeapon;
+            WeaponsInv.erase(WeaponsInv.begin() + whichWeapon);
             std::cout << "Equipped '" << RightHand->get_name() << "' Weapon!\n";
             return;
         } else {
@@ -180,49 +195,68 @@ void Hero::equip(Weapon* MyWeapon, int hand)
                 return;
             } else {
                 if (hand == 1) {
-                    unequip(itemType::RWEAPON);
+                    unequip(gearType::RWEAPON);
                     RightHand = MyWeapon;
                     std::cout << "Equipped '" << RightHand->get_name() << "' Weapon!\n";
                     return;
                 } else {
-                    unequip(itemType::LWEAPON);
+                    unequip(gearType::LWEAPON);
                     LeftHand = MyWeapon;
                     std::cout << "Equipped '" << LeftHand->get_name() << "' Weapon!\n";
                     return;
                 }
             }
+            WeaponsInv.erase(WeaponsInv.begin() + whichWeapon);
         }
     } else
         std::cout << MyWeapon->get_name() << " can be equipped at Level " << MyWeapon->get_minlvl() << std::endl;
 }
 
-void Hero::equip(Armor* Armour)
+void Hero::equip(int whichArmor)
 {
+    if (whichArmor < 0 || (whichArmor > (ArmorsInv.size() - 1))) {
+        std::cout << "Please give a valid position of Armor (0 - " << ArmorsInv.size() - 1 << ")\n ";
+        return;
+    }
+    Armor* Armour = ArmorsInv[whichArmor];
     if (Armour->get_minlvl() <= Level) {
-        if (MyArmor != nullptr)
-            unequip(itemType::ARMOR);
+        if (MyArmor != nullptr) {
+            std::cout << Name << " is already equipped with '" << MyArmor->get_name() << "' Armor\n";
+            std::cout << "Do you want to proceed? (y/n)\n";
+            char input;
+            while ((!std::cin >> input) || input != 'n' || input != 'N' || input != 'y' || input != 'Y') {
+                std::cout << "Wrong input, please type 'y' or 'n'\n";
+                std::cin.clear(); //reset possible error flag
+                std::cin.ignore(500, '\n'); //clear buffer
+                std::cin >> input;
+            }
+            if (input == 'n' || input == 'N')
+                return;
+            unequip(gearType::ARMOR);
+        }
         MyArmor = Armour;
+        ArmorsInv.erase(ArmorsInv.begin() + whichArmor);
         std::cout << "Equipped '" << MyArmor->get_name() << "' Armor!\n";
     } else
         std::cout << Armour->get_name() << " can be equipped at Level " << Armour->get_minlvl() << std::endl;
 }
 
-void Hero::unequip(itemType equipT)
+void Hero::unequip(gearType equipT)
 {
     switch (equipT) {
-    case (itemType::ARMOR):
+    case (gearType::ARMOR):
         std::cout << "Unequipped '" << MyArmor->get_name() << "' Armor!\n";
-        inv.push_back(MyArmor);
+        ArmorsInv.push_back(MyArmor);
         MyArmor = nullptr;
         return;
-    case (itemType::RWEAPON):
+    case (gearType::RWEAPON):
         std::cout << "Unequipped '" << RightHand->get_name() << "' Weapon!\n";
-        inv.push_back(RightHand);
+        WeaponsInv.push_back(RightHand);
         RightHand = nullptr;
         return;
-    case (itemType::LWEAPON):
+    case (gearType::LWEAPON):
         std::cout << "Unequipped '" << LeftHand->get_name() << "' Weapon!\n";
-        inv.push_back(LeftHand);
+        WeaponsInv.push_back(LeftHand);
         LeftHand = nullptr;
         return;
     }
@@ -244,7 +278,27 @@ void Hero::checkInventory() const
         MyArmor->print();
         std::cout << "\t[EQUIPPED]\n";
     }
-    for (auto it = inv.begin(); it != inv.end(); ++it) {
+    //print weapons / armors / potions / spells
+    std::cout << "Weapons:\n";
+    for (auto it = WeaponsInv.begin(); it != WeaponsInv.end(); ++it) {
+        (*it)->print();
+        std::cout << "\n";
+    }
+    std::cout << std::endl
+              << "Armors:\n";
+    for (auto it = ArmorsInv.begin(); it != ArmorsInv.end(); ++it) {
+        (*it)->print();
+        std::cout << "\n";
+    }
+    std::cout << std::endl
+              << "Potions:\n";
+    for (auto it = PotionsInv.begin(); it != PotionsInv.end(); ++it) {
+        (*it)->print();
+        std::cout << "\n";
+    }
+    std::cout << std::endl
+              << "Spells:\n";
+    for (auto it = SpellsInv.begin(); it != SpellsInv.end(); ++it) {
         (*it)->print();
         std::cout << "\n";
     }
@@ -252,7 +306,7 @@ void Hero::checkInventory() const
 
 void Hero::addToInv(Item* i)
 {
-    inv.push_back(i);
+    ///add_all_typeS:_:_:_
 }
 
 void Hero::displayStats() const
