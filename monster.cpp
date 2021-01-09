@@ -50,7 +50,7 @@ void Monster::attack(Hero* MyHero)
     if (MyHero->get_hp() == 0)
         return;
     int DMGdealt;
-    if (MyHero->get_armor() != NULL)
+    if (MyHero->get_armor() != nullptr)
         DMGdealt = (rand() % (maxDMG - minDMG + 1) + minDMG) - MyHero->get_armor()->get_def(); //Generate num from minDMG-maxDMG included
     else
         DMGdealt = (rand() % (maxDMG - minDMG + 1) + minDMG);
@@ -75,7 +75,7 @@ void Monster::debuff(spellType st, int rounds)
     //add round_start(),round_end()
 }
 
-void Monster::print() const
+void Monster::displayStats() const
 {
     std::cout << Name << " HP: " << HealthPower << '\t';
 }

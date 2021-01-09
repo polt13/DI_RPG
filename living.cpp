@@ -30,9 +30,6 @@ void Living::decrease_hp(int dealt)
     }
 }
 
-
-
-
 string Living::get_name() const
 {
     return Name;

@@ -6,7 +6,7 @@
 #include <vector>
 class Hero;
 class Monster;
-enum class cstats { DEX,
+enum class potionType { DEX,
     STR,
     AGIL,
     HP,
@@ -18,6 +18,15 @@ enum class spellType {
     LIGHTNING
 };
 
+enum class itemType {
+    WEAPON,
+    ARMOR,
+    POTION,
+    SPELL,
+    RWEAPON,
+    LWEAPON
+};
+
 class Item {
 public:
     virtual void print() const = 0;
@@ -26,9 +35,10 @@ protected:
     const std::string name;
     const int buy_price;
     const int min_level;
+    itemType _type;
 
 public:
-    Item(const std::string&, const int, const int);
+    Item(const std::string&, const int, const int,itemType);
     std::string get_name() const;
     int getPrice() const;
     int get_minlvl() const;
@@ -42,7 +52,7 @@ public:
     void print() const;
     Weapon(const std::string&, const int, const int, const int, const bool);
     int getDamage(void) const;
-    bool get_grip() const;
+    bool isTwoHanded() const;
 };
 
 class Armor : public Item {
@@ -55,14 +65,14 @@ public:
 };
 
 class Potion : public Item {
-    const cstats potion_type; //which stat to increase
+    const potionType potion_type; //which stat to increase
     const int buffAmount = 5;
     std::string typeToString() const;
 
 public:
     void print() const;
     void buff(Hero&);
-    Potion(const std::string&, const int, const int, cstats);
+    Potion(const std::string&, const int, const int, potionType);
 };
 
 class Spell : public Item { //make abstract
@@ -116,7 +126,7 @@ public:
 
     std::string get_name() const;
     int get_hp() const;
-    virtual void print() const = 0;
+    virtual void displayStats() const = 0;
     void pass_out();
 };
 
@@ -138,7 +148,7 @@ protected:
     std::vector<Item*> inv;
 
 public:
-    void print() const;
+    void displayStats() const;
     Hero(const std::string, int, int, int);
     virtual ~Hero() = 0;
 
@@ -147,7 +157,7 @@ public:
     int get_agility() const;
     int getMoney() const;
     Armor* get_armor() const;
-    int& getStat(cstats);
+    int& getStat(potionType);
     int get_max_xp();
 
     void attack(Monster*);
@@ -158,7 +168,8 @@ public:
 
     void equip(Weapon*, int = 1);
     void equip(Armor*);
-    void unequip(int);
+    void unequip(itemType);
+    void checkInventory() const;
     void addToInv(Item*);
 };
 
@@ -195,7 +206,7 @@ protected:
     std::map<spellType, int> debuffStatus; //map type to spell dur
 
 public:
-    void print() const;
+    void displayStats() const;
     Monster(const std::string, int, int, int, int, int);
     virtual ~Monster() = 0;
 
@@ -252,7 +263,7 @@ class common : public block {
     void fight(std::vector<Monster*>&);
 
 public:
-    void displayStatus(const std::vector<Monster*>&) const;
+    void displayStats(const std::vector<Monster*>&) const;
     void print() const;
     void move(std::vector<Hero*>&);
     void fight_start();

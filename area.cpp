@@ -3,7 +3,7 @@ market::market()
 {
     long int item_count = std::rand() % 6 + 5;
     for (int i = 1; i <= item_count; ++i) { //ADD RANDOM ITEMS
-        items.push_back(new Potion("Item", rand() % 10, 5, cstats::HP));
+        items.push_back(new Potion("Item", rand() % 10, 5, potionType::HP));
     }
 }
 
@@ -39,6 +39,7 @@ void market::display()
 {
     for (auto it = items.begin(); it != items.end(); ++it) {
         (*it)->print();
+        std::cout << std::endl;
     }
 }
 
@@ -96,21 +97,21 @@ void common::fight(std::vector<Monster*>& enemies)
         do {
             std::cin.clear();
             std::cin.ignore(500, '\n');
-            std::cout << "I for inventory, A for attack";
+            std::cout << "I for inventory, A for attack, D";
             std::cin >> option;
 
         } while (option != 'i' && option != 'I' && option != 'a' && option != 'A');
     }
 }
 
-void common::displayStatus(const std::vector<Monster*>& enemies) const
+void common::displayStats(const std::vector<Monster*>& enemies) const
 {
     for (auto it = enemies.begin(); it != enemies.end(); ++it) {
-        (*it)->print();
+        (*it)->displayStats();
     }
     std::cout << std::endl;
     for (auto it = squad.begin(); it != squad.end(); ++it) {
-        (*it)->print();
+        (*it)->displayStats();
     }
 }
 
@@ -129,7 +130,7 @@ bool common::end_fight(const std::vector<Monster*>& enemies)
             heroes_dead = false;
         }
     }
-    displayStatus(enemies);
+    displayStats(enemies);
     if (heroes_dead == true && monsters_dead == false) {
         std::cout << "Game Over!\n";
         return true;

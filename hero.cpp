@@ -31,10 +31,10 @@ Hero::Hero(const string MyName, int STR, int DEX, int AG)
     , Money(0)
     , Experience(0)
     , XPmax(125)
-    , RightHand(NULL)
-    , LeftHand(NULL)
-    , MyArmor(NULL)
-    //do next ____ MyPotion(NULL)
+    , RightHand(nullptr)
+    , LeftHand(nullptr)
+    , MyArmor(nullptr)
+    //do next ____ MyPotion(nullptr)
     , Living(MyName, 50)
 {
     //std::cout << "A New Hero has been created!" << endl <<'\n';
@@ -71,20 +71,21 @@ Armor* Hero::get_armor() const
     return MyArmor;
 }
 
-int Hero::get_max_xp(){
+int Hero::get_max_xp()
+{
     return XPmax;
 }
 
-int& Hero::getStat(cstats potion_t)
+int& Hero::getStat(potionType potion_t)
 {
     switch (potion_t) {
-    case (cstats::HP):
+    case (potionType::HP):
         return HealthPower;
-    case (cstats::MP):
+    case (potionType::MP):
         return MagicPower;
-    case (cstats::DEX):
+    case (potionType::DEX):
         return Dexterity;
-    case (cstats::STR):
+    case (potionType::STR):
         return Strength;
     }
     return Agility;
@@ -95,11 +96,11 @@ void Hero::attack(Monster* MyMonster)
     if (MyMonster->get_hp() == 0)
         return;
     int DMGdealt;
-    if ((RightHand != NULL) && (LeftHand != NULL))
+    if ((RightHand != nullptr) && (LeftHand != nullptr))
         DMGdealt = (Strength + RightHand->getDamage()) + (Strength + LeftHand->getDamage()) - MyMonster->get_defense();
-    else if ((RightHand != NULL) && (LeftHand == NULL))
+    else if ((RightHand != nullptr) && (LeftHand == nullptr))
         DMGdealt = (Strength + RightHand->getDamage()) - MyMonster->get_defense();
-    else if ((RightHand == NULL) && (LeftHand != NULL))
+    else if ((RightHand == nullptr) && (LeftHand != nullptr))
         DMGdealt = (Strength + LeftHand->getDamage()) - MyMonster->get_defense();
     else
         DMGdealt = Strength - MyMonster->get_defense();
@@ -158,33 +159,33 @@ void Hero::equip(Weapon* MyWeapon, int hand)
         return;
     }
     if (MyWeapon->get_minlvl() <= Level) {
-        if (MyWeapon->get_grip() == true) {
-            if ((RightHand != NULL) && (LeftHand == NULL))
-                unequip(2);
-            else if ((RightHand != NULL) && (LeftHand != NULL)) {
-                unequip(2);
-                unequip(3);
+        if (MyWeapon->isTwoHanded() == true) {
+            if ((RightHand != nullptr) && (LeftHand == nullptr))
+                unequip(itemType::RWEAPON);
+            else if ((RightHand != nullptr) && (LeftHand != nullptr)) {
+                unequip(itemType::RWEAPON);
+                unequip(itemType::LWEAPON);
             }
             RightHand = MyWeapon;
             std::cout << "Equipped '" << RightHand->get_name() << "' Weapon!\n";
             return;
         } else {
-            if ((RightHand == NULL) && (LeftHand == NULL)) {
+            if ((RightHand == nullptr) && (LeftHand == nullptr)) {
                 RightHand = MyWeapon;
                 std::cout << "Equipped '" << RightHand->get_name() << "' Weapon!\n";
                 return;
-            } else if ((RightHand != NULL) && (LeftHand == NULL)) {
+            } else if ((RightHand != nullptr) && (LeftHand == nullptr)) {
                 LeftHand = MyWeapon;
                 std::cout << "Equipped '" << LeftHand->get_name() << "' Weapon!\n";
                 return;
             } else {
                 if (hand == 1) {
-                    unequip(2);
+                    unequip(itemType::RWEAPON);
                     RightHand = MyWeapon;
                     std::cout << "Equipped '" << RightHand->get_name() << "' Weapon!\n";
                     return;
                 } else {
-                    unequip(3);
+                    unequip(itemType::LWEAPON);
                     LeftHand = MyWeapon;
                     std::cout << "Equipped '" << LeftHand->get_name() << "' Weapon!\n";
                     return;
@@ -198,29 +199,54 @@ void Hero::equip(Weapon* MyWeapon, int hand)
 void Hero::equip(Armor* Armour)
 {
     if (Armour->get_minlvl() <= Level) {
-        if (MyArmor != NULL)
-            unequip(1);
+        if (MyArmor != nullptr)
+            unequip(itemType::ARMOR);
         MyArmor = Armour;
         std::cout << "Equipped '" << MyArmor->get_name() << "' Armor!\n";
     } else
         std::cout << Armour->get_name() << " can be equipped at Level " << Armour->get_minlvl() << std::endl;
 }
 
-void Hero::unequip(int ItemType)
+void Hero::unequip(itemType equipT)
 {
-    switch (ItemType) {
-    case 1:
+    switch (equipT) {
+    case (itemType::ARMOR):
         std::cout << "Unequipped '" << MyArmor->get_name() << "' Armor!\n";
-        MyArmor = NULL;
+        inv.push_back(MyArmor);
+        MyArmor = nullptr;
         return;
-    case 2:
+    case (itemType::RWEAPON):
         std::cout << "Unequipped '" << RightHand->get_name() << "' Weapon!\n";
-        RightHand = NULL;
+        inv.push_back(RightHand);
+        RightHand = nullptr;
         return;
-    case 3:
+    case (itemType::LWEAPON):
         std::cout << "Unequipped '" << LeftHand->get_name() << "' Weapon!\n";
-        LeftHand = NULL;
+        inv.push_back(LeftHand);
+        LeftHand = nullptr;
         return;
+    }
+}
+
+void Hero::checkInventory() const
+{
+    std::cout << Name << "'s Inventory:\n\n";
+
+    if (RightHand != nullptr) {
+        RightHand->print();
+        std::cout << "\t[EQUIPPED]\n";
+    }
+    if (LeftHand != nullptr) {
+        LeftHand->print();
+        std::cout << "\t[EQUIPPED]\n";
+    }
+    if (MyArmor != nullptr) {
+        MyArmor->print();
+        std::cout << "\t[EQUIPPED]\n";
+    }
+    for (auto it = inv.begin(); it != inv.end(); ++it) {
+        (*it)->print();
+        std::cout << "\n";
     }
 }
 
@@ -229,8 +255,7 @@ void Hero::addToInv(Item* i)
     inv.push_back(i);
 }
 
-void Hero::print() const
+void Hero::displayStats() const
 {
-    std::cout << Name << " HP: " << HealthPower << " MP:" << MagicPower << '\t';
+    std::cout << Name << " | HP: " << HealthPower << " | MP:" << MagicPower << '\t';
 }
-
