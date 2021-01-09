@@ -9,6 +9,7 @@ using namespace std;
 
 int main()
 {
+<<<<<<< HEAD
     std::srand(std::time(NULL));
     block* Grid[16];
     int MarketPos = 3;
@@ -32,4 +33,6 @@ int main()
             putchar('\n');
         }
     }
+=======
+>>>>>>> origin/chris
 }

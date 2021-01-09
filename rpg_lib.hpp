@@ -29,7 +29,9 @@ protected:
 
 public:
     Item(const std::string&, const int, const int);
+    std::string get_name() const;
     int getPrice() const;
+    int get_minlvl() const;
 };
 
 class Weapon : public Item {
@@ -39,13 +41,15 @@ class Weapon : public Item {
 public:
     void print() const;
     Weapon(const std::string&, const int, const int, const int, const bool);
-    int getDamage(void);
+    int getDamage(void) const;
+    bool get_grip() const;
 };
 
 class Armor : public Item {
     int def;
 
 public:
+    int get_def() const;
     void print() const;
     Armor(const std::string&, const int, const int, const int);
 };
@@ -99,7 +103,7 @@ public:
 //////////////////////////////////////////////////////////////////////////////////////
 class Living {
 protected:
-    std::string Name;
+    const std::string Name;
     int Level;
     int HealthPower;
     bool Faint;
@@ -127,8 +131,9 @@ protected:
     int XPmax;
     std::vector<Potion*> potions;
     std::vector<Spell*> spells;
-    //Weapon* MyWeapon;
-    //Armor* MyArmor;
+    Weapon* RightHand;
+    Weapon* LeftHand;
+    Armor* MyArmor;
     //Potion* MyPotion;
     std::vector<Item*> inv;
 
@@ -136,14 +141,23 @@ public:
     void print() const;
     Hero(const std::string, int, int, int);
     virtual ~Hero() = 0;
+
     void set_xp(const int);
+
     int get_agility() const;
     int getMoney() const;
+    Armor* get_armor() const;
     int& getStat(cstats);
-    void castSpell(Monster*, int);
+
     void attack(Monster*);
+    void castSpell(Monster*, int);
+
     virtual void levelUp() = 0;
     virtual void levelUp(int, int, int);
+
+    void equip(Weapon*, int = 1);
+    void equip(Armor*);
+    void unequip(int);
     void addToInv(Item*);
 };
 
@@ -151,6 +165,7 @@ class Warrior : public Hero {
 public:
     Warrior(const std::string);
     ~Warrior();
+
     void levelUp();
 };
 
@@ -182,8 +197,10 @@ public:
     void print() const;
     Monster(const std::string, int, int, int, int);
     virtual ~Monster() = 0;
+
     int get_defense() const;
     int get_dodge() const;
+
     void debuff(spellType, int);
     void attack(Hero*);
 };
