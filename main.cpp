@@ -9,39 +9,27 @@ using namespace std;
 
 int main()
 {
-    srand((unsigned int)time(NULL));
+    std::srand(std::time(NULL));
+    block* Grid[16];
+    int MarketPos = 3;
+    int commonBlocks[] = { 0, 1, 2, 7, 8, 9, 10, 11, 12 };
+    int inaccessibleBlocks[] = { 4, 5, 6, 13, 14, 15 };
+    Grid[MarketPos] = new market();
+    for (int i = 0; i < 9; i++) {
+        Grid[commonBlocks[i]] = new common();
+    }
+    for (int i = 0; i < 6; i++) {
+        Grid[inaccessibleBlocks[i]] = new inaccessible();
+    }
+    int printed = 0;
+    for (int i = 0; i < 16; i++) {
 
-    Hero* war1 = new Warrior("Christos");
-    war1->set_xp(200);
-    war1->levelUp();
-
-    Hero* sor1 = new Sorcerer("PEPEGA");
-    sor1->set_xp(200);
-    sor1->levelUp();
-    Potion* p = new Potion("P", 5, 3, cstats::HP);
-    delete sor1;
-    delete war1;
-    Monster* m = new Dragon("Coco");
-    war1->attack(m);
-    /*
-    Warrior* war1 = new Warrior("Abbathor");
-    cout << endl;
-    Sorcerer* sor1 = new Sorcerer("Bahamut");
-    cout << endl;
-    Paladin* pal1 = new Paladin("Eadro");
-
-    cout << endl << endl << endl;
-
-    Dragon* dra1= new Dragon("Ehlonna");
-    cout << endl;
-    Exoskeleton* exo1 = new Exoskeleton("Gadhelyn");
-    cout << endl;
-    Spirit* spi1 = new Spirit("Moradin");
-    */
-
-    //Hero* war1 = new Warrior("Christos");
-    //Monster* dra1 = new Dragon("Ehlonna");
-    //dra1->attack(war1);
-
-    return 0;
+        Grid[i]->print();
+        printed++;
+        std::cout << " | ";
+        if (printed == 4) {
+            printed = 0;
+            putchar('\n');
+        }
+    }
 }

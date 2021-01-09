@@ -3,6 +3,7 @@ CMakeFiles/
 *.cmake
 *.txt
 *.exe
+*.o
 *.log
 DI_RPG
 main.exe

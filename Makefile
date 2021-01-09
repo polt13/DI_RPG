@@ -123,6 +123,33 @@ DI_RPG/fast:
 	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/build
 .PHONY : DI_RPG/fast
 
+area.o: area.cpp.o
+
+.PHONY : area.o
+
+# target to build an object file
+area.cpp.o:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/area.cpp.o
+.PHONY : area.cpp.o
+
+area.i: area.cpp.i
+
+.PHONY : area.i
+
+# target to preprocess a source file
+area.cpp.i:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/area.cpp.i
+.PHONY : area.cpp.i
+
+area.s: area.cpp.s
+
+.PHONY : area.s
+
+# target to generate assembly for a file
+area.cpp.s:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/area.cpp.s
+.PHONY : area.cpp.s
+
 dragon.o: dragon.cpp.o
 
 .PHONY : dragon.o
@@ -429,6 +456,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... DI_RPG"
+	@echo "... area.o"
+	@echo "... area.i"
+	@echo "... area.s"
 	@echo "... dragon.o"
 	@echo "... dragon.i"
 	@echo "... dragon.s"

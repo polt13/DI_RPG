@@ -129,7 +129,7 @@ void FireSpell::print() const
 
 void FireSpell::apply_effect(Monster* m)
 {
-    m->debuff(spellType::FIRE, duration);
+    m->debuff(spellType::FIRE, duration); //debuff type and how long it lasts
 }
 
 LightningSpell::LightningSpell(const string& _name, const int price, const int lvl, const int mindmg, const int maxdmg, const int mp, const int dur)
@@ -144,25 +144,6 @@ void LightningSpell::print() const
 }
 void LightningSpell::apply_effect(Monster* m)
 {
-    m->debuff(spellType::LIGHTNING, duration); //debuff type and how long it lasts
+    m->debuff(spellType::LIGHTNING, duration); 
 }
 ///////////////////////////////////
-
-market::market()
-{
-    long int item_count = std::rand() % 6 + 5;
-    for (int i = 1; i <= item_count; ++i) {
-        items.push_back(new Potion("Item", rand() % 10, 5, cstats::HP));
-    }
-}
-
-void market::purchase(Hero& h, int whichItemToBuy)
-{
-    if (items[whichItemToBuy]->getPrice() <= h.getMoney()) {
-        h.addToInv(items[whichItemToBuy]);
-        items.erase(items.begin() + whichItemToBuy); //remove from shop
-    } else {
-        std::cout << "not enough money\n";
-        return;
-    }
-}

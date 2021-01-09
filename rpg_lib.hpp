@@ -207,15 +207,36 @@ public:
 //////////////////////////////////////////////////////////////////////////////////////////
 
 class block {
+protected:
+    std::vector<Hero*> squad;
+
+public:
+    virtual void print() const = 0;
+    virtual void move(std::vector<Hero*>&) = 0;
 };
 
 class market : public block {
     std::vector<Item*> items;
 
 public:
+    void move(std::vector<Hero*>&);
+    void display(); //display shop
+    void print() const; //print as 'M' on map
     void purchase(Hero&, int);
     market();
     ~market();
+};
+
+class common : public block {
+    void print() const;
+    void move(std::vector<Hero*>&);
+    void fight_start();
+};
+
+class inaccessible : public block {
+public:
+    void print() const;
+    void move(std::vector<Hero*>& squad);
 };
 
 #endif
