@@ -1,23 +1,29 @@
 #include "rpg_lib.hpp"
 market::market()
 {
-    long int item_count = std::rand() % 6 + 5;
+    long int item_count = std::rand() % 4 + 1;
     for (int i = 1; i <= item_count; ++i) { //ADD RANDOM ITEMS
-        items.push_back(new Potion("Item", rand() % 10, 5, potionType::HP));
+        potionStock.push_back(new Potion("Item", std::rand() % 10, 5, potionType::HP));
+        spellStock.push_back(new FireSpell("Potion", std::rand() % 10, 1, 2, 3, 4, 5));
+        weaponStock.push_back(new Weapon("Weapon", std::rand() % 10, 1, 2, false));
+        armorStock.push_back(new Armor("Armor", 1, 2, 3));
     }
 }
 
-void market::purchase(Hero& h, int whichItemToBuy)
+void market::purchase(Hero& h)
 {
-    if (whichItemToBuy < 0 || whichItemToBuy > (items.size() - 1))
-        return;
-    if (items[whichItemToBuy]->getPrice() <= h.getMoney()) {
-        h.addToInv(items[whichItemToBuy]);
-        items.erase(items.begin() + whichItemToBuy); //remove from shop
-    } else {
-        std::cout << "not enough money\n";
-        return;
+
+    std::string option;
+    std::cout << "W for Weapon, A for Armor, P for Potion, S for Spells";
+    while (!(std::cin >> option) || (option != "A" && option != "W" && option != "S" && option != "P")) {
+        std::cout << "BAD_INPUT\n";
+        std::cin.clear();
+        std::cin.ignore(500, '\n');
+        std::cout << "W for Weapon, A for Armor, P for Potion, S for Spells";
     }
+
+    std::cin.clear();
+    std::cin.ignore(500, '\n');
 }
 
 void market::move(std::vector<Hero*>& toMove)
@@ -37,10 +43,7 @@ void market::move(std::vector<Hero*>& toMove)
 
 void market::display()
 {
-    for (auto it = items.begin(); it != items.end(); ++it) {
-        (*it)->print();
-        std::cout << std::endl;
-    }
+    std::cout << " Potions ";
 }
 
 void market::print() const

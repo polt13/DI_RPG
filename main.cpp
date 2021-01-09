@@ -5,8 +5,7 @@
 #include <ctime>
 #include <iostream>
 
-
-
+//////ADD SEPARATE INVENTORY PUSH_BACK//
 int main()
 {
     Warrior* warrior1 = new Warrior("MPAMPAS");
@@ -15,10 +14,10 @@ int main()
     Armor* armor1 = new Armor("POUTANA_SOU", 100, 1, 20);
     Armor* armor2 = new Armor("MUCH_WOW", 100, 1, 20);
 
-    warrior1->equip(weapon1);
-    warrior1->equip(armor1);
-    warrior1->equip(weapon2, 1);
-    warrior1->addToInv(armor2);
+    // warrior1->equip(weapon1);
+    // warrior1->equip(armor1);
+    // warrior1->equip(weapon2, 1);
+    // warrior1->addToInv(armor2);
 
     warrior1->checkInventory();
 
