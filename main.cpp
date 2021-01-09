@@ -23,12 +23,12 @@ int main()
     }
     int printed = 0;
     for (int i = 0; i < 16; i++) {
-
+        std::cout << "|";
         Grid[i]->print();
         printed++;
-        std::cout << " | ";
         if (printed == 4) {
             printed = 0;
+            std::cout << "|";
             putchar('\n');
         }
     }

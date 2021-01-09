@@ -112,7 +112,7 @@ public:
 
     std::string get_name() const;
     int get_hp() const;
-
+    virtual void print() const = 0;
     void pass_out();
 };
 
@@ -133,6 +133,7 @@ protected:
     std::vector<Item*> inv;
 
 public:
+    void print() const;
     Hero(const std::string, int, int, int);
     virtual ~Hero() = 0;
     void set_xp(const int);
@@ -178,6 +179,7 @@ protected:
     std::map<spellType, int> debuffStatus; //map type to spell dur
 
 public:
+    void print() const;
     Monster(const std::string, int, int, int, int);
     virtual ~Monster() = 0;
     int get_defense() const;
@@ -228,6 +230,11 @@ public:
 };
 
 class common : public block {
+    bool end_fight(const std::vector<Monster*>&);
+    void fight(std::vector<Monster*>&);
+
+public:
+    void displayStatus(const std::vector<Monster*>&) const;
     void print() const;
     void move(std::vector<Hero*>&);
     void fight_start();
@@ -237,6 +244,7 @@ class inaccessible : public block {
 public:
     void print() const;
     void move(std::vector<Hero*>& squad);
+    Monster* m;
 };
 
 #endif

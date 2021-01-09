@@ -30,6 +30,16 @@ void Living::decrease_hp(int dealt)
     }
 }
 
+void Hero::print() const
+{
+    std::cout << Name << " HP: " << HealthPower << " MP:" << MagicPower << '\t';
+}
+
+void Monster::print() const
+{
+    std::cout << Name << " HP: " << HealthPower << '\t';
+}
+
 string Living::get_name() const
 {
     return Name;
