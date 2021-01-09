@@ -11,9 +11,9 @@ Living::~Living()
     //std::cout << std::endl;
 }
 
-Living::Living(const string MyName, const int HP)
+Living::Living(const string MyName, const int HP, int LvL)
     : Name(MyName)
-    , Level(1)
+    , Level(LvL)
     , HealthPower(HP)
     , Faint(false)
 {
@@ -30,15 +30,8 @@ void Living::decrease_hp(int dealt)
     }
 }
 
-void Hero::print() const
-{
-    std::cout << Name << " HP: " << HealthPower << " MP:" << MagicPower << '\t';
-}
 
-void Monster::print() const
-{
-    std::cout << Name << " HP: " << HealthPower << '\t';
-}
+
 
 string Living::get_name() const
 {

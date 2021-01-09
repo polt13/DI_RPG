@@ -2,7 +2,7 @@
 market::market()
 {
     long int item_count = std::rand() % 6 + 5;
-    for (int i = 1; i <= item_count; ++i) {
+    for (int i = 1; i <= item_count; ++i) { //ADD RANDOM ITEMS
         items.push_back(new Potion("Item", rand() % 10, 5, cstats::HP));
     }
 }
@@ -136,7 +136,7 @@ bool common::end_fight(const std::vector<Monster*>& enemies)
     } else if (heroes_dead == false && monsters_dead == true) {
         std::cout << "Heroes win!\n";
         for (auto it = squad.begin(); it != squad.end(); ++it) {
-            //?(*it)->get_xp()
+            (*it)->set_xp((*it)->get_max_xp() / 4); //get 1/4th of XPmax
         }
         return true;
     }

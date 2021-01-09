@@ -17,12 +17,13 @@ Monster::~Monster()
    std::cout << std::endl;
 }
 
-Monster::Monster(const string MyName, int LowDMG, int HighDMG, int DEF, int MissChance)
+Monster::Monster(const string MyName, int LowDMG, int HighDMG, int DEF, int MissChance, int LvL)
     : minDMG(LowDMG)
     , maxDMG(HighDMG)
     , Defense(DEF)
     , Dodge(MissChance)
-    , Living(MyName, 250),debuffStatus{{spellType::ICE,0},{spellType::FIRE,0},{spellType::LIGHTNING,0}}
+    , Living(MyName, LvL*20, LvL)
+    , debuffStatus{{spellType::ICE,0},{spellType::FIRE,0},{spellType::LIGHTNING,0}}
 {
     //cout << "A New Monster has been created!" <'\n';
    std::cout<< Name <<'\n';
@@ -72,6 +73,11 @@ void Monster::debuff(spellType st, int rounds)
 {
     debuffStatus[st]+=rounds; //debuff lasts for + rounds
     //add round_start(),round_end()
+}
+
+void Monster::print() const
+{
+    std::cout << Name << " HP: " << HealthPower << '\t';
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

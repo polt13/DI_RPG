@@ -109,7 +109,7 @@ protected:
     bool Faint;
 
 public:
-    Living(const std::string, const int);
+    Living(const std::string, const int, int = 1);
     virtual ~Living() = 0;
 
     void decrease_hp(int);
@@ -148,6 +148,7 @@ public:
     int getMoney() const;
     Armor* get_armor() const;
     int& getStat(cstats);
+    int get_max_xp();
 
     void attack(Monster*);
     void castSpell(Monster*, int);
@@ -195,7 +196,7 @@ protected:
 
 public:
     void print() const;
-    Monster(const std::string, int, int, int, int);
+    Monster(const std::string, int, int, int, int, int);
     virtual ~Monster() = 0;
 
     int get_defense() const;
@@ -207,19 +208,19 @@ public:
 
 class Dragon : public Monster {
 public:
-    Dragon(const std::string);
+    Dragon(const std::string, int = 1);
     ~Dragon();
 };
 
 class Exoskeleton : public Monster {
 public:
-    Exoskeleton(const std::string);
+    Exoskeleton(const std::string, int = 1);
     ~Exoskeleton();
 };
 
 class Spirit : public Monster {
 public:
-    Spirit(const std::string);
+    Spirit(const std::string, int = 1);
     ~Spirit();
 };
 
