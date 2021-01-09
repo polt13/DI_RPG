@@ -5,43 +5,46 @@
 #include <ctime>
 #include <iostream>
 
-using namespace std;
+
 
 int main()
 {
-    srand((unsigned int)time(NULL));
+    Warrior* warrior1 = new Warrior("MPAMPAS");
+    Weapon* weapon1 = new Weapon("KAVLI", 100, 1, 40, false);
+    Weapon* weapon2 = new Weapon("KALAMARI", 100, 1, 60, true);
+    Armor* armor1 = new Armor("POUTANA_SOU", 100, 1, 20);
+    Armor* armor2 = new Armor("MUCH_WOW", 100, 1, 20);
 
-    Hero* war1 = new Warrior("Christos");
-    war1->set_xp(200);
-    war1->levelUp();
+    warrior1->equip(weapon1);
+    warrior1->equip(armor1);
+    warrior1->equip(weapon2, 1);
+    warrior1->addToInv(armor2);
 
-    Hero* sor1 = new Sorcerer("PEPEGA");
-    sor1->set_xp(200);
-    sor1->levelUp();
-    Potion* p = new Potion("P", 5, 3, cstats::HP);
-    delete sor1;
-    delete war1;
-    Monster* m = new Dragon("Coco");
-    war1->attack(m);
-    /*
-    Warrior* war1 = new Warrior("Abbathor");
-    cout << endl;
-    Sorcerer* sor1 = new Sorcerer("Bahamut");
-    cout << endl;
-    Paladin* pal1 = new Paladin("Eadro");
+    warrior1->checkInventory();
 
-    cout << endl << endl << endl;
+    std::cout << "\n\n";
 
-    Dragon* dra1= new Dragon("Ehlonna");
-    cout << endl;
-    Exoskeleton* exo1 = new Exoskeleton("Gadhelyn");
-    cout << endl;
-    Spirit* spi1 = new Spirit("Moradin");
-    */
-
-    //Hero* war1 = new Warrior("Christos");
-    //Monster* dra1 = new Dragon("Ehlonna");
-    //dra1->attack(war1);
-
-    return 0;
+    std::srand(std::time(NULL));
+    block* Grid[16];
+    int MarketPos = 3;
+    int commonBlocks[] = { 0, 1, 2, 7, 8, 9, 10, 11, 12 };
+    int inaccessibleBlocks[] = { 4, 5, 6, 13, 14, 15 };
+    Grid[MarketPos] = new market();
+    for (int i = 0; i < 9; i++) {
+        Grid[commonBlocks[i]] = new common();
+    }
+    for (int i = 0; i < 6; i++) {
+        Grid[inaccessibleBlocks[i]] = new inaccessible();
+    }
+    int printed = 0;
+    for (int i = 0; i < 16; i++) {
+        std::cout << "|";
+        Grid[i]->print();
+        printed++;
+        if (printed == 4) {
+            printed = 0;
+            std::cout << "|";
+            putchar('\n');
+        }
+    }
 }

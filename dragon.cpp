@@ -1,4 +1,4 @@
-//  File Name:  dragon_constr.cpp
+//  File Name:  dragon.cpp
 
 #include "rpg_lib.hpp"
 #include <iostream>
@@ -11,8 +11,8 @@ Dragon::~Dragon()
          << endl;
 }
 
-Dragon::Dragon(const string MyName)
-    : Monster(MyName, 80, 100, 20, 5)
+Dragon::Dragon(const string MyName, int LvL)
+    : Monster(MyName, LvL*5, LvL*7, LvL*2, LvL*2, LvL)
 {
     cout << "A New Dragon has been created!" << endl
          << endl;

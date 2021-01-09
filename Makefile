@@ -123,86 +123,113 @@ DI_RPG/fast:
 	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/build
 .PHONY : DI_RPG/fast
 
-dragon_constr.o: dragon_constr.cpp.o
+area.o: area.cpp.o
 
-.PHONY : dragon_constr.o
-
-# target to build an object file
-dragon_constr.cpp.o:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/dragon_constr.cpp.o
-.PHONY : dragon_constr.cpp.o
-
-dragon_constr.i: dragon_constr.cpp.i
-
-.PHONY : dragon_constr.i
-
-# target to preprocess a source file
-dragon_constr.cpp.i:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/dragon_constr.cpp.i
-.PHONY : dragon_constr.cpp.i
-
-dragon_constr.s: dragon_constr.cpp.s
-
-.PHONY : dragon_constr.s
-
-# target to generate assembly for a file
-dragon_constr.cpp.s:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/dragon_constr.cpp.s
-.PHONY : dragon_constr.cpp.s
-
-exoskeleton_constr.o: exoskeleton_constr.cpp.o
-
-.PHONY : exoskeleton_constr.o
+.PHONY : area.o
 
 # target to build an object file
-exoskeleton_constr.cpp.o:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/exoskeleton_constr.cpp.o
-.PHONY : exoskeleton_constr.cpp.o
+area.cpp.o:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/area.cpp.o
+.PHONY : area.cpp.o
 
-exoskeleton_constr.i: exoskeleton_constr.cpp.i
+area.i: area.cpp.i
 
-.PHONY : exoskeleton_constr.i
+.PHONY : area.i
 
 # target to preprocess a source file
-exoskeleton_constr.cpp.i:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/exoskeleton_constr.cpp.i
-.PHONY : exoskeleton_constr.cpp.i
+area.cpp.i:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/area.cpp.i
+.PHONY : area.cpp.i
 
-exoskeleton_constr.s: exoskeleton_constr.cpp.s
+area.s: area.cpp.s
 
-.PHONY : exoskeleton_constr.s
+.PHONY : area.s
 
 # target to generate assembly for a file
-exoskeleton_constr.cpp.s:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/exoskeleton_constr.cpp.s
-.PHONY : exoskeleton_constr.cpp.s
+area.cpp.s:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/area.cpp.s
+.PHONY : area.cpp.s
 
-hero_constr.o: hero_constr.cpp.o
+dragon.o: dragon.cpp.o
 
-.PHONY : hero_constr.o
+.PHONY : dragon.o
 
 # target to build an object file
-hero_constr.cpp.o:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/hero_constr.cpp.o
-.PHONY : hero_constr.cpp.o
+dragon.cpp.o:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/dragon.cpp.o
+.PHONY : dragon.cpp.o
 
-hero_constr.i: hero_constr.cpp.i
+dragon.i: dragon.cpp.i
 
-.PHONY : hero_constr.i
+.PHONY : dragon.i
 
 # target to preprocess a source file
-hero_constr.cpp.i:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/hero_constr.cpp.i
-.PHONY : hero_constr.cpp.i
+dragon.cpp.i:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/dragon.cpp.i
+.PHONY : dragon.cpp.i
 
-hero_constr.s: hero_constr.cpp.s
+dragon.s: dragon.cpp.s
 
-.PHONY : hero_constr.s
+.PHONY : dragon.s
 
 # target to generate assembly for a file
-hero_constr.cpp.s:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/hero_constr.cpp.s
-.PHONY : hero_constr.cpp.s
+dragon.cpp.s:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/dragon.cpp.s
+.PHONY : dragon.cpp.s
+
+exoskeleton.o: exoskeleton.cpp.o
+
+.PHONY : exoskeleton.o
+
+# target to build an object file
+exoskeleton.cpp.o:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/exoskeleton.cpp.o
+.PHONY : exoskeleton.cpp.o
+
+exoskeleton.i: exoskeleton.cpp.i
+
+.PHONY : exoskeleton.i
+
+# target to preprocess a source file
+exoskeleton.cpp.i:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/exoskeleton.cpp.i
+.PHONY : exoskeleton.cpp.i
+
+exoskeleton.s: exoskeleton.cpp.s
+
+.PHONY : exoskeleton.s
+
+# target to generate assembly for a file
+exoskeleton.cpp.s:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/exoskeleton.cpp.s
+.PHONY : exoskeleton.cpp.s
+
+hero.o: hero.cpp.o
+
+.PHONY : hero.o
+
+# target to build an object file
+hero.cpp.o:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/hero.cpp.o
+.PHONY : hero.cpp.o
+
+hero.i: hero.cpp.i
+
+.PHONY : hero.i
+
+# target to preprocess a source file
+hero.cpp.i:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/hero.cpp.i
+.PHONY : hero.cpp.i
+
+hero.s: hero.cpp.s
+
+.PHONY : hero.s
+
+# target to generate assembly for a file
+hero.cpp.s:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/hero.cpp.s
+.PHONY : hero.cpp.s
 
 item.o: item.cpp.o
 
@@ -231,32 +258,32 @@ item.cpp.s:
 	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/item.cpp.s
 .PHONY : item.cpp.s
 
-living_constr.o: living_constr.cpp.o
+living.o: living.cpp.o
 
-.PHONY : living_constr.o
+.PHONY : living.o
 
 # target to build an object file
-living_constr.cpp.o:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/living_constr.cpp.o
-.PHONY : living_constr.cpp.o
+living.cpp.o:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/living.cpp.o
+.PHONY : living.cpp.o
 
-living_constr.i: living_constr.cpp.i
+living.i: living.cpp.i
 
-.PHONY : living_constr.i
+.PHONY : living.i
 
 # target to preprocess a source file
-living_constr.cpp.i:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/living_constr.cpp.i
-.PHONY : living_constr.cpp.i
+living.cpp.i:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/living.cpp.i
+.PHONY : living.cpp.i
 
-living_constr.s: living_constr.cpp.s
+living.s: living.cpp.s
 
-.PHONY : living_constr.s
+.PHONY : living.s
 
 # target to generate assembly for a file
-living_constr.cpp.s:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/living_constr.cpp.s
-.PHONY : living_constr.cpp.s
+living.cpp.s:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/living.cpp.s
+.PHONY : living.cpp.s
 
 main.o: main.cpp.o
 
@@ -285,140 +312,140 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-monster_constr.o: monster_constr.cpp.o
+monster.o: monster.cpp.o
 
-.PHONY : monster_constr.o
-
-# target to build an object file
-monster_constr.cpp.o:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/monster_constr.cpp.o
-.PHONY : monster_constr.cpp.o
-
-monster_constr.i: monster_constr.cpp.i
-
-.PHONY : monster_constr.i
-
-# target to preprocess a source file
-monster_constr.cpp.i:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/monster_constr.cpp.i
-.PHONY : monster_constr.cpp.i
-
-monster_constr.s: monster_constr.cpp.s
-
-.PHONY : monster_constr.s
-
-# target to generate assembly for a file
-monster_constr.cpp.s:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/monster_constr.cpp.s
-.PHONY : monster_constr.cpp.s
-
-paladin_constr.o: paladin_constr.cpp.o
-
-.PHONY : paladin_constr.o
+.PHONY : monster.o
 
 # target to build an object file
-paladin_constr.cpp.o:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/paladin_constr.cpp.o
-.PHONY : paladin_constr.cpp.o
+monster.cpp.o:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/monster.cpp.o
+.PHONY : monster.cpp.o
 
-paladin_constr.i: paladin_constr.cpp.i
+monster.i: monster.cpp.i
 
-.PHONY : paladin_constr.i
+.PHONY : monster.i
 
 # target to preprocess a source file
-paladin_constr.cpp.i:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/paladin_constr.cpp.i
-.PHONY : paladin_constr.cpp.i
+monster.cpp.i:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/monster.cpp.i
+.PHONY : monster.cpp.i
 
-paladin_constr.s: paladin_constr.cpp.s
+monster.s: monster.cpp.s
 
-.PHONY : paladin_constr.s
+.PHONY : monster.s
 
 # target to generate assembly for a file
-paladin_constr.cpp.s:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/paladin_constr.cpp.s
-.PHONY : paladin_constr.cpp.s
+monster.cpp.s:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/monster.cpp.s
+.PHONY : monster.cpp.s
 
-sorcerer_constr.o: sorcerer_constr.cpp.o
+paladin.o: paladin.cpp.o
 
-.PHONY : sorcerer_constr.o
+.PHONY : paladin.o
 
 # target to build an object file
-sorcerer_constr.cpp.o:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/sorcerer_constr.cpp.o
-.PHONY : sorcerer_constr.cpp.o
+paladin.cpp.o:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/paladin.cpp.o
+.PHONY : paladin.cpp.o
 
-sorcerer_constr.i: sorcerer_constr.cpp.i
+paladin.i: paladin.cpp.i
 
-.PHONY : sorcerer_constr.i
+.PHONY : paladin.i
 
 # target to preprocess a source file
-sorcerer_constr.cpp.i:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/sorcerer_constr.cpp.i
-.PHONY : sorcerer_constr.cpp.i
+paladin.cpp.i:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/paladin.cpp.i
+.PHONY : paladin.cpp.i
 
-sorcerer_constr.s: sorcerer_constr.cpp.s
+paladin.s: paladin.cpp.s
 
-.PHONY : sorcerer_constr.s
+.PHONY : paladin.s
 
 # target to generate assembly for a file
-sorcerer_constr.cpp.s:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/sorcerer_constr.cpp.s
-.PHONY : sorcerer_constr.cpp.s
+paladin.cpp.s:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/paladin.cpp.s
+.PHONY : paladin.cpp.s
 
-spirit_constr.o: spirit_constr.cpp.o
+sorcerer.o: sorcerer.cpp.o
 
-.PHONY : spirit_constr.o
+.PHONY : sorcerer.o
 
 # target to build an object file
-spirit_constr.cpp.o:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/spirit_constr.cpp.o
-.PHONY : spirit_constr.cpp.o
+sorcerer.cpp.o:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/sorcerer.cpp.o
+.PHONY : sorcerer.cpp.o
 
-spirit_constr.i: spirit_constr.cpp.i
+sorcerer.i: sorcerer.cpp.i
 
-.PHONY : spirit_constr.i
+.PHONY : sorcerer.i
 
 # target to preprocess a source file
-spirit_constr.cpp.i:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/spirit_constr.cpp.i
-.PHONY : spirit_constr.cpp.i
+sorcerer.cpp.i:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/sorcerer.cpp.i
+.PHONY : sorcerer.cpp.i
 
-spirit_constr.s: spirit_constr.cpp.s
+sorcerer.s: sorcerer.cpp.s
 
-.PHONY : spirit_constr.s
+.PHONY : sorcerer.s
 
 # target to generate assembly for a file
-spirit_constr.cpp.s:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/spirit_constr.cpp.s
-.PHONY : spirit_constr.cpp.s
+sorcerer.cpp.s:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/sorcerer.cpp.s
+.PHONY : sorcerer.cpp.s
 
-warrior_constr.o: warrior_constr.cpp.o
+spirit.o: spirit.cpp.o
 
-.PHONY : warrior_constr.o
+.PHONY : spirit.o
 
 # target to build an object file
-warrior_constr.cpp.o:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/warrior_constr.cpp.o
-.PHONY : warrior_constr.cpp.o
+spirit.cpp.o:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/spirit.cpp.o
+.PHONY : spirit.cpp.o
 
-warrior_constr.i: warrior_constr.cpp.i
+spirit.i: spirit.cpp.i
 
-.PHONY : warrior_constr.i
+.PHONY : spirit.i
 
 # target to preprocess a source file
-warrior_constr.cpp.i:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/warrior_constr.cpp.i
-.PHONY : warrior_constr.cpp.i
+spirit.cpp.i:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/spirit.cpp.i
+.PHONY : spirit.cpp.i
 
-warrior_constr.s: warrior_constr.cpp.s
+spirit.s: spirit.cpp.s
 
-.PHONY : warrior_constr.s
+.PHONY : spirit.s
 
 # target to generate assembly for a file
-warrior_constr.cpp.s:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/warrior_constr.cpp.s
-.PHONY : warrior_constr.cpp.s
+spirit.cpp.s:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/spirit.cpp.s
+.PHONY : spirit.cpp.s
+
+warrior.o: warrior.cpp.o
+
+.PHONY : warrior.o
+
+# target to build an object file
+warrior.cpp.o:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/warrior.cpp.o
+.PHONY : warrior.cpp.o
+
+warrior.i: warrior.cpp.i
+
+.PHONY : warrior.i
+
+# target to preprocess a source file
+warrior.cpp.i:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/warrior.cpp.i
+.PHONY : warrior.cpp.i
+
+warrior.s: warrior.cpp.s
+
+.PHONY : warrior.s
+
+# target to generate assembly for a file
+warrior.cpp.s:
+	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/warrior.cpp.s
+.PHONY : warrior.cpp.s
 
 # Help Target
 help:
@@ -429,39 +456,42 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... DI_RPG"
-	@echo "... dragon_constr.o"
-	@echo "... dragon_constr.i"
-	@echo "... dragon_constr.s"
-	@echo "... exoskeleton_constr.o"
-	@echo "... exoskeleton_constr.i"
-	@echo "... exoskeleton_constr.s"
-	@echo "... hero_constr.o"
-	@echo "... hero_constr.i"
-	@echo "... hero_constr.s"
+	@echo "... area.o"
+	@echo "... area.i"
+	@echo "... area.s"
+	@echo "... dragon.o"
+	@echo "... dragon.i"
+	@echo "... dragon.s"
+	@echo "... exoskeleton.o"
+	@echo "... exoskeleton.i"
+	@echo "... exoskeleton.s"
+	@echo "... hero.o"
+	@echo "... hero.i"
+	@echo "... hero.s"
 	@echo "... item.o"
 	@echo "... item.i"
 	@echo "... item.s"
-	@echo "... living_constr.o"
-	@echo "... living_constr.i"
-	@echo "... living_constr.s"
+	@echo "... living.o"
+	@echo "... living.i"
+	@echo "... living.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... monster_constr.o"
-	@echo "... monster_constr.i"
-	@echo "... monster_constr.s"
-	@echo "... paladin_constr.o"
-	@echo "... paladin_constr.i"
-	@echo "... paladin_constr.s"
-	@echo "... sorcerer_constr.o"
-	@echo "... sorcerer_constr.i"
-	@echo "... sorcerer_constr.s"
-	@echo "... spirit_constr.o"
-	@echo "... spirit_constr.i"
-	@echo "... spirit_constr.s"
-	@echo "... warrior_constr.o"
-	@echo "... warrior_constr.i"
-	@echo "... warrior_constr.s"
+	@echo "... monster.o"
+	@echo "... monster.i"
+	@echo "... monster.s"
+	@echo "... paladin.o"
+	@echo "... paladin.i"
+	@echo "... paladin.s"
+	@echo "... sorcerer.o"
+	@echo "... sorcerer.i"
+	@echo "... sorcerer.s"
+	@echo "... spirit.o"
+	@echo "... spirit.i"
+	@echo "... spirit.s"
+	@echo "... warrior.o"
+	@echo "... warrior.i"
+	@echo "... warrior.s"
 .PHONY : help
 
 

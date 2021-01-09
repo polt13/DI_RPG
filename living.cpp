@@ -3,22 +3,22 @@
 #include "rpg_lib.hpp"
 #include <iostream>
 
-using namespace std;
+using std::string;
 
 Living::~Living()
 {
-    //cout << "A Living to be destroyed!" << endl;
-    //cout << endl;
+    //std::cout << "A Living to be destroyed!" << std::endl;
+    //std::cout << std::endl;
 }
 
-Living::Living(const string MyName, const int HP)
+Living::Living(const string MyName, const int HP, int LvL)
     : Name(MyName)
-    , Level(1)
+    , Level(LvL)
     , HealthPower(HP)
     , Faint(false)
 {
-    //cout << "A New Living has been created!" << endl;
-    //cout << endl;
+    //std::cout << "A New Living has been created!" << std::endl;
+    //std::cout << std::endl;
 }
 
 void Living::decrease_hp(int dealt)
@@ -30,19 +30,19 @@ void Living::decrease_hp(int dealt)
     }
 }
 
-string Living::get_name()
+string Living::get_name() const
 {
     return Name;
 }
 
-int Living::get_hp()
+int Living::get_hp() const
 {
     return HealthPower;
 }
 
 void Living::pass_out()
 {
-    cout << Name << " passed out!" << endl;
-    cout << "HP: " << HealthPower << endl;
+    std::cout << Name << " passed out!" << std::endl;
+    std::cout << "HP: " << HealthPower << std::endl;
     Faint = true;
 }
