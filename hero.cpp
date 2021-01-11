@@ -396,7 +396,7 @@ char Hero::proceed()
 {
     std::cout << "Do you want to proceed? (y/n)\n";
     char input;
-    while ((!std::cin >> input) || input != 'n' || input != 'N' || input != 'y' || input != 'Y') {
+    while (!(std::cin >> input) || input != 'n' || input != 'N' || input != 'y' || input != 'Y') {
         std::cout << "Wrong input, please type 'y' or 'n'\n";
         std::cin.clear(); //reset possible error flag
         std::cin.ignore(500, '\n'); //clear buffer
