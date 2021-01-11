@@ -230,7 +230,7 @@ void Hero::equip(Armor* Armour)
 
 void Hero::unequip(int ItemType)
 {
-    switch(ItemType)
+    switch(ItemType)    //  1 -> Armor , 2 -> RightHand , 3 -> LeftHand
     {
         case 1:
             std::cout << "Unequipped '" << MyArmor->get_name() << "' Armor!\n";
