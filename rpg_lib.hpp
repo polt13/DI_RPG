@@ -18,6 +18,14 @@ enum class spellType {
     LIGHTNING
 };
 
+enum class ItemType
+{
+    WEAPON,
+    ARMOR,
+    POTION,
+    SPELL
+};
+
 enum class gearType {
     ARMOR,
     RWEAPON,
@@ -32,12 +40,14 @@ protected:
     const std::string name;
     const int buy_price;
     const int min_level;
+    const ItemType ITYPE;
 
 public:
-    Item(const std::string&, const int, const int);
+    Item(const std::string&, const int, const int, const ItemType);
     std::string get_name() const;
     int getPrice() const;
     int get_minlvl() const;
+    ItemType get_itype() const;
 };
 
 class Weapon : public Item {
@@ -138,6 +148,7 @@ protected:
     Weapon* RightHand;
     Weapon* LeftHand;
     Armor* MyArmor;
+
     std::vector<Weapon*> WeaponsInv;
     std::vector<Armor*> ArmorsInv;
     std::vector<Potion*> PotionsInv;
@@ -168,7 +179,11 @@ public:
     void equip(int);
     void unequip(gearType);
     void checkInventory() const;
-    void addToInv(Item*);
+    void addToWeapons(Weapon*);
+    void addToArmors(Armor*);
+    void addToPotions(Potion*);
+    void addToSpells(Spell*);
+    bool proceed();
 };
 
 class Warrior : public Hero {

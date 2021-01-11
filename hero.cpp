@@ -154,7 +154,8 @@ void Hero::levelUp(int str, int dex, int ag)
 void Hero::use(int whichPotion)
 {
     if (whichPotion < 0 || (whichPotion > PotionsInv.size() - 1)) {
-        std::cout << "Please give a valid position of Potion (0 - " << PotionsInv.size() - 1 << ")\n ";
+        std::cout << "Invalid position of Potion (Must be: 0 - " << PotionsInv.size() - 1 << ")\n ";
+        std::cout << "Try again\n";
         return;
     }
     PotionsInv[whichPotion]->buff(*this);
@@ -163,73 +164,135 @@ void Hero::use(int whichPotion)
 
 void Hero::equip(int whichWeapon, int hand)
 {
-    if (whichWeapon < 0 || (whichWeapon > WeaponsInv.size() - 1)) {
-        std::cout << "Please give a valid position of Weapon (0 - " << WeaponsInv.size() - 1 << ")\n ";
+    if (whichWeapon < 0 || (whichWeapon > WeaponsInv.size() - 1))
+    {
+        std::cout << "Invalid position of Weapon (Must be: 0 - " << WeaponsInv.size() - 1 << ")\n ";
+        std::cout << "Try again\n";
         return;
     }
-    if ((hand != 1) && (hand != 2)) {
-        std::cout << "Please give a valid number for Hand (1 - Primary / 2 - Secondary / Empty - 1 by Default)\n";
+    if ((hand != 1) && (hand != 2))
+    {
+        std::cout << "Invalid number for Hand (Must be: 1 - Primary / 2 - Secondary / Empty - 1 by Default)\n";
+        std::cout << "Try again\n";
         return;
     }
     Weapon* MyWeapon = WeaponsInv[whichWeapon];
-    if (MyWeapon->get_minlvl() <= Level) {
-        if (MyWeapon->isTwoHanded() == true) {
+    if (MyWeapon->get_minlvl() <= Level)
+    {
+        if (MyWeapon->isTwoHanded() == true)
+        {
             if ((RightHand != nullptr) && (LeftHand == nullptr))
+            {
+                std::cout << Name << " is already equipped with '" << RightHand->get_name() << "' Weapon\n";
+                bool input = proceed();
+                if (input == 'n' || input == 'N')
+                    return;
                 unequip(gearType::RWEAPON);
-            else if ((RightHand != nullptr) && (LeftHand != nullptr)) {
+            }
+            else if ((RightHand != nullptr) && (LeftHand != nullptr))
+            {
+                std::cout << Name << " is already equipped with '" << RightHand->get_name() << "' and '" << LeftHand->get_name() << "' Weapons\n";
+                bool input = proceed();
+                if (input == 'n' || input == 'N')
+                    return;
                 unequip(gearType::RWEAPON);
                 unequip(gearType::LWEAPON);
             }
-            RightHand = MyWeapon;
-            WeaponsInv.erase(WeaponsInv.begin() + whichWeapon);
-            std::cout << "Equipped '" << RightHand->get_name() << "' Weapon!\n";
-            return;
-        } else {
-            if ((RightHand == nullptr) && (LeftHand == nullptr)) {
+            if(hand == 1)
                 RightHand = MyWeapon;
-                std::cout << "Equipped '" << RightHand->get_name() << "' Weapon!\n";
-                return;
-            } else if ((RightHand != nullptr) && (LeftHand == nullptr)) {
+            else
                 LeftHand = MyWeapon;
-                std::cout << "Equipped '" << LeftHand->get_name() << "' Weapon!\n";
-                return;
-            } else {
-                if (hand == 1) {
+            std::cout << "Equipped '" << MyWeapon->get_name() << "' Weapon!\n";
+        }
+        else
+        {
+            if ((RightHand == nullptr) && (LeftHand == nullptr))
+            {
+                if(hand == 1)
+                    RightHand = MyWeapon;
+                else
+                    LeftHand = MyWeapon;
+                std::cout << "Equipped '" << MyWeapon->get_name() << "' Weapon!\n";
+            }
+            else if ((RightHand != nullptr) && (LeftHand == nullptr))
+            {
+                if(hand == 1)
+                {
+                    std::cout << Name << " is already equipped with '" << RightHand->get_name() << "' Weapon\n";
+                    bool input = proceed();
+                    if (input == 'n' || input == 'N')
+                        return;
+                    unequip(gearType::RWEAPON);
+                }
+                else
+                {
+                    if(RightHand->isTwoHanded() == true)
+                    {
+                        std::cout << Name << " is already equipped with '" << RightHand->get_name() << "' Weapon\n";
+                        bool input = proceed();
+                        if (input == 'n' || input == 'N')
+                            return;
+                        unequip(gearType::RWEAPON);
+                    }
+                    LeftHand = MyWeapon;
+                }
+                std::cout << "Equipped '" << MyWeapon->get_name() << "' Weapon!\n";
+            }
+            else if((RightHand == nullptr) && (LeftHand != nullptr))
+            {
+                if(hand == 1)
+                    RightHand = MyWeapon;
+                else
+                {
+                    std::cout << Name << " is already equipped with '" << LeftHand->get_name() << "' Weapon\n";
+                    bool input = proceed();
+                    if (input == 'n' || input == 'N')
+                        return;
+                    unequip(gearType::LWEAPON);
+                }
+                std::cout << "Equipped '" << MyWeapon->get_name() << "' Weapon!\n";
+            }
+            else
+            {
+                if (hand == 1)
+                {
+                    std::cout << Name << " is already equipped with '" << RightHand->get_name() << "' Weapon\n";
+                    bool input = proceed();
+                    if (input == 'n' || input == 'N')
+                        return;
                     unequip(gearType::RWEAPON);
                     RightHand = MyWeapon;
-                    std::cout << "Equipped '" << RightHand->get_name() << "' Weapon!\n";
-                    return;
-                } else {
+                }
+                else
+                {
+                    std::cout << Name << " is already equipped with '" << LeftHand->get_name() << "' Weapon\n";
+                    bool input = proceed();
+                    if (input == 'n' || input == 'N')
+                        return;
                     unequip(gearType::LWEAPON);
                     LeftHand = MyWeapon;
-                    std::cout << "Equipped '" << LeftHand->get_name() << "' Weapon!\n";
-                    return;
                 }
+                std::cout << "Equipped '" << MyWeapon->get_name() << "' Weapon!\n";
             }
-            WeaponsInv.erase(WeaponsInv.begin() + whichWeapon);
         }
-    } else
+        WeaponsInv.erase(WeaponsInv.begin() + whichWeapon);
+    }
+    else
         std::cout << MyWeapon->get_name() << " can be equipped at Level " << MyWeapon->get_minlvl() << std::endl;
 }
 
 void Hero::equip(int whichArmor)
 {
     if (whichArmor < 0 || (whichArmor > (ArmorsInv.size() - 1))) {
-        std::cout << "Please give a valid position of Armor (0 - " << ArmorsInv.size() - 1 << ")\n ";
+        std::cout << "Invalid position of Armor (Must be: 0 - " << ArmorsInv.size() - 1 << ")\n ";
+        std::cout << "Try again\n";
         return;
     }
     Armor* Armour = ArmorsInv[whichArmor];
     if (Armour->get_minlvl() <= Level) {
         if (MyArmor != nullptr) {
             std::cout << Name << " is already equipped with '" << MyArmor->get_name() << "' Armor\n";
-            std::cout << "Do you want to proceed? (y/n)\n";
-            char input;
-            while ((!std::cin >> input) || input != 'n' || input != 'N' || input != 'y' || input != 'Y') {
-                std::cout << "Wrong input, please type 'y' or 'n'\n";
-                std::cin.clear(); //reset possible error flag
-                std::cin.ignore(500, '\n'); //clear buffer
-                std::cin >> input;
-            }
+            bool input = proceed();
             if (input == 'n' || input == 'N')
                 return;
             unequip(gearType::ARMOR);
@@ -304,12 +367,40 @@ void Hero::checkInventory() const
     }
 }
 
-void Hero::addToInv(Item* i)
+void Hero::addToWeapons(Weapon* WeaponToAdd)
 {
-    ///add_all_typeS:_:_:_
+    WeaponsInv.push_back(WeaponToAdd);
+}
+
+void Hero::addToArmors(Armor* ArmorToAdd)
+{
+    ArmorsInv.push_back(ArmorToAdd);
+}
+
+void Hero::addToPotions(Potion* PotionToAdd)
+{
+    PotionsInv.push_back(PotionToAdd);
+}
+
+void Hero::addToSpells(Spell* SpellToAdd)
+{
+    SpellsInv.push_back(SpellToAdd);
 }
 
 void Hero::displayStats() const
 {
     std::cout << Name << " | HP: " << HealthPower << " | MP:" << MagicPower << '\t';
+}
+
+bool Hero::proceed()
+{
+    std::cout << "Do you want to proceed? (y/n)\n";
+    char input;
+    while ((!std::cin >> input) || input != 'n' || input != 'N' || input != 'y' || input != 'Y') {
+        std::cout << "Wrong input, please type 'y' or 'n'\n";
+        std::cin.clear(); //reset possible error flag
+        std::cin.ignore(500, '\n'); //clear buffer
+        std::cin >> input;
+    }
+    return input;
 }

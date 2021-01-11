@@ -2,10 +2,11 @@
 
 using std::string;
 
-Item::Item(const string& _name, const int price, const int lvl)
+Item::Item(const string& _name, const int price, const int lvl, const ItemType thetype)
     : name(_name)
     , buy_price(price)
     , min_level(lvl)
+    , ITYPE(thetype)
 {
 }
 
@@ -24,8 +25,13 @@ int Item::get_minlvl() const
     return min_level;
 }
 
+ItemType Item::get_itype() const
+{
+    return ITYPE;
+}
+
 Weapon::Weapon(const string& _name, const int price, const int lvl, const int damage, const bool grip)
-    : Item(_name, price, lvl)
+    : Item(_name, price, lvl, ItemType::WEAPON)
     , dmg(damage)
     , two_handed(grip)
 {
@@ -48,7 +54,7 @@ bool Weapon::isTwoHanded() const
 }
 
 Armor::Armor(const string& _name, const int price, const int lvl, const int defense)
-    : Item(_name, price, lvl)
+    : Item(_name, price, lvl, ItemType::ARMOR)
     , def(defense)
 {
 }
@@ -82,7 +88,7 @@ string Potion::typeToString() const
 }
 
 Potion::Potion(const string& _name, const int price, const int lvl, potionType type)
-    : Item(_name, price, lvl)
+    : Item(_name, price, lvl, ItemType::POTION)
     , potion_type(type)
 {
 }
@@ -100,7 +106,7 @@ void Potion::buff(Hero& h)
 }
 
 Spell::Spell(const string& _name, const int price, const int lvl, const int mindmg, const int maxdmg, const int mp, const int dur)
-    : Item(_name, price, lvl)
+    : Item(_name, price, lvl, ItemType::SPELL)
     , min_dmg(mindmg)
     , max_dmg(maxdmg)
     , duration(dur)
