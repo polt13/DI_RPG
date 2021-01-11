@@ -292,4 +292,11 @@ public:
     Monster* m;
 };
 
+class Menu
+{
+    public:
+        //void displayMap() const;
+        //void quitGame() const;
+};
+
 #endif
