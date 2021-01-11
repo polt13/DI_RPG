@@ -183,7 +183,7 @@ public:
     void addToArmors(Armor*);
     void addToPotions(Potion*);
     void addToSpells(Spell*);
-    bool proceed();
+    char proceed();
 };
 
 class Warrior : public Hero {
