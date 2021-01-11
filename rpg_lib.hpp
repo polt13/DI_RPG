@@ -6,7 +6,7 @@
 #include <vector>
 class Hero;
 class Monster;
-enum class cstats { DEX,
+enum class potionType { DEX,
     STR,
     AGIL,
     HP,
@@ -16,6 +16,12 @@ enum class spellType {
     ICE,
     FIRE,
     LIGHTNING
+};
+
+enum class gearType {
+    ARMOR,
+    RWEAPON,
+    LWEAPON
 };
 
 class Item {
@@ -42,7 +48,7 @@ public:
     void print() const;
     Weapon(const std::string&, const int, const int, const int, const bool);
     int getDamage(void) const;
-    bool get_grip() const;
+    bool isTwoHanded() const;
 };
 
 class Armor : public Item {
@@ -55,14 +61,14 @@ public:
 };
 
 class Potion : public Item {
-    const cstats potion_type; //which stat to increase
+    const potionType potion_type; //which stat to increase
     const int buffAmount = 5;
     std::string typeToString() const;
 
 public:
     void print() const;
     void buff(Hero&);
-    Potion(const std::string&, const int, const int, cstats);
+    Potion(const std::string&, const int, const int, potionType);
 };
 
 class Spell : public Item { //make abstract
@@ -109,14 +115,14 @@ protected:
     bool Faint;
 
 public:
-    Living(const std::string, const int);
+    Living(const std::string, const int, int = 1);
     virtual ~Living() = 0;
 
     void decrease_hp(int);
 
     std::string get_name() const;
     int get_hp() const;
-
+    virtual void displayStats() const = 0;
     void pass_out();
 };
 
@@ -129,15 +135,16 @@ protected:
     int Money;
     int Experience;
     int XPmax;
-    std::vector<Potion*> potions;
-    std::vector<Spell*> spells;
     Weapon* RightHand;
     Weapon* LeftHand;
     Armor* MyArmor;
-    //Potion* MyPotion;
-    std::vector<Item*> inv;
+    std::vector<Weapon*> WeaponsInv;
+    std::vector<Armor*> ArmorsInv;
+    std::vector<Potion*> PotionsInv;
+    std::vector<Spell*> SpellsInv;
 
 public:
+    void displayStats() const;
     Hero(const std::string, int, int, int);
     virtual ~Hero() = 0;
 
@@ -146,17 +153,21 @@ public:
     int get_agility() const;
     int getMoney() const;
     Armor* get_armor() const;
-    int& getStat(cstats);
+    int& getStat(potionType);
+    int get_max_xp();
 
     void attack(Monster*);
     void castSpell(Monster*, int);
 
+    void use(int);
+
     virtual void levelUp() = 0;
     virtual void levelUp(int, int, int);
 
-    void equip(Weapon*, int = 1);
-    void equip(Armor*);
-    void unequip(int);
+    void equip(int, int = 1);
+    void equip(int);
+    void unequip(gearType);
+    void checkInventory() const;
     void addToInv(Item*);
 };
 
@@ -193,7 +204,8 @@ protected:
     std::map<spellType, int> debuffStatus; //map type to spell dur
 
 public:
-    Monster(const std::string, int, int, int, int);
+    void displayStats() const;
+    Monster(const std::string, int, int, int, int, int);
     virtual ~Monster() = 0;
 
     int get_defense() const;
@@ -205,34 +217,64 @@ public:
 
 class Dragon : public Monster {
 public:
-    Dragon(const std::string);
+    Dragon(const std::string, int = 1);
     ~Dragon();
 };
 
 class Exoskeleton : public Monster {
 public:
-    Exoskeleton(const std::string);
+    Exoskeleton(const std::string, int = 1);
     ~Exoskeleton();
 };
 
 class Spirit : public Monster {
 public:
-    Spirit(const std::string);
+    Spirit(const std::string, int = 1);
     ~Spirit();
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
 class block {
+protected:
+    std::vector<Hero*> squad;
+
+public:
+    virtual void print() const = 0;
+    virtual void move(std::vector<Hero*>&) = 0;
 };
 
 class market : public block {
-    std::vector<Item*> items;
+    std::vector<Armor*> armorStock;
+    std::vector<Weapon*> weaponStock;
+    std::vector<Spell*> spellStock;
+    std::vector<Potion*> potionStock;
 
 public:
-    void purchase(Hero&, int);
+    void move(std::vector<Hero*>&);
+    void display(); //display shop
+    void print() const; //print as 'M' on map
+    void purchase(Hero&);
     market();
     ~market();
+};
+
+class common : public block {
+    bool end_fight(const std::vector<Monster*>&);
+    void fight(std::vector<Monster*>&);
+
+public:
+    void displayStats(const std::vector<Monster*>&) const;
+    void print() const;
+    void move(std::vector<Hero*>&);
+    void fight_start();
+};
+
+class inaccessible : public block {
+public:
+    void print() const;
+    void move(std::vector<Hero*>& squad);
+    Monster* m;
 };
 
 #endif

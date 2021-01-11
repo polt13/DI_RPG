@@ -11,9 +11,9 @@ Living::~Living()
     //std::cout << std::endl;
 }
 
-Living::Living(const string MyName, const int HP)
+Living::Living(const string MyName, const int HP, int LvL)
     : Name(MyName)
-    , Level(1)
+    , Level(LvL)
     , HealthPower(HP)
     , Faint(false)
 {

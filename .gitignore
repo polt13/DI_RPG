@@ -3,6 +3,7 @@ CMakeFiles/
 *.cmake
 *.txt
 *.exe
+*.o
 *.log
 item.o
 Makefile
