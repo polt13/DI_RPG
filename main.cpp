@@ -46,4 +46,7 @@ int main()
             putchar('\n');
         }
     }
+
+    std::vector<Hero*> h { new Warrior("Liprandoglu") };
+    Grid[3]->move(h);
 }

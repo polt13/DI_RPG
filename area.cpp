@@ -17,7 +17,6 @@ void market::interact(Hero& h)
     std::getline(std::cin, op);
     if (op.size() < 1) {
         std::cout << "BAD_IN";
-        Menu::BUFFERCLR();
         return;
     }
     if (op.size() == 1) { //regardless of input, if its length is one,
@@ -40,6 +39,10 @@ void market::interact(Hero& h)
                     return;
                 }
                 h.buy(weapons[index]);
+                if (weapons[index]->getPrice() > h.getMoney()) {
+                    std::cout << "Not enough money\n";
+                    continue;
+                }
                 weapons.erase(weapons.begin() + index);
                 break;
             case 'a':
@@ -47,6 +50,11 @@ void market::interact(Hero& h)
                 if (index < 0 || (index > armors.size() - 1)) {
                     std::cout << "No such armor\n";
                     return;
+                }
+
+                if (armors[index]->getPrice() > h.getMoney()) {
+                    std::cout << "Not enough money\n";
+                    continue;
                 }
                 h.buy(armors[index]);
                 armors.erase(armors.begin() + index);
@@ -57,6 +65,10 @@ void market::interact(Hero& h)
                     std::cout << "No such spell\n";
                     return;
                 }
+                if (spells[index]->getPrice() > h.getMoney()) {
+                    std::cout << "Not enough money\n";
+                    continue;
+                }
                 h.buy(spells[index]);
                 spells.erase(spells.begin() + index);
                 break;
@@ -65,6 +77,10 @@ void market::interact(Hero& h)
                 if (index < 0 || (index > potions.size() - 1)) {
                     std::cout << "No such potion\n";
                     return;
+                }
+                if (potions[index]->getPrice() > h.getMoney()) {
+                    std::cout << "Not enough money\n";
+                    continue;
                 }
                 h.buy(potions[index]);
                 potions.erase(potions.begin() + index);
@@ -83,12 +99,15 @@ void market::interact(Hero& h)
 void market::move(std::vector<Hero*>& toMove)
 {
     char option;
-    std::copy(toMove.begin(), toMove.end(), squad.begin()); //copy heroes to new location
+    squad.insert(squad.begin(), toMove.begin(), toMove.end()); //copy heroes to new location
     toMove.clear(); //empty previous block
     std::cout << "display market? y/n";
     if (std::cin >> option) {
         if (option == 'y') {
             display();
+            Menu::BUFFERCLR();
+            interact(*squad[0]);
+            return;
         }
     }
     Menu::BUFFERCLR();
@@ -139,8 +158,8 @@ void market::print() const
 
 void common::move(std::vector<Hero*>& toMove)
 {
-    std::copy(toMove.begin(), toMove.end(), squad.begin());
-    toMove.clear();
+    squad.insert(squad.begin(), toMove.begin(), toMove.end()); //copy heroes to new location
+    toMove.clear(); //empty previous block
     if (std::rand() % 100 > 50) {
         std::cout << " Random encounter!\n";
         fight_start();

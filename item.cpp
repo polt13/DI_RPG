@@ -118,7 +118,7 @@ int Spell::getSpellDmg(void) const
 
 void Spell::print() const
 {
-    std::cout << name << "| Price: " << buy_price << "| Damage: " << max_dmg << "-" << min_dmg << "| Max Damage: " << max_dmg << "| MP cost: " << mp_cost << " Duration: " << duration << "Minimum level: " << min_level;
+    std::cout << name << "| Price: " << buy_price << "| Damage: " << max_dmg << "-" << min_dmg << "| Max Damage: " << max_dmg << "| MP cost: " << mp_cost << "| Duration: " << duration << "Minimum level: " << min_level;
 }
 
 IceSpell::IceSpell(const string& _name, const int price, const int lvl, const int mindmg, const int maxdmg, const int mp, const int dur)

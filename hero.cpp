@@ -153,21 +153,25 @@ void Hero::levelUp(int str, int dex, int ag)
 
 void Hero::buy(Weapon* w)
 {
+    Money -= w->getPrice();
     WeaponsInv.push_back(w);
 }
 
 void Hero::buy(Armor* a)
 {
+    Money -= a->getPrice();
     ArmorsInv.push_back(a);
 }
 
 void Hero::buy(Potion* p)
 {
+    Money -= p->getPrice();
     PotionsInv.push_back(p);
 }
 
 void Hero::buy(Spell* s)
 {
+    Money -= s->getPrice();
     SpellsInv.push_back(s);
 }
 
@@ -371,7 +375,6 @@ void Hero::checkInventory() const
         std::cout << '\n';
     }
 }
-
 
 void Hero::sell(market& m)
 {
