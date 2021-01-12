@@ -246,12 +246,148 @@ void Game::DisplayMarket()
     switch(input)
     {
         case 1:
-            DisplayMarket();
             clearbuffer();
+            BuyMenu();
             break;
         case 2:
-            DisplayMarket();
             clearbuffer();
+            SellMenu();
+            break;
+        case 0:
+            clearbuffer();
+            MainMenu();
+            break;
+    }
+}
+
+void Game::BuyMenu()
+{
+    std::cout << "\n\n\tLoading.." << std::endl;
+    system("clear");
+    std::cout << "//////////////////////////////////////////////////////////////////////\n";
+    std::cout << "////////" << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(34) << "=== Buy Menu ===" << std::setw(29) << "////////\n";
+    std::cout << "////////" << std::setw(63) << "////////\n";
+    std::cout << "//////////////////////////////////////////////////////////////////////\n";
+    std::cout << "//////////////////////////////////////////////////////////////////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(20) << "[ 1 ]\tWeapons" << std::setw(40) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(19) << "[ 2 ]\tArmors" << std::setw(41) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(20) << "[ 3 ]\tPotions" << std::setw(40) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(19) << "[ 4 ]\tSpells" << std::setw(41) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(17) << "[ 5 ]\tBack" << std::setw(43) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(17) << "[ 0 ]\tExit" << std::setw(43) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "//////////////////////////////////////////////////////////////////////\n";
+
+    std::cout << "\n";
+
+    std::cout << std::setw(37) << "Input: ";
+
+    while(!(std::cin >> input) || input > 5)
+    {
+        std::cout << "\n";
+        std::cout << std::setw(50) << "Invalid input (Must be: 0 - 5)\n";
+        clearbuffer();
+        std::cout << std::setw(37) << "Input: ";
+    }
+
+    switch(input)
+    {
+        case 1:
+            clearbuffer();
+            SellMenu();
+            break;
+        case 2:
+            clearbuffer();
+            SellMenu();
+            break;
+        case 3:
+            clearbuffer();
+            SellMenu();
+            break;
+        case 4:
+            clearbuffer();
+            SellMenu();
+            break;
+        case 5:
+            clearbuffer();
+            DisplayMarket();
+            break;
+        case 0:
+            clearbuffer();
+            MainMenu();
+            break;
+    }
+}
+
+void Game::SellMenu()
+{
+    std::cout << "\n\n\tLoading.." << std::endl;
+    system("clear");
+    std::cout << "//////////////////////////////////////////////////////////////////////\n";
+    std::cout << "////////" << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(35) << "=== Sell Menu ===" << std::setw(28) << "////////\n";
+    std::cout << "////////" << std::setw(63) << "////////\n";
+    std::cout << "//////////////////////////////////////////////////////////////////////\n";
+    std::cout << "//////////////////////////////////////////////////////////////////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(20) << "[ 1 ]\tWeapons" << std::setw(40) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(19) << "[ 2 ]\tArmors" << std::setw(41) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(20) << "[ 3 ]\tPotions" << std::setw(40) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(19) << "[ 4 ]\tSpells" << std::setw(41) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(17) << "[ 5 ]\tBack" << std::setw(43) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(17) << "[ 0 ]\tExit" << std::setw(43) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "//////////////////////////////////////////////////////////////////////\n";
+
+    std::cout << "\n";
+
+    std::cout << std::setw(37) << "Input: ";
+
+    while(!(std::cin >> input) || input > 5)
+    {
+        std::cout << "\n";
+        std::cout << std::setw(50) << "Invalid input (Must be: 0 - 5)\n";
+        clearbuffer();
+        std::cout << std::setw(37) << "Input: ";
+    }
+
+    switch(input)
+    {
+        case 1:
+            clearbuffer();
+            SellMenu();
+            break;
+        case 2:
+            clearbuffer();
+            SellMenu();
+            break;
+        case 3:
+            clearbuffer();
+            SellMenu();
+            break;
+        case 4:
+            clearbuffer();
+            SellMenu();
+            break;
+        case 5:
+            clearbuffer();
+            DisplayMarket();
             break;
         case 0:
             clearbuffer();

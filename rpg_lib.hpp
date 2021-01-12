@@ -58,6 +58,8 @@ class Game
         void MainMenu();
         void CreateNewHero();
         void DisplayMarket();
+        void BuyMenu();
+        void SellMenu();
 
         void clearbuffer();
         bool get_playing() const;
