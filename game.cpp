@@ -173,9 +173,17 @@ void Game::CreateNewHero()
         clearbuffer();
     }
     if(input_htype == "Warrior")
-    else if(input_htype == "Sorcerer")
-    else
+    {
 
+    }
+    else if(input_htype == "Sorcerer")
+    {
+
+    }
+    else
+    {
+        
+    }
 }
 
 void Game::clearbuffer()
