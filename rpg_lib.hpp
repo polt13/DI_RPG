@@ -57,6 +57,7 @@ class Game
         void ExitScreen();
         void MainMenu();
         void CreateNewHero();
+        void DisplayMarket();
 
         void clearbuffer();
         bool get_playing() const;

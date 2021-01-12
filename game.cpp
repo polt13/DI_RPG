@@ -96,6 +96,8 @@ void Game::MainMenu()
     std::cout << "////////"                                << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(28) << "[ 3 ]\tCreate New Hero" << std::setw(32) << "////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(27) << "[ 4 ]\tDisplay Market" << std::setw(33) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(22) << "[ 0 ]\tQuit Game" << std::setw(38) << "////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n";
@@ -125,6 +127,9 @@ void Game::MainMenu()
             clearbuffer();
             CreateNewHero();
             break;
+        case 4:
+            clearbuffer();
+            DisplayMarket();
         case 0:
             clearbuffer();
             ExitScreen();
@@ -203,6 +208,56 @@ void Game::CreateNewHero()
     std::cout << "Returning to Main Menu...\n";
     sleep(1);
     system("clear");
+}
+
+void Game::DisplayMarket()
+{
+    std::cout << "\n\n\tLoading.." << std::endl;
+    system("clear");
+    std::cout << "//////////////////////////////////////////////////////////////////////\n";
+    std::cout << "////////" << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(34) << "=== Market ===" << std::setw(29) << "////////\n";
+    std::cout << "////////" << std::setw(63) << "////////\n";
+    std::cout << "//////////////////////////////////////////////////////////////////////\n";
+    std::cout << "//////////////////////////////////////////////////////////////////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(16) << "[ 1 ]\tBuy" << std::setw(44) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(17) << "[ 2 ]\tSell" << std::setw(43) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(17) << "[ 0 ]\tExit" << std::setw(43) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "//////////////////////////////////////////////////////////////////////\n";
+
+    std::cout << "\n";
+
+    std::cout << std::setw(37) << "Input: ";
+
+    while(!(std::cin >> input) || input > 2)
+    {
+        std::cout << "\n";
+        std::cout << std::setw(50) << "Invalid input (Must be: 0 - 2)\n";
+        clearbuffer();
+        std::cout << std::setw(37) << "Input: ";
+    }
+
+    switch(input)
+    {
+        case 1:
+            DisplayMarket();
+            clearbuffer();
+            break;
+        case 2:
+            DisplayMarket();
+            clearbuffer();
+            break;
+        case 0:
+            clearbuffer();
+            MainMenu();
+            break;
+    }
 }
 
 void Game::clearbuffer()
