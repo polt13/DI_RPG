@@ -288,6 +288,7 @@ void Hero::equip(int whichArmor)
         std::cout << "Try again\n";
         return;
     }
+    // --> error // Armor* Armour = Inventory[whichArmor];
     Armor* Armour = ArmorsInv[whichArmor];
     if (Armour->get_minlvl() <= Level) {
         if (MyArmor != nullptr) {
@@ -342,49 +343,54 @@ void Hero::checkInventory() const
         std::cout << "\t[EQUIPPED]\n";
     }
     //print weapons / armors / potions / spells
+    int index = 0;
     std::cout << "Weapons:\n";
-    for (auto it = WeaponsInv.begin(); it != WeaponsInv.end(); ++it) {
+    for (auto it = WeaponsInv.begin(); it != WeaponsInv.end(); ++it)
+    {
+        std::cout << index++ << ". ";
         (*it)->print();
         std::cout << "\n";
     }
-    std::cout << std::endl
-              << "Armors:\n";
-    for (auto it = ArmorsInv.begin(); it != ArmorsInv.end(); ++it) {
+    std::cout << "\nArmors:\n";
+    for (auto it = ArmorsInv.begin(); it != ArmorsInv.end(); ++it)
+    {
+        std::cout << index++ << ". ";
         (*it)->print();
         std::cout << "\n";
     }
-    std::cout << std::endl
-              << "Potions:\n";
-    for (auto it = PotionsInv.begin(); it != PotionsInv.end(); ++it) {
+        std::cout << "\nPotions:\n";
+    for (auto it = PotionsInv.begin(); it != PotionsInv.end(); ++it)
+    {
+        std::cout << index++ << ". ";
         (*it)->print();
         std::cout << "\n";
     }
-    std::cout << std::endl
-              << "Spells:\n";
-    for (auto it = SpellsInv.begin(); it != SpellsInv.end(); ++it) {
+        std::cout << "\nSpells:\n";
+    for (auto it = SpellsInv.begin(); it != SpellsInv.end(); ++it)
+    {
+        std::cout << index++ << ". ";
         (*it)->print();
         std::cout << "\n";
     }
 }
 
-void Hero::addToWeapons(Weapon* WeaponToAdd)
+void Hero::addToInv(Weapon* ToAdd)
 {
-    WeaponsInv.push_back(WeaponToAdd);
+    WeaponsInv.push_back(ToAdd);
 }
 
-void Hero::addToArmors(Armor* ArmorToAdd)
+void Hero::addToInv(Armor* ToAdd)
 {
-    ArmorsInv.push_back(ArmorToAdd);
+    ArmorsInv.push_back(ToAdd);
 }
 
-void Hero::addToPotions(Potion* PotionToAdd)
+void Hero::addToInv(Potion* ToAdd)
 {
-    PotionsInv.push_back(PotionToAdd);
+    PotionsInv.push_back(ToAdd);
 }
-
-void Hero::addToSpells(Spell* SpellToAdd)
+void Hero::addToInv(Spell* ToAdd)
 {
-    SpellsInv.push_back(SpellToAdd);
+    SpellsInv.push_back(ToAdd);
 }
 
 void Hero::displayStats() const
@@ -397,7 +403,7 @@ char Hero::proceed()
     std::cout << "Do you want to proceed? (y/n)\n";
     char input;
     while (!(std::cin >> input) || (input != 'n' && input != 'N' && input != 'y' && input != 'Y')) {
-        std::cout << "Wrong input, please type 'y' or 'n'\n";
+        std::cout << "Invalid input, please type 'y' or 'n'\n";
         std::cin.clear(); //reset possible error flag
         std::cin.ignore(500, '\n'); //clear buffer
         std::cin >> input;
