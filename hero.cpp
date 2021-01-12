@@ -406,7 +406,7 @@ char Hero::proceed()
         std::cout << "Invalid input, please type 'y' or 'n'\n";
         std::cin.clear(); //reset possible error flag
         std::cin.ignore(500, '\n'); //clear buffer
-        std::cin >> input;
+        //std::cin >> input;
     }
     return input;
 }

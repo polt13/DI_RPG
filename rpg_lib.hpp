@@ -6,6 +6,14 @@
 #include <vector>
 class Hero;
 class Monster;
+
+enum class heroType
+{
+    WARRIOR,
+    SORCERER,
+    PALADIN
+};
+
 enum class potionType { DEX,
     STR,
     AGIL,
@@ -37,6 +45,9 @@ class Game
     private:
         int input;
         bool playing;
+
+        int ActiveHero;
+        std::vector<Hero*> MyHeroes;
     public:
         Game();
         virtual ~Game();
@@ -45,6 +56,7 @@ class Game
         void CreditsScreen();
         void ExitScreen();
         void MainMenu();
+        void CreateNewHero();
 
         void clearbuffer();
         bool get_playing() const;

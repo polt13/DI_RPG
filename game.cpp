@@ -21,6 +21,7 @@ Game::~Game()
 
 void Game::StartScreen()
 {
+    std::cout << "\n\n\tLoading.." << std::endl;
     system("clear");
     std::cout << "\n\n";
     std::cout << "\tWelcome to DI_RPG\n\n";
@@ -31,6 +32,7 @@ void Game::StartScreen()
 
 void Game::CreditsScreen()
 {
+    std::cout << "\n\n\tLoading.." << std::endl;
     system("clear");
     std::cout << "//////////////////////////////////////////////////////////////////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
@@ -66,6 +68,7 @@ void Game::CreditsScreen()
 
 void Game::ExitScreen()
 {
+    std::cout << "\n\n\tLoading.." << std::endl;
     system("clear");
     std::cout << "\n\n";
     std::cout << "\tThank you for playing DI_RPG\n\n";
@@ -89,6 +92,8 @@ void Game::MainMenu()
     std::cout << "////////" << std::setw(22) << "[ 1 ]\tPlay Game" << std::setw(38) << "////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(20) << "[ 2 ]\tCredits" << std::setw(40) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(20) << "[ 3 ]\tCreate New Hero" << std::setw(40) << "////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(22) << "[ 0 ]\tQuit Game" << std::setw(38) << "////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n";
@@ -115,11 +120,62 @@ void Game::MainMenu()
             clearbuffer();
             CreditsScreen();
             break;
+        case 3:
+            clearbuffer();
+            CreateNewHero();
+            break;
         case 0:
             clearbuffer();
             ExitScreen();
             break;
     }
+}
+
+void Game::CreateNewHero()
+{
+    std::cout << "\n\n\tLoading.." << std::endl;
+    system("clear");
+    std::string input_name;
+    std::cout << "Hero Name: ";
+    clearbuffer();
+    while(!(std::cin >> input_name))
+    {
+        std::cout << "Something went wrong\n";
+        std::cout << "Try again\n";
+        std::cout << "Hero Name: ";
+        clearbuffer();
+    }
+    for (auto it = MyHeroes.begin(); it != MyHeroes.end(); ++it)
+    {
+        while(input_name == (*it)->get_name())
+        {
+            std::cout << "This name is already taken!\n";
+            std::cout << "Please type a different name\n";
+            std::cout << "Hero Name: ";
+            clearbuffer();
+            while(!(std::cin >> input_name))
+            {
+                std::cout << "Something went wrong\n";
+                std::cout << "Try again\n";
+                std::cout << "Hero Name: ";
+                clearbuffer();
+            }
+        }
+    }
+    std::string input_htype;
+    std::cout << "Hero Types [Warrior] | [Sorcerer] | [Paladin]\n";
+    std::cout << "Hero Type: ";
+    clearbuffer();
+    while(!(std::cin >> input_htype) || (input_htype != "Warrior" && input_htype != "Sorcerer" && input_htype != "Paladin"))
+    {
+        std::cout << "Invalid Type of Hero (Must be: 'Warrior' / 'Sorcerer' / 'Paladin)\n";
+        std::cout << "Hero Type: ";
+        clearbuffer();
+    }
+    if(input_htype == "Warrior")
+    else if(input_htype == "Sorcerer")
+    else
+
 }
 
 void Game::clearbuffer()
