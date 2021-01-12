@@ -40,31 +40,6 @@ enum class gearType {
     LWEAPON
 };
 
-class Game
-{
-    private:
-        int input;
-        bool playing;
-
-        int ActiveHero;
-        std::vector<Hero*> MyHeroes;
-    public:
-        Game();
-        virtual ~Game();
-
-        void StartScreen();
-        void CreditsScreen();
-        void ExitScreen();
-        void MainMenu();
-        void CreateNewHero();
-        void DisplayMarket();
-        void BuyMenu();
-        void SellMenu();
-
-        void clearbuffer();
-        bool get_playing() const;
-};
-
 class Item {
 public:
     virtual void print() const = 0;
@@ -323,6 +298,49 @@ public:
     void print() const;
     void move(std::vector<Hero*>& squad);
     Monster* m;
+};
+
+class Game
+{
+    private:
+        int input;
+        bool playing;
+
+        int ActiveHero;
+        std::vector<Hero*> MyHeroes;
+
+        std::vector<Weapon*> AllWeapons;
+        std::vector<Armor*> AllArmors;
+        std::vector<Potion*> AllPotions;
+        std::vector<Spell*> AllSpells;
+
+        std::vector<block*> Grid[16];
+    public:
+        Game();
+        virtual ~Game();
+
+        void StartScreen();
+        void InitGame();
+/*         void InitWeapons();
+        void InitArmors();
+        void InitPotions();
+        void InitSpells();
+        void InitGrid(); */
+        void CreditsScreen();
+        void ExitScreen();
+        void MainMenu();
+        void DisplayMap();
+        void CreateNewHero();
+        void DisplayMarket();
+        void BuyMenu();
+        void BuyWeapons();
+        void BuyArmors();
+        void BuyPotions();
+        void BuySpells();
+        void SellMenu();
+
+        void clearbuffer();
+        bool get_playing() const;
 };
 
 #endif

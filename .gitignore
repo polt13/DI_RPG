@@ -1,3 +1,5 @@
+# Ignore everything
+
 .vscode/
 CMakeFiles/
 build/
@@ -11,3 +13,15 @@ Makefile
 DI_RPG
 main.exe
 main
+
+#
+
+# But not these files
+
+!names.txt
+!weapons.txt
+!armors.txt
+!potions.txt
+!spells.txt
+
+#

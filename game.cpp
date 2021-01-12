@@ -1,4 +1,6 @@
 #include "rpg_lib.hpp"
+#include <iostream>
+#include <cstdlib>
 #include <iomanip>
 //  Needed for sleep function
 #ifdef _WIN32
@@ -6,8 +8,6 @@
 #else
 #include <unistd.h>
 #endif
-#include <iostream>
-#include <cstdlib>
 
 Game::Game() : playing(true)
 {
@@ -29,6 +29,22 @@ void Game::StartScreen()
     std::cout << "\tPress ENTER to continue..." << std::endl;
     std::cin.get();
     system("clear");
+}
+
+void Game::InitGame()
+{
+    std::cout << "\n\n\tLoading.." << std::endl;
+    system("clear");
+
+    /*
+    InitWeapons();
+    InitArmors();
+    InitPotions();
+    InitSpells();
+    */
+
+   // InitGrid();
+    
 }
 
 void Game::CreditsScreen()
@@ -137,17 +153,37 @@ void Game::MainMenu()
     }
 }
 
+void Game::DisplayMap()
+{
+    std::cout << "\n\n\tLoading.." << std::endl;
+    system("clear");
+    int printed = 0;
+    for (int i = 0; i < 16; i++)
+    {
+        std::cout << "|";
+        //Grid[i]->print();
+        printed++;
+        if (printed == 4)
+        {
+            printed = 0;
+            std::cout << "|";
+            putchar('\n');
+        }
+    }
+}
+
 void Game::CreateNewHero()
 {
     std::cout << "\n\n\tLoading.." << std::endl;
     system("clear");
     if(MyHeroes.size() >= 3)
     {
-        std::cout << "\n\n\tMaximum number of Heroes is reached!\n";
+        std::cout << "\n\n";
+        std::cout << "\tMaximum number of Heroes is reached!\n\n";
         sleep(1);
-        std::cout << "\n\tYou cannot create more Heroes\n";
+        std::cout << "\tYou cannot create more Heroes\n\n";
         sleep(1);
-        std::cout << "\n\tReturning to Main Menu...\n";
+        std::cout << "\tReturning to Main Menu...\n";
         sleep(1);
         system("clear");
         return;
@@ -203,7 +239,7 @@ void Game::CreateNewHero()
     {
         MyHeroes.push_back(new Paladin(input_name));
     }
-    std::cout << "Created a New Hero successfully!\n";
+    std::cout << "Created a New Hero successfully!\n\n";
     sleep(1);
     std::cout << "Returning to Main Menu...\n";
     sleep(1);
@@ -303,19 +339,19 @@ void Game::BuyMenu()
     {
         case 1:
             clearbuffer();
-            SellMenu();
+            BuyWeapons();
             break;
         case 2:
             clearbuffer();
-            SellMenu();
+            BuyArmors();
             break;
         case 3:
             clearbuffer();
-            SellMenu();
+            BuyPotions();
             break;
         case 4:
             clearbuffer();
-            SellMenu();
+            BuySpells();
             break;
         case 5:
             clearbuffer();
@@ -326,6 +362,73 @@ void Game::BuyMenu()
             MainMenu();
             break;
     }
+}
+
+void Game::BuyWeapons()
+{
+    std::cout << "\n\n\tLoading.." << std::endl;
+    system("clear");
+    std::cout << "//////////////////////////////////////////////////////////////////////\n";
+    std::cout << "////////" << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(37) << "=== Buy Weapons ===" << std::setw(26) << "////////\n";
+    std::cout << "////////" << std::setw(63) << "////////\n";
+    std::cout << "//////////////////////////////////////////////////////////////////////\n";
+    std::cout << "//////////////////////////////////////////////////////////////////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(20) << "[ 1 ]\tWeapons" << std::setw(40) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(19) << "[ 2 ]\tArmors" << std::setw(41) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(20) << "[ 3 ]\tPotions" << std::setw(40) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(19) << "[ 4 ]\tSpells" << std::setw(41) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(17) << "[ 5 ]\tBack" << std::setw(43) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(17) << "[ 0 ]\tExit" << std::setw(43) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "//////////////////////////////////////////////////////////////////////\n";
+
+    std::cout << "\n";
+
+    std::cout << std::setw(37) << "Input: ";
+
+    while(!(std::cin >> input) || input > 5)
+    {
+        std::cout << "\n";
+        std::cout << std::setw(50) << "Invalid input (Must be: 0 - 5)\n";
+        clearbuffer();
+        std::cout << std::setw(37) << "Input: ";
+    }
+
+    switch(input)
+    {
+        case 5:
+            clearbuffer();
+            BuyMenu();
+            break;
+        case 0:
+            clearbuffer();
+            MainMenu();
+            break;
+    }
+}
+
+void Game::BuyArmors()
+{
+
+}
+
+void Game::BuyPotions()
+{
+
+}
+
+void Game::BuySpells()
+{
+
 }
 
 void Game::SellMenu()
