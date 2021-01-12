@@ -372,13 +372,62 @@ void Hero::checkInventory() const
     }
 }
 
-Item* Hero::sell(int input)
-{
 
-    //check for bad_input
-    if (input < 0 || (input > (WeaponsInv.size() + PotionsInv.size() + SpellsInv.size() + ArmorsInv.size() - 1))) {
-        std::cout << "BAD_SELL_INPUT\n";
-        return nullptr;
+void Hero::sell(market& m)
+{
+    std::string op;
+    int index {};
+    while (std::getline(std::cin, op)) {
+        if (op.size() <= 1)
+            return;
+        index = op[1] - '0';
+        switch (op[0]) {
+
+        case 'w':
+
+            if (index < 0 || (index > WeaponsInv.size() - 1)) {
+                std::cout << "No such weapon\n";
+                return;
+            }
+            m.acquire(WeaponsInv[index]); //market gets item
+            addMoney(WeaponsInv[index]->getPrice() / 2); //hero gets half
+            //the money of the item's price
+            WeaponsInv.erase(WeaponsInv.begin() + index);
+            //delete from hero's inventory
+
+            break;
+        case 'a':
+
+            if (index < 0 || (index > ArmorsInv.size() - 1)) {
+                std::cout << "No such armor\n";
+                return;
+            }
+            m.acquire(ArmorsInv[index]);
+            addMoney(ArmorsInv[index]->getPrice() / 2);
+            ArmorsInv.erase(ArmorsInv.begin() + index);
+            break;
+        case 's':
+            if (index < 0 || (index > SpellsInv.size() - 1)) {
+                std::cout << "No such spell\n";
+                return;
+            }
+            m.acquire(SpellsInv[index]);
+            addMoney(SpellsInv[index]->getPrice() / 2);
+            SpellsInv.erase(SpellsInv.begin() + index);
+            break;
+        case 'p':
+            if (index < 0 || (index > PotionsInv.size() - 1)) {
+                std::cout << "No such potion\n";
+                return;
+            }
+            m.acquire(PotionsInv[index]);
+            addMoney(PotionsInv[index]->getPrice() / 2);
+            PotionsInv.erase(PotionsInv.begin() + index);
+            break;
+        default:
+            std::cout << "Goodbye!\n";
+            return;
+        }
     }
 }
 

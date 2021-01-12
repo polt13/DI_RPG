@@ -12,8 +12,72 @@ market::market()
 
 void market::interact(Hero& h)
 {
-    char op;
-    std::cout << "Welcome. B to buy, S to sell";
+    std::string op;
+    std::cout << "Welcome. B to buy, S to sell, E to exit";
+    std::getline(std::cin, op);
+    if (op.size() < 1) {
+        std::cout << "BAD_IN";
+        Menu::BUFFERCLR();
+        return;
+    }
+    if (op.size() == 1) { //regardless of input, if its length is one,
+        // exit
+        if (op[0] != 'S' && op[0] != 'B') {
+            std::cout << "Goodbye!\n";
+            return;
+        }
+    }
+
+    if (op[0] == 'B') {
+        int index {};
+        std::cout << "Format is: {type}{item_index}";
+        while (std::getline(std::cin, op)) {
+            switch (op[0]) {
+            case 'w':
+                index = op[1] - '0';
+                if (index < 0 || (index > weapons.size() - 1)) {
+                    std::cout << "No such weapon\n";
+                    return;
+                }
+                h.buy(weapons[index]);
+                weapons.erase(weapons.begin() + index);
+                break;
+            case 'a':
+                index = op[1] - '0';
+                if (index < 0 || (index > armors.size() - 1)) {
+                    std::cout << "No such armor\n";
+                    return;
+                }
+                h.buy(armors[index]);
+                armors.erase(armors.begin() + index);
+                break;
+            case 's':
+                index = op[1] - '0';
+                if (index < 0 || (index > spells.size() - 1)) {
+                    std::cout << "No such spell\n";
+                    return;
+                }
+                h.buy(spells[index]);
+                spells.erase(spells.begin() + index);
+                break;
+            case 'p':
+                index = op[1] - '0';
+                if (index < 0 || (index > potions.size() - 1)) {
+                    std::cout << "No such potion\n";
+                    return;
+                }
+                h.buy(potions[index]);
+                potions.erase(potions.begin() + index);
+                break;
+            default:
+                std::cout << "Goodbye!\n";
+                return;
+            }
+        }
+    } else if (op[0] == 'S') {
+        h.checkInventory();
+        h.sell(*this);
+    }
 }
 
 void market::move(std::vector<Hero*>& toMove)
@@ -34,28 +98,28 @@ void market::display()
 {
     std::cout << "Welcome!\n";
     unsigned int itemCount = 0;
-    std::cout << "Weapons:\n";
+    std::cout << "\nWeapons:\n";
     for (const auto& w : weapons) {
         std::cout << itemCount++ << ". ";
         w->print();
         std::cout << '\n';
     }
     itemCount = 0;
-    std::cout << "Armors:\n";
+    std::cout << "\nArmors:\n";
     for (const auto& a : armors) {
         std::cout << itemCount++ << ". ";
         a->print();
         std::cout << '\n';
     }
     itemCount = 0;
-    std::cout << "Spells:\n";
+    std::cout << "\nSpells:\n";
     for (const auto& s : spells) {
         std::cout << itemCount++ << ". ";
         s->print();
         std::cout << '\n';
     }
     itemCount = 0;
-    std::cout << "Potions:\n";
+    std::cout << "\nPotions:\n";
     for (const auto& p : potions) {
         std::cout << itemCount++ << ". ";
         p->print();
@@ -173,4 +237,22 @@ void inaccessible::print() const
 void inaccessible::move(std::vector<Hero*>& squad)
 {
     std::cout << "inaccessible block: can't move here.\n";
+}
+
+//////////add to inv of market sold item from hero //////////////////
+void market::acquire(Potion* p)
+{
+    potions.push_back(p);
+}
+void market::acquire(Armor* a)
+{
+    armors.push_back(a);
+}
+void market::acquire(Weapon* w)
+{
+    weapons.push_back(w);
+}
+void market::acquire(Spell* s)
+{
+    spells.push_back(s);
 }

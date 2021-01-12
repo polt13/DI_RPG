@@ -6,6 +6,7 @@
 #include <vector>
 class Hero;
 class Monster;
+class market;
 enum class potionType { DEX,
     STR,
     AGIL,
@@ -16,13 +17,6 @@ enum class spellType {
     ICE,
     FIRE,
     LIGHTNING
-};
-
-enum class ItemType {
-    WEAPON,
-    ARMOR,
-    POTION,
-    SPELL
 };
 
 enum class gearType {
@@ -39,14 +33,12 @@ protected:
     const std::string name;
     const int buy_price;
     const int min_level;
-    const ItemType ITYPE;
 
 public:
-    Item(const std::string&, const int, const int, const ItemType);
+    Item(const std::string&, const int, const int);
     std::string get_name() const;
     int getPrice() const;
     int get_minlvl() const;
-    ItemType get_itype() const;
 };
 
 class Weapon : public Item {
@@ -116,6 +108,7 @@ public:
 };
 
 //////////////////////////////////////////////////////////////////////////////////////
+
 class Living {
 protected:
     const std::string Name;
@@ -155,7 +148,7 @@ protected:
 
 public:
     void addMoney(int);
-    Item* sell(int);
+    void sell(market&);
     void displayStats() const;
     Hero(const std::string, int, int, int);
     virtual ~Hero() = 0;
@@ -271,6 +264,10 @@ public:
     void display(); //display shop
     void print() const; //print as 'M' on map
     void interact(Hero&);
+    void acquire(Potion*);
+    void acquire(Armor*);
+    void acquire(Weapon*);
+    void acquire(Spell*);
     market();
     ~market();
 };
