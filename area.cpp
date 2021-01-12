@@ -38,11 +38,12 @@ void market::interact(Hero& h)
                     std::cout << "No such weapon\n";
                     return;
                 }
-                h.buy(weapons[index]);
+
                 if (weapons[index]->getPrice() > h.getMoney()) {
                     std::cout << "Not enough money\n";
                     continue;
                 }
+                h.buy(weapons[index]);
                 weapons.erase(weapons.begin() + index);
                 break;
             case 'a':

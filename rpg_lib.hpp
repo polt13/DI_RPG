@@ -25,6 +25,28 @@ enum class gearType {
     LWEAPON
 };
 
+class Game {
+private:
+    int input;
+    bool playing;
+
+    int ActiveHero;
+    std::vector<Hero*> MyHeroes;
+
+public:
+    Game();
+    virtual ~Game();
+
+    void StartScreen();
+    void CreditsScreen();
+    void ExitScreen();
+    void MainMenu();
+    void CreateNewHero();
+
+    void clearbuffer();
+    bool get_playing() const;
+};
+
 class Item {
 public:
     virtual void print() const = 0;
@@ -140,7 +162,6 @@ protected:
     Weapon* RightHand;
     Weapon* LeftHand;
     Armor* MyArmor;
-
     std::vector<Weapon*> WeaponsInv;
     std::vector<Armor*> ArmorsInv;
     std::vector<Potion*> PotionsInv;
@@ -155,6 +176,7 @@ public:
 
     void set_xp(const int);
 
+    //  Accessors
     int get_agility() const;
     int getMoney() const;
     Armor* get_armor() const;

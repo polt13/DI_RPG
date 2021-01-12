@@ -292,6 +292,7 @@ void Hero::equip(int whichArmor)
         std::cout << "Try again\n";
         return;
     }
+    // --> error // Armor* Armour = Inventory[whichArmor];
     Armor* Armour = ArmorsInv[whichArmor];
     if (Armour->get_minlvl() <= Level) {
         if (MyArmor != nullptr) {
@@ -347,6 +348,7 @@ void Hero::checkInventory() const
     }
     int itemCount = 0;
     //print weapons / armors / potions / spells
+    int index = 0;
     std::cout << "Weapons:\n";
     for (const auto& w : WeaponsInv) {
         std::cout << itemCount++ << ". ";
@@ -444,10 +446,10 @@ char Hero::proceed() //make menu
     std::cout << "Do you want to proceed? (y/n)\n";
     char input;
     while (!(std::cin >> input) || (input != 'n' && input != 'N' && input != 'y' && input != 'Y')) {
-        std::cout << "Wrong input, please type 'y' or 'n'\n";
+        std::cout << "Invalid input, please type 'y' or 'n'\n";
         std::cin.clear(); //reset possible error flag
         std::cin.ignore(500, '\n'); //clear buffer
-        std::cin >> input;
+        //std::cin >> input;
     }
     return input;
 }
