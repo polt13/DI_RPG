@@ -16,7 +16,8 @@ Game::Game() : playing(true)
 
 Game::~Game()
 {
-    //
+    for (auto it = MyHeroes.begin(); it != MyHeroes.end(); ++it)
+        delete (*it);
 }
 
 void Game::StartScreen()
@@ -93,7 +94,7 @@ void Game::MainMenu()
     std::cout << "////////"                                << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(20) << "[ 2 ]\tCredits" << std::setw(40) << "////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(20) << "[ 3 ]\tCreate New Hero" << std::setw(40) << "////////\n";
+    std::cout << "////////" << std::setw(28) << "[ 3 ]\tCreate New Hero" << std::setw(32) << "////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(22) << "[ 0 ]\tQuit Game" << std::setw(38) << "////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n";
@@ -135,15 +136,27 @@ void Game::CreateNewHero()
 {
     std::cout << "\n\n\tLoading.." << std::endl;
     system("clear");
+    if(MyHeroes.size() >= 3)
+    {
+        std::cout << "\n\n\tMaximum number of Heroes is reached!\n";
+        sleep(1);
+        std::cout << "\n\tYou cannot create more Heroes\n";
+        sleep(1);
+        std::cout << "\n\tReturning to Main Menu...\n";
+        sleep(1);
+        system("clear");
+        return;
+    }
     std::string input_name;
     std::cout << "Hero Name: ";
-    clearbuffer();
-    while(!(std::cin >> input_name))
+    std::cin >> input_name;
+    while(std::cin.fail())
     {
         std::cout << "Something went wrong\n";
         std::cout << "Try again\n";
         std::cout << "Hero Name: ";
         clearbuffer();
+        std::cin >> input_name;
     }
     for (auto it = MyHeroes.begin(); it != MyHeroes.end(); ++it)
     {
@@ -153,19 +166,20 @@ void Game::CreateNewHero()
             std::cout << "Please type a different name\n";
             std::cout << "Hero Name: ";
             clearbuffer();
-            while(!(std::cin >> input_name))
+            std::cin >> input_name;
+            while(std::cin.fail())
             {
                 std::cout << "Something went wrong\n";
                 std::cout << "Try again\n";
                 std::cout << "Hero Name: ";
                 clearbuffer();
+                std::cin >> input_name;
             }
         }
     }
     std::string input_htype;
     std::cout << "Hero Types [Warrior] | [Sorcerer] | [Paladin]\n";
     std::cout << "Hero Type: ";
-    clearbuffer();
     while(!(std::cin >> input_htype) || (input_htype != "Warrior" && input_htype != "Sorcerer" && input_htype != "Paladin"))
     {
         std::cout << "Invalid Type of Hero (Must be: 'Warrior' / 'Sorcerer' / 'Paladin)\n";
@@ -174,16 +188,21 @@ void Game::CreateNewHero()
     }
     if(input_htype == "Warrior")
     {
-
+        MyHeroes.push_back(new Warrior(input_name));
     }
     else if(input_htype == "Sorcerer")
     {
-
+        MyHeroes.push_back(new Sorcerer(input_name));
     }
     else
     {
-        
+        MyHeroes.push_back(new Paladin(input_name));
     }
+    std::cout << "Created a New Hero successfully!\n";
+    sleep(1);
+    std::cout << "Returning to Main Menu...\n";
+    sleep(1);
+    system("clear");
 }
 
 void Game::clearbuffer()
