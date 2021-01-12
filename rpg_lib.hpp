@@ -18,8 +18,7 @@ enum class spellType {
     LIGHTNING
 };
 
-enum class ItemType
-{
+enum class ItemType {
     WEAPON,
     ARMOR,
     POTION,
@@ -155,6 +154,8 @@ protected:
     std::vector<Spell*> SpellsInv;
 
 public:
+    void addMoney(int);
+    Item* sell(int);
     void displayStats() const;
     Hero(const std::string, int, int, int);
     virtual ~Hero() = 0;
@@ -179,10 +180,10 @@ public:
     void equip(int);
     void unequip(gearType);
     void checkInventory() const;
-    void addToWeapons(Weapon*);
-    void addToArmors(Armor*);
-    void addToPotions(Potion*);
-    void addToSpells(Spell*);
+    void buy(Weapon*);
+    void buy(Armor*);
+    void buy(Potion*);
+    void buy(Spell*);
     char proceed();
 };
 
@@ -260,16 +261,16 @@ public:
 };
 
 class market : public block {
-    std::vector<Armor*> armorStock;
-    std::vector<Weapon*> weaponStock;
-    std::vector<Spell*> spellStock;
-    std::vector<Potion*> potionStock;
+    std::vector<Spell*> spells;
+    std::vector<Weapon*> weapons;
+    std::vector<Armor*> armors;
+    std::vector<Potion*> potions;
 
 public:
     void move(std::vector<Hero*>&);
     void display(); //display shop
     void print() const; //print as 'M' on map
-    void purchase(Hero&);
+    void interact(Hero&);
     market();
     ~market();
 };
@@ -290,6 +291,17 @@ public:
     void print() const;
     void move(std::vector<Hero*>& squad);
     Monster* m;
+};
+
+/////////////////////////////////////////////////////////
+
+class Menu {
+public:
+    static void BUFFERCLR()
+    {
+        std::cin.clear();
+        std::cin.ignore(500, '\n');
+    }
 };
 
 #endif

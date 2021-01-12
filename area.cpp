@@ -1,29 +1,17 @@
 #include "rpg_lib.hpp"
 market::market()
 {
-    long int item_count = std::rand() % 4 + 1;
-    for (int i = 1; i <= item_count; ++i) { //ADD RANDOM ITEMS
-        potionStock.push_back(new Potion("Item", std::rand() % 10, 5, potionType::HP));
-        spellStock.push_back(new FireSpell("Potion", std::rand() % 10, 1, 2, 3, 4, 5));
-        weaponStock.push_back(new Weapon("Weapon", std::rand() % 10, 1, 2, false));
-        armorStock.push_back(new Armor("Armor", 1, 2, 3));
+    int itemcount = std::rand() % 4 + 1;
+    for (int i = 1; i <= itemcount; ++i) { //ADD RANDOM ITEMS
+        potions.push_back(new Potion("Item", std::rand() % 10, 5, potionType::HP));
+        spells.push_back(new FireSpell("Potion", std::rand() % 10, 1, 2, 3, 4, 5));
+        weapons.push_back(new Weapon("Weapon", std::rand() % 10, 1, 2, false));
+        armors.push_back(new Armor("Armor", 1, 2, 3));
     }
 }
 
-void market::purchase(Hero& h)
+void market::interact(Hero& h)
 {
-
-    std::string option;
-    std::cout << "W for Weapon, A for Armor, P for Potion, S for Spells";
-    while (!(std::cin >> option) || (option != "A" && option != "W" && option != "S" && option != "P")) {
-        std::cout << "BAD_INPUT\n";
-        std::cin.clear();
-        std::cin.ignore(500, '\n');
-        std::cout << "W for Weapon, A for Armor, P for Potion, S for Spells";
-    }
-
-    std::cin.clear();
-    std::cin.ignore(500, '\n');
 }
 
 void market::move(std::vector<Hero*>& toMove)
@@ -37,13 +25,40 @@ void market::move(std::vector<Hero*>& toMove)
             display();
         }
     }
-    std::cin.clear(); //reset possible error flag
-    std::cin.ignore(500, '\n'); //clear buffer
+    Menu::BUFFERCLR();
 }
 
 void market::display()
 {
-    std::cout << " Potions ";
+    std::cout << "Welcome!\n";
+    unsigned int itemCount = 0;
+    std::cout << "Weapons:\n";
+    for (const auto& w : weapons) {
+        std::cout << itemCount++ << ". ";
+        w->print();
+        std::cout << '\n';
+    }
+    itemCount = 0;
+    std::cout << "Armors:\n";
+    for (const auto& a : armors) {
+        std::cout << itemCount++ << ". ";
+        a->print();
+        std::cout << '\n';
+    }
+    itemCount = 0;
+    std::cout << "Spells:\n";
+    for (const auto& s : spells) {
+        std::cout << itemCount++ << ". ";
+        s->print();
+        std::cout << '\n';
+    }
+    itemCount = 0;
+    std::cout << "Potions:\n";
+    for (const auto& p : potions) {
+        std::cout << itemCount++ << ". ";
+        p->print();
+        std::cout << '\n';
+    }
 }
 
 void market::print() const
