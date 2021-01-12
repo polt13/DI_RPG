@@ -12,6 +12,8 @@ market::market()
 
 void market::interact(Hero& h)
 {
+    char op;
+    std::cout << "Welcome. B to buy, S to sell";
 }
 
 void market::move(std::vector<Hero*>& toMove)
