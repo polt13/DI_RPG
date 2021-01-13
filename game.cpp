@@ -3,6 +3,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <iomanip>
+#include <stdio.h>
 //  Needed for sleep function
 #ifdef _WIN32
 #include <Windows.h>
@@ -40,16 +41,23 @@ void Game::InitGame()
     std::cout << "\n\n";
 
     InitWeapons();
+    sleep(1);
     InitArmors();
+    sleep(1);
     InitPotions();
+    sleep(1);
     InitSpells();
+    sleep(1);
     InitGrid();
+    sleep(1);
     
-    std::cout << "\n";
+    //std::cout << "\n";
     std::cout << "Opening DI_RPG .";
-    sleep(2);
+    fflush(stdout);
+    sleep(1);
     std::cout << " .";
-    sleep(2);
+    fflush(stdout);
+    sleep(1);
     std::cout << " .";
 
     sleep(10);
@@ -92,6 +100,7 @@ void Game::InitWeapons()
     inFile.close();
 
     std::cout << "\tInitializing All Weapons... ";
+    fflush(stdout);
     sleep(2);
     std::cout << "Done\n";
 }
@@ -99,6 +108,7 @@ void Game::InitWeapons()
 void Game::InitArmors()
 {
     std::cout << "\tInitializing All Armors... ";
+    fflush(stdout);
     sleep(2);
     std::cout << "Done\n";
 }
@@ -106,6 +116,7 @@ void Game::InitArmors()
 void Game::InitPotions()
 {
     std::cout << "\tInitializing All Potions... ";
+    fflush(stdout);
     sleep(2);
     std::cout << "Done\n";
 }
@@ -113,6 +124,7 @@ void Game::InitPotions()
 void Game::InitSpells()
 {
     std::cout << "\tInitializing All Spells... ";
+    fflush(stdout);
     sleep(2);
     std::cout << "Done\n";
 }
@@ -120,6 +132,7 @@ void Game::InitSpells()
 void Game::InitGrid()
 {
     std::cout << "\tInitializing Grid... ";
+    fflush(stdout);
     sleep(2);
     std::cout << "Done\n";
 }
