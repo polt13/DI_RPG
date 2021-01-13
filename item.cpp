@@ -39,8 +39,7 @@ Weapon::Weapon(const string& _name, const int price, const int lvl, const int da
 
 void Weapon::print() const
 {
-    std::cout << " Weapon: "
-              << name << " | Price: " << buy_price << " | Damage:" << dmg << (two_handed == true ? " | Two Handed" : " | One Handed") << " | Minimum level: " << min_level;
+    std::cout << name << " | Price: " << buy_price << " | Damage:" << dmg << (two_handed == true ? " | Two Handed" : " | One Handed") << " | Minimum level: " << min_level << "\n";
 }
 
 int Weapon::getDamage(void) const
