@@ -1,5 +1,6 @@
 #include "rpg_lib.hpp"
 #include <iostream>
+#include <fstream>
 #include <cstdlib>
 #include <iomanip>
 //  Needed for sleep function
@@ -36,8 +37,8 @@ void Game::InitGame()
     std::cout << "\n\n\tLoading.." << std::endl;
     system("clear");
 
-    /*
     InitWeapons();
+    /*
     InitArmors();
     InitPotions();
     InitSpells();
@@ -45,6 +46,45 @@ void Game::InitGame()
 
    // InitGrid();
     
+}
+
+void Game::InitWeapons()
+{
+    std::ifstream inFile;
+    inFile.open("weapons.txt");
+
+    if(inFile.fail())
+    {
+        std::cout << "Error Opening File 'weapons.txt'\n";
+        exit(1);
+    }
+
+    std::string name;
+    std::string price;
+    std::string lvl;
+    std::string dmg;
+    char grip;
+
+    while(!inFile.eof())
+    {
+        getline(inFile, name, '\t');
+        getline(inFile, price, '\t');
+        getline(inFile, lvl, '\t');
+        getline(inFile, dmg, '\t');
+        inFile >> grip;
+
+        if(inFile.eof())
+            break;
+
+        if(grip == '0')
+            AllWeapons.push_back(new Weapon(name, stoi(price), stoi(lvl), stoi(dmg), false));
+        AllWeapons.push_back(new Weapon(name, stoi(price), stoi(lvl), stoi(dmg), true));
+    }
+    inFile.close();
+
+    std::cout << "Initializing All Weapons...";
+    sleep(1);
+    std::cout << "Done\n";
 }
 
 void Game::CreditsScreen()

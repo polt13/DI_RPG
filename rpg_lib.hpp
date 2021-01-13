@@ -321,11 +321,11 @@ class Game
 
         void StartScreen();
         void InitGame();
-/*         void InitWeapons();
-        void InitArmors();
+        void InitWeapons();
+        /*void InitArmors();
         void InitPotions();
         void InitSpells();
-        void InitGrid(); */
+        void InitGrid();*/
         void CreditsScreen();
         void ExitScreen();
         void MainMenu();
