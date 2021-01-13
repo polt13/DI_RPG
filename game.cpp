@@ -51,16 +51,19 @@ void Game::InitGame()
     InitGrid();
     sleep(1);
     
-    //std::cout << "\n";
-    std::cout << "Opening DI_RPG .";
+    std::cout << "\n";
+    std::cout << "\tOpening DI_RPG ";
     fflush(stdout);
     sleep(1);
-    std::cout << " .";
+    std::cout << ".";
     fflush(stdout);
     sleep(1);
-    std::cout << " .";
+    std::cout << ".";
+    fflush(stdout);
+    sleep(1);
+    std::cout << ".";
 
-    sleep(10);
+    sleep(2);
 
     system("clear");
 }
@@ -101,7 +104,7 @@ void Game::InitWeapons()
 
     std::cout << "\tInitializing All Weapons... ";
     fflush(stdout);
-    sleep(2);
+    sleep(1);
     std::cout << "Done\n";
 }
 
@@ -109,7 +112,7 @@ void Game::InitArmors()
 {
     std::cout << "\tInitializing All Armors... ";
     fflush(stdout);
-    sleep(2);
+    sleep(1);
     std::cout << "Done\n";
 }
 
@@ -117,7 +120,7 @@ void Game::InitPotions()
 {
     std::cout << "\tInitializing All Potions... ";
     fflush(stdout);
-    sleep(2);
+    sleep(1);
     std::cout << "Done\n";
 }
 
@@ -125,7 +128,7 @@ void Game::InitSpells()
 {
     std::cout << "\tInitializing All Spells... ";
     fflush(stdout);
-    sleep(2);
+    sleep(1);
     std::cout << "Done\n";
 }
 
