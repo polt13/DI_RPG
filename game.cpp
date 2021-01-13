@@ -45,6 +45,13 @@ void Game::InitGame()
     InitSpells();
     InitGrid();
     
+    std::cout << "\n";
+    std::cout << "Opening DI_RPG .";
+    sleep(1);
+    std::cout << " .";
+    sleep(1);
+    std::cout << " .";
+
     sleep(10);
 
     system("clear");
