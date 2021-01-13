@@ -200,8 +200,8 @@ void common::fight(std::vector<Monster*>& enemies)
 {
     auto rounds = 0;
     while (end_fight(enemies) == false) {
-        int whoAttacks = 0;
-        int whichMonsterAttacks = 0;
+        auto whoAttacks = 0;
+        auto whichMonsterAttacks = 0;
         char option {};
         do {
             Game::clearbuffer();
@@ -209,18 +209,58 @@ void common::fight(std::vector<Monster*>& enemies)
             std::cin >> option;
 
         } while (option != 'i' && option != 'I' && option != 'a' && option != 'A' && option != 'D' && option != 'd');
+        int pick;
         if (option == 'D' || option == 'd') {
             displayStats(enemies);
             continue;
         } else if (option == 'i' || option == 'I') {
+
             std::cout << "Check inventory of character:\n";
-            std::cin >> option;
-            while (option > squad.size() - 1) {
+            int HeroPick;
+            while (!(std::cin >> HeroPick) || HeroPick > squad.size() - 1) {
                 std::cout << "Not a valid pick\n";
                 Game::clearbuffer();
-                std::cin >> option;
             }
-            squad[option]->checkInventory();
+            squad[HeroPick]->checkInventory();
+            std::cout << "1 for Potion, 2 for Spellcast, 3 to go back";
+            while (!(std::cin >> pick) || option > 3 || option < 1) {
+                std::cout << "Not a valid pick\n";
+                Game::clearbuffer();
+            }
+            int whichItem;
+            int who;
+            switch (pick) {
+            case 1:
+                std::cout << "Use which potion?\n";
+                while (!(std::cin >> whichItem)) {
+                    std::cout << "Not a valid pick\n";
+                    Game::clearbuffer();
+                }
+                squad[HeroPick]->use(whichItem); //use on the hero itself
+                Game::clearbuffer();
+                break;
+            case 2:
+                int enemyTarget;
+                int whichSpell;
+                std::cout << "Use which spell?\n";
+                while (!(std::cin >> whichSpell)) {
+                    std::cout << "Not a valid pick\n";
+                    Game::clearbuffer();
+                }
+                std::cout << " Use spell on: \n";
+                while (!(std::cin >> enemyTarget) || enemyTarget < 0 || (enemyTarget > enemies.size() - 1)) {
+                    std::cout << "Not a valid pick\n";
+                    Game::clearbuffer();
+                }
+
+                squad[HeroPick]->castSpell(enemies[enemyTarget], whichItem);
+                Game::clearbuffer();
+                break;
+            case 3:
+                Game::clearbuffer();
+                std::cout << "Exiting..\n";
+                return;
+            }
             continue;
         } else {
             //circular rotation --- who attacks
@@ -236,18 +276,41 @@ void common::fight(std::vector<Monster*>& enemies)
             std::cout << enemies[whichMonsterAttacks]->get_name() << " attacks " << squad[heroTarget]->get_name() << '\n';
             enemies[whichMonsterAttacks]->attack(squad[heroTarget]);
         }
+
+        for (auto& h : squad) {
+            h->regenHP();
+            h->regenMP();
+        }
+        for (auto& m : enemies) {
+            m->regenHP();
+        }
+        end_round(enemies);
+        ++rounds;
     }
     bool all_dead = true;
     for (const auto& h : squad) { //find if all heroes dead
-        //if so, game over
         if (h->get_hp() != 0) {
             all_dead = false;
-            return;
+            for (auto& h : squad) {
+                h->set_xp(enemies[0]->getLevel() * 5); //get xp based on level of enemy
+                h->addMoney(enemies[0]->getLevel() * 3); //get money based on level of enemy
+            }
         }
     }
-    std::cout << "GAME OVER!\n";
 
+    //if reached here -- all heroes are dead -- revive them with some HP and cost half the money
+    for (auto& h : squad) {
+        h->moneyLoss();
+        //revive with some HP
+        h->revive();
+    }
+    std::cout << "BATTLE LOST!\n";
     return;
+}
+
+void common::end_round(std::vector<Monster*>& enemies)
+{
+    
 }
 
 void common::displayStats(const std::vector<Monster*>& enemies) const
@@ -282,9 +345,6 @@ bool common::end_fight(const std::vector<Monster*>& enemies)
         return true;
     } else if (heroes_dead == false && monsters_dead == true) {
         std::cout << "Heroes win!\n";
-        for (auto& h : squad) {
-            h->set_xp(h->get_max_xp() / 4); //get 1/4th of XPmax
-        }
         return true;
     }
 

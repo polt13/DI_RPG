@@ -21,6 +21,8 @@ Hero::~Hero()
     std::cout << "Money: " << Money << '\n';
     std::cout << "XP: " << Experience << " / " << XPmax << '\n';
     std::cout << std::endl;*/
+
+    //cleanup
     for (auto& w : WeaponsInv)
         delete w;
     for (auto& p : PotionsInv)
@@ -47,7 +49,7 @@ Hero::Hero(const string MyName, int STR, int DEX, int AG)
     //std::cout << "A New Hero has been created!" << endl <<'\n';
     std::cout << Name << '\n';
     std::cout << "Level: " << Level << '\n';
-    std::cout << "HP: " << HealthPower << '\n';
+    std::cout << "HP: " << MaxHealthPower << '\n';
     std::cout << "MP: " << MagicPower
               << '\n';
     std::cout << "STR: " << Strength << '\n';
@@ -61,6 +63,9 @@ Hero::Hero(const string MyName, int STR, int DEX, int AG)
 void Hero::set_xp(const int value)
 {
     Experience += value;
+    if (Experience > XPmax) {
+        levelUp();
+    }
 }
 
 int Hero::get_agility() const
@@ -98,6 +103,57 @@ int& Hero::getStat(potionType potion_t)
     return Agility;
 }
 
+void Hero::moneyLoss()
+{
+    Money /= 2;
+}
+
+void Hero::revive()
+{
+    if (HealthPower == 0) {
+        HealthPower = 20;
+    }
+}
+
+void Hero::HPbuff(int hp)
+{
+    HealthPower += hp;
+    if (HealthPower > MaxHealthPower) { //dont overheal
+        HealthPower = MaxHealthPower;
+    }
+}
+
+void Hero::MPbuff(int mp)
+{
+    MagicPower += mp;
+    if (MagicPower > MaxMagicPower) {
+        MagicPower = MaxMagicPower;
+    }
+}
+
+void Hero::DEXbuff(int dex)
+{
+    Dexterity += dex;
+    if (Dexterity > MaxDex) {
+        Dexterity = MaxDex;
+    }
+}
+void Hero::STRbuff(int str)
+{
+    Strength += str;
+    if (Strength > MaxStr) {
+        Strength = MaxStr;
+    }
+}
+
+void Hero::AGILbuff(int agil)
+{
+    Agility += agil;
+    if (Agility > MaxAgil) {
+        Agility = MaxAgil;
+    }
+}
+
 void Hero::attack(Monster* MyMonster)
 {
     if (MyMonster->get_hp() == 0)
@@ -123,27 +179,27 @@ void Hero::attack(Monster* MyMonster)
     std::cout << MyMonster->get_name() << " HP is: " << MyMonster->get_hp() << '\n';
 }
 
-void Hero::castSpell(Monster& MyMonster, int whichSpell)
+void Hero::castSpell(Monster* MyMonster, int whichSpell)
 {
-    if (MyMonster.get_hp() == 0)
+    if (MyMonster->get_hp() == 0)
         return;
     Spell* s = SpellsInv[whichSpell];
-    int DMGdealt = s->getSpellDmg() + Dexterity - MyMonster.get_defense();
+    int DMGdealt = s->getSpellDmg() + Dexterity - MyMonster->get_defense();
     if (DMGdealt < 0) {
         std::cout << "Higher defense than dmg\n";
         return;
     }
     if (MagicPower >= s->getMPcost()) {
-        if ((rand() % 100) > MyMonster.get_dodge()) {
+        if ((rand() % 100) > MyMonster->get_dodge()) {
             MagicPower -= s->getMPcost();
-            MyMonster.decrease_hp(DMGdealt);
-            std::cout << get_name() << " dealt  " << DMGdealt << " to " << MyMonster.get_name() << '\n';
+            MyMonster->decrease_hp(DMGdealt);
+            std::cout << get_name() << " dealt  " << DMGdealt << " to " << MyMonster->get_name() << '\n';
             s->apply_effect(MyMonster);
         } else
-            std::cout << MyMonster.get_name() << " DODGED the Spell!" << '\n';
+            std::cout << MyMonster->get_name() << " DODGED the Spell!" << '\n';
     } else
         std::cout << "Not enough MP\n";
-    std::cout << MyMonster.get_name() << " HP is: " << MyMonster.get_hp() << '\n';
+    std::cout << MyMonster->get_name() << " HP is: " << MyMonster->get_hp() << '\n';
 }
 
 void Hero::levelUp(int str, int dex, int ag)
@@ -153,10 +209,18 @@ void Hero::levelUp(int str, int dex, int ag)
         Experience -= XPmax;
         XPmax += round(XPmax * 0.25);
         Level++;
-        Strength += str;
-        Dexterity += dex;
-        Agility += ag;
+        MaxStr += str;
+        MaxDex += dex;
+        MaxAgil += ag;
+        MaxHealthPower += 8;
+        MaxMagicPower += 5;
     }
+    //refill every stat on levelup//
+    HealthPower = MaxHealthPower;
+    MagicPower = MaxMagicPower;
+    Agility = MaxAgil;
+    Dexterity = MaxDex;
+    Strength = MaxStr;
 }
 
 void Hero::buy(Weapon* w)
@@ -186,6 +250,14 @@ void Hero::buy(Spell* s)
 void Hero::addMoney(int m)
 {
     Money += m;
+}
+
+void Hero::regenMP()
+{
+    MagicPower += MagicPower / 2;
+    if (MagicPower > MaxMagicPower) {
+        MagicPower = MaxMagicPower;
+    }
 }
 
 void Hero::use(int whichPotion)

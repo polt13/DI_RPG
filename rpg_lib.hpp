@@ -103,7 +103,7 @@ protected:
 
 public:
     virtual void print() const;
-    virtual void apply_effect(Monster&) = 0;
+    virtual void apply_effect(Monster*) = 0;
     int getSpellDmg(void) const;
     int getMPcost(void) const;
     Spell(const std::string&, const int, const int, const int, const int, const int, const int);
@@ -112,21 +112,21 @@ public:
 class IceSpell : public Spell {
 public:
     void print() const;
-    void apply_effect(Monster&);
+    void apply_effect(Monster*);
     IceSpell(const std::string&, const int, const int, const int, const int, const int, const int);
 };
 
 class FireSpell : public Spell {
 public:
     void print() const;
-    void apply_effect(Monster&);
+    void apply_effect(Monster*);
     FireSpell(const std::string&, const int, const int, const int, const int, const int, const int);
 };
 
 class LightningSpell : public Spell {
 public:
     void print() const;
-    void apply_effect(Monster&);
+    void apply_effect(Monster*);
     LightningSpell(const std::string&, const int, const int, const int, const int, const int, const int);
 };
 
@@ -136,27 +136,30 @@ class Living {
 protected:
     const std::string Name;
     int Level;
+    int MaxHealthPower; //changes on levelup
     int HealthPower;
     bool Faint;
 
 public:
     Living(const std::string, const int, int = 1);
     virtual ~Living() = 0;
-
+    void regenHP();
     void decrease_hp(int);
-
+    int getLevel();
     std::string get_name() const;
     int get_hp() const;
     virtual void displayStats() const = 0;
     void pass_out();
+    ///potions//
 };
 
 class Hero : public Living {
 protected:
-    int MagicPower;
-    int Strength;
-    int Dexterity;
-    int Agility;
+    //Max increases on levelup
+    int MagicPower, MaxMagicPower;
+    int Strength, MaxStr;
+    int Dexterity, MaxDex;
+    int Agility, MaxAgil;
     int Money;
     int Experience;
     int XPmax;
@@ -173,9 +176,11 @@ public:
     void sell(market&);
     void displayStats() const;
     Hero(const std::string, int, int, int);
+    void moneyLoss();
     virtual ~Hero() = 0;
-
+    void revive();
     void set_xp(const int);
+    void regenMP();
 
     //  Accessors
     int get_agility() const;
@@ -185,7 +190,7 @@ public:
     int get_max_xp();
 
     void attack(Monster*);
-    void castSpell(Monster&, int);
+    void castSpell(Monster*, int);
 
     void use(int);
 
@@ -201,6 +206,12 @@ public:
     void buy(Potion*);
     void buy(Spell*);
     char proceed();
+
+    void HPbuff(int);
+    void MPbuff(int);
+    void STRbuff(int);
+    void DEXbuff(int);
+    void AGILbuff(int);
 };
 
 class Warrior : public Hero {
@@ -245,6 +256,7 @@ public:
 
     void debuff(spellType, int);
     void attack(Hero*);
+    void resetStats();
 };
 
 class Dragon : public Monster {
@@ -296,7 +308,9 @@ public:
 };
 
 class common : public block {
-    bool end_fight(const std::vector<Monster*>&);
+    void end_round(std::vector<Monster*>&);
+    bool end_fight(const std::vector<Monster*>&); //check if time to end fight
+
     void fight(std::vector<Monster*>&);
 
 public:

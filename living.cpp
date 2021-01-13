@@ -7,18 +7,24 @@ using std::string;
 
 Living::~Living()
 {
-    //std::cout << "A Living to be destroyed!" << std::endl;
-    //std::cout << std::endl;
 }
 
 Living::Living(const string MyName, const int HP, int LvL)
     : Name(MyName)
     , Level(LvL)
+    , MaxHealthPower(HP)
     , HealthPower(HP)
     , Faint(false)
+
 {
-    //std::cout << "A New Living has been created!" << std::endl;
-    //std::cout << std::endl;
+}
+
+void Living::regenHP()
+{
+    HealthPower += HealthPower / 8; //if HP = 0 don't regen
+    if (HealthPower > MaxHealthPower) { //dont overheal
+        HealthPower = MaxHealthPower;
+    }
 }
 
 void Living::decrease_hp(int dealt)
@@ -45,4 +51,9 @@ void Living::pass_out()
     std::cout << Name << " passed out!" << std::endl;
     std::cout << "HP: " << HealthPower << std::endl;
     Faint = true;
+}
+
+int Living::getLevel()
+{
+    return Level;
 }
