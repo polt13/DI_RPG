@@ -37,16 +37,17 @@ void Game::InitGame()
     std::cout << "\n\n\tLoading.." << std::endl;
     system("clear");
 
+    std::cout << "\n\n";
+
     InitWeapons();
-    sleep(5);
-    /*
     InitArmors();
     InitPotions();
     InitSpells();
-    */
-
-   // InitGrid();
+    InitGrid();
     
+    sleep(10);
+
+    system("clear");
 }
 
 void Game::InitWeapons()
@@ -83,7 +84,35 @@ void Game::InitWeapons()
     }
     inFile.close();
 
-    std::cout << "Initializing All Weapons...";
+    std::cout << "\tInitializing All Weapons... ";
+    sleep(1);
+    std::cout << "Done\n";
+}
+
+void Game::InitArmors()
+{
+    std::cout << "\tInitializing All Armors... ";
+    sleep(1);
+    std::cout << "Done\n";
+}
+
+void Game::InitPotions()
+{
+    std::cout << "\tInitializing All Potions... ";
+    sleep(1);
+    std::cout << "Done\n";
+}
+
+void Game::InitSpells()
+{
+    std::cout << "\tInitializing All Spells... ";
+    sleep(1);
+    std::cout << "Done\n";
+}
+
+void Game::InitGrid()
+{
+    std::cout << "\tInitializing Grid... ";
     sleep(1);
     std::cout << "Done\n";
 }
