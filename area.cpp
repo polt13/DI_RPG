@@ -10,7 +10,7 @@ market::market()
     }
 }
 
-void market::interact(Hero& h)
+void market::visit(Hero& h)
 {
     std::string op;
     std::cout << "Welcome. B to buy, S to sell, E to exit";
@@ -106,12 +106,12 @@ void market::move(std::vector<Hero*>& toMove)
     if (std::cin >> option) {
         if (option == 'y') {
             display();
-            Menu::BUFFERCLR();
-            interact(*squad[0]);
+            Game::clearbuffer();
+            visit(*squad[0]);
             return;
         }
     }
-    Menu::BUFFERCLR();
+    Game::clearbuffer();
 }
 
 void market::display()
@@ -191,31 +191,73 @@ void common::fight_start()
     }
 
     fight(Enemies);
+    for (auto& e : Enemies) {
+        delete e;
+    }
 }
 
 void common::fight(std::vector<Monster*>& enemies)
 {
     auto rounds = 0;
     while (end_fight(enemies) == false) {
+        int whoAttacks = 0;
+        int whichMonsterAttacks = 0;
         char option {};
         do {
-            std::cin.clear();
-            std::cin.ignore(500, '\n');
-            std::cout << "I for inventory, A for attack, D";
+            Game::clearbuffer();
+            std::cout << "I for inventory, A for attack, D for stats display";
             std::cin >> option;
 
-        } while (option != 'i' && option != 'I' && option != 'a' && option != 'A');
+        } while (option != 'i' && option != 'I' && option != 'a' && option != 'A' && option != 'D' && option != 'd');
+        if (option == 'D' || option == 'd') {
+            displayStats(enemies);
+            continue;
+        } else if (option == 'i' || option == 'I') {
+            std::cout << "Check inventory of character:\n";
+            std::cin >> option;
+            while (option > squad.size() - 1) {
+                std::cout << "Not a valid pick\n";
+                Game::clearbuffer();
+                std::cin >> option;
+            }
+            squad[option]->checkInventory();
+            continue;
+        } else {
+            //circular rotation --- who attacks
+            int enemy_at {};
+            std::cout << squad[whoAttacks]->get_name() << " attacks: \n";
+            while (!(std::cin >> enemy_at) || (enemy_at > enemies.size() - 1)) {
+                std::cout << "Invalid index\n";
+            }
+            squad[whoAttacks++]->attack(enemies[enemy_at]); //attack and go to next person
+            if (whoAttacks > squad.size() - 1)
+                whoAttacks = 0;
+            int heroTarget = std::rand() % squad.size();
+            std::cout << enemies[whichMonsterAttacks]->get_name() << " attacks " << squad[heroTarget]->get_name() << '\n';
+            enemies[whichMonsterAttacks]->attack(squad[heroTarget]);
+        }
     }
+    bool all_dead = true;
+    for (const auto& h : squad) { //find if all heroes dead
+        //if so, game over
+        if (h->get_hp() != 0) {
+            all_dead = false;
+            return;
+        }
+    }
+    std::cout << "GAME OVER!\n";
+
+    return;
 }
 
 void common::displayStats(const std::vector<Monster*>& enemies) const
 {
-    for (auto it = enemies.begin(); it != enemies.end(); ++it) {
-        (*it)->displayStats();
+    for (const auto& m : enemies) {
+        m->displayStats();
     }
     std::cout << std::endl;
-    for (auto it = squad.begin(); it != squad.end(); ++it) {
-        (*it)->displayStats();
+    for (const auto& h : squad) {
+        h->displayStats();
     }
 }
 
@@ -223,14 +265,14 @@ bool common::end_fight(const std::vector<Monster*>& enemies)
 {
     //check if all heroes/monsters are dead
     bool heroes_dead = false, monsters_dead = false;
-    for (auto it = enemies.begin(); it != enemies.end(); ++it) {
-        if ((*it)->get_hp() != 0) {
+    for (const auto& monster : enemies) {
+        if (monster->get_hp() != 0) {
             monsters_dead = false;
         }
     }
 
-    for (auto it = squad.begin(); it != squad.end(); ++it) {
-        if ((*it)->get_hp() != 0) {
+    for (const auto& h : squad) {
+        if (h->get_hp() != 0) {
             heroes_dead = false;
         }
     }
@@ -240,8 +282,8 @@ bool common::end_fight(const std::vector<Monster*>& enemies)
         return true;
     } else if (heroes_dead == false && monsters_dead == true) {
         std::cout << "Heroes win!\n";
-        for (auto it = squad.begin(); it != squad.end(); ++it) {
-            (*it)->set_xp((*it)->get_max_xp() / 4); //get 1/4th of XPmax
+        for (auto& h : squad) {
+            h->set_xp(h->get_max_xp() / 4); //get 1/4th of XPmax
         }
         return true;
     }
@@ -275,4 +317,16 @@ void market::acquire(Weapon* w)
 void market::acquire(Spell* s)
 {
     spells.push_back(s);
+}
+
+market::~market()
+{
+    for (auto& w : weapons)
+        delete w;
+    for (auto& p : potions)
+        delete p;
+    for (auto& s : spells)
+        delete s;
+    for (auto& a : armors)
+        delete a;
 }

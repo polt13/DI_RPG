@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include <vector>
+
 class Hero;
 class Monster;
 class market;
@@ -43,7 +44,7 @@ public:
     void MainMenu();
     void CreateNewHero();
 
-    void clearbuffer();
+    void static clearbuffer();
     bool get_playing() const;
 };
 
@@ -102,7 +103,7 @@ protected:
 
 public:
     virtual void print() const;
-    virtual void apply_effect(Monster*) = 0;
+    virtual void apply_effect(Monster&) = 0;
     int getSpellDmg(void) const;
     int getMPcost(void) const;
     Spell(const std::string&, const int, const int, const int, const int, const int, const int);
@@ -111,21 +112,21 @@ public:
 class IceSpell : public Spell {
 public:
     void print() const;
-    void apply_effect(Monster*);
+    void apply_effect(Monster&);
     IceSpell(const std::string&, const int, const int, const int, const int, const int, const int);
 };
 
 class FireSpell : public Spell {
 public:
     void print() const;
-    void apply_effect(Monster*);
+    void apply_effect(Monster&);
     FireSpell(const std::string&, const int, const int, const int, const int, const int, const int);
 };
 
 class LightningSpell : public Spell {
 public:
     void print() const;
-    void apply_effect(Monster*);
+    void apply_effect(Monster&);
     LightningSpell(const std::string&, const int, const int, const int, const int, const int, const int);
 };
 
@@ -184,7 +185,7 @@ public:
     int get_max_xp();
 
     void attack(Monster*);
-    void castSpell(Monster*, int);
+    void castSpell(Monster&, int);
 
     void use(int);
 
@@ -285,7 +286,7 @@ public:
     void move(std::vector<Hero*>&);
     void display(); //display shop
     void print() const; //print as 'M' on map
-    void interact(Hero&);
+    void visit(Hero&);
     void acquire(Potion*);
     void acquire(Armor*);
     void acquire(Weapon*);
@@ -312,15 +313,10 @@ public:
     Monster* m;
 };
 
-/////////////////////////////////////////////////////////
+class grid {
 
-class Menu {
-public:
-    static void BUFFERCLR()
-    {
-        std::cin.clear();
-        std::cin.ignore(500, '\n');
-    }
-};
+}; //grid draft
+
+/////////////////////////////////////////////////////////
 
 #endif

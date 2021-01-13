@@ -10,7 +10,7 @@ using std::string;
 Hero::~Hero()
 {
     //std::cout << "A Hero to be destroyed!" <<'\n';
-    std::cout << Name << '\n';
+    /*std::cout << Name << '\n';
     std::cout << "Level: " << Level << '\n';
     std::cout << "HP: " << HealthPower << '\n';
     std::cout << "MP: " << MagicPower << '\n';
@@ -20,7 +20,15 @@ Hero::~Hero()
               << "\n\n";
     std::cout << "Money: " << Money << '\n';
     std::cout << "XP: " << Experience << " / " << XPmax << '\n';
-    std::cout << std::endl;
+    std::cout << std::endl;*/
+    for (auto& w : WeaponsInv)
+        delete w;
+    for (auto& p : PotionsInv)
+        delete p;
+    for (auto& s : SpellsInv)
+        delete s;
+    for (auto& a : ArmorsInv)
+        delete a;
 }
 
 Hero::Hero(const string MyName, int STR, int DEX, int AG)
@@ -115,27 +123,27 @@ void Hero::attack(Monster* MyMonster)
     std::cout << MyMonster->get_name() << " HP is: " << MyMonster->get_hp() << '\n';
 }
 
-void Hero::castSpell(Monster* MyMonster, int whichSpell)
+void Hero::castSpell(Monster& MyMonster, int whichSpell)
 {
-    if (MyMonster->get_hp() == 0)
+    if (MyMonster.get_hp() == 0)
         return;
     Spell* s = SpellsInv[whichSpell];
-    int DMGdealt = s->getSpellDmg() + Dexterity - MyMonster->get_defense();
+    int DMGdealt = s->getSpellDmg() + Dexterity - MyMonster.get_defense();
     if (DMGdealt < 0) {
         std::cout << "Higher defense than dmg\n";
         return;
     }
     if (MagicPower >= s->getMPcost()) {
-        if ((rand() % 100) > MyMonster->get_dodge()) {
+        if ((rand() % 100) > MyMonster.get_dodge()) {
             MagicPower -= s->getMPcost();
-            MyMonster->decrease_hp(DMGdealt);
-            std::cout << get_name() << " dealt  " << DMGdealt << " to " << MyMonster->get_name() << '\n';
+            MyMonster.decrease_hp(DMGdealt);
+            std::cout << get_name() << " dealt  " << DMGdealt << " to " << MyMonster.get_name() << '\n';
             s->apply_effect(MyMonster);
         } else
-            std::cout << MyMonster->get_name() << " DODGED the Spell!" << '\n';
+            std::cout << MyMonster.get_name() << " DODGED the Spell!" << '\n';
     } else
         std::cout << "Not enough MP\n";
-    std::cout << MyMonster->get_name() << " HP is: " << MyMonster->get_hp() << '\n';
+    std::cout << MyMonster.get_name() << " HP is: " << MyMonster.get_hp() << '\n';
 }
 
 void Hero::levelUp(int str, int dex, int ag)
@@ -292,7 +300,6 @@ void Hero::equip(int whichArmor)
         std::cout << "Try again\n";
         return;
     }
-    // --> error // Armor* Armour = Inventory[whichArmor];
     Armor* Armour = ArmorsInv[whichArmor];
     if (Armour->get_minlvl() <= Level) {
         if (MyArmor != nullptr) {
@@ -348,7 +355,6 @@ void Hero::checkInventory() const
     }
     int itemCount = 0;
     //print weapons / armors / potions / spells
-    int index = 0;
     std::cout << "Weapons:\n";
     for (const auto& w : WeaponsInv) {
         std::cout << itemCount++ << ". ";
@@ -446,10 +452,10 @@ char Hero::proceed() //make menu
     std::cout << "Do you want to proceed? (y/n)\n";
     char input;
     while (!(std::cin >> input) || (input != 'n' && input != 'N' && input != 'y' && input != 'Y')) {
-        std::cout << "Invalid input, please type 'y' or 'n'\n";
+        std::cout << "Wrong input, please type 'y' or 'n'\n";
         std::cin.clear(); //reset possible error flag
         std::cin.ignore(500, '\n'); //clear buffer
-        //std::cin >> input;
+        std::cin >> input;
     }
     return input;
 }
