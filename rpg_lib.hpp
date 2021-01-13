@@ -329,6 +329,7 @@ class Game
         void InitSpells();
         void InitGrid();
 /*         void printWeap(); */
+        void DIRPG();
         void CreditsScreen();
         void ExitScreen();
         void MainMenu();
