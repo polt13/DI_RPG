@@ -108,6 +108,34 @@ void Game::InitWeapons()
 
 void Game::InitArmors()
 {
+    std::ifstream inFile;
+    inFile.open("armors.txt");
+
+    if(inFile.fail())
+    {
+        std::cout << "Error Opening File 'armors.txt'\n";
+        exit(1);
+    }
+
+    std::string name;
+    std::string price;
+    std::string lvl;
+    std::string def;
+
+    while(!inFile.eof())
+    {
+        getline(inFile, name, '\t');
+        getline(inFile, price, '\t');
+        getline(inFile, lvl, '\t');
+        inFile >> def;
+
+        if(inFile.eof())
+            break;
+
+        AllArmors.push_back(new Armor(name, stoi(price), stoi(lvl), stoi(dmg)));
+    }
+    inFile.close();
+
     std::cout << "\tInitializing All Armors... ";
     fflush(stdout);
     sleep(1);
@@ -116,6 +144,37 @@ void Game::InitArmors()
 
 void Game::InitPotions()
 {
+    std::ifstream inFile;
+    inFile.open("potions.txt");
+
+    if(inFile.fail())
+    {
+        std::cout << "Error Opening File 'potions.txt'\n";
+        exit(1);
+    }
+
+    std::string name;
+    std::string price;
+    std::string lvl;
+    std::string mindmg;
+    std::string maxdmg;
+    std::string mp;
+    std::string dur;
+
+    while(!inFile.eof())
+    {
+        getline(inFile, name, '\t');
+        getline(inFile, price, '\t');
+        getline(inFile, lvl, '\t');
+        inFile >> def;
+
+        if(inFile.eof())
+            break;
+
+        AllPotions.push_back(new Potion(name, stoi(price), stoi(lvl), stoi(dmg)));
+    }
+    inFile.close();
+
     std::cout << "\tInitializing All Potions... ";
     fflush(stdout);
     sleep(1);

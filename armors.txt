@@ -1,80 +1,80 @@
-Endless Road
-Genji Shield
-Emblem
-Crystal Shield
-Aegis Shield
-Golem Shield
-Revive Shield
-Rescue Shield
-Paladin Shield
-Diamond Shield
-Ruby Shield
-Dynasty Shield
-Magister Shield
-Collector's Shield
-Treasure Shield
-Shield of Hope
-Assault Shield
-Phantom Shield
-Recovery Shield
-Spiritual Shield
-Phoenix Shield
-Curative Shield
-Rainbow Shield
-Shining Shield
-Faerie Shield
-Peaceful Shield
-Shaman Shield
-Barrier Shield
-Star Shield
-Marching Shield
-Moon Shield
-Regen Shield
-Haste Shield
-Reflect Shield
-Protect Shield
-Shell Shield
-Platinum Shield
-Sapphire Shield
-Knight's Shield
-Wizard Shield
-Elemental Shield
-Defending Shield
-Crimson Shield
-Snow Shield
-Ochre Shield
-Cerulean Shield
-Medical Shield
-Lucid Shield
-Serene Shield
-Light Shield
-Soul Shield
-Blessed Shield
-Soft Shield
-Serum Shield
-Alert Shield
-Echo Shield
-Bright Shield
-Red Shield
-White Shield
-Yellow Shield
-Blue Shield
-NulTide Shield
-NulBlaze Shield
-NulFrost Shield
-Adept's Shield
-Tetra Shield
-Mythril Shield
-Gold Shield
-Emerald Shield
-Soldier's Shield
-Mage's Shield
-Silver Shield
-Onyx Shield
-Sorcery Shield
-Warrior's Shield
-Glorious Shield
-Metal Shield
-Pearl Shield
-Magic Shield
-Seeker's Shield
+Endless Road	100	1	20
+Genji Shield	100	1	20
+Emblem	100	1	20
+Crystal Shield	100	1	20
+Aegis Shield	100	1	20
+Golem Shield	100	1	20
+Revive Shield	100	1	20
+Rescue Shield	100	1	20
+Paladin Shield	100	1	20
+Diamond Shield	100	1	20
+Ruby Shield	100	1	20
+Dynasty Shield	100	1	20
+Magister Shield	100	1	20
+Collector's Shield	100	1	20
+Treasure Shield	100	1	20
+Shield of Hope	100	1	20
+Assault Shield	100	1	20
+Phantom Shield	100	1	20
+Recovery Shield	100	1	20
+Spiritual Shield	100	1	20
+Phoenix Shield	100	1	20
+Curative Shield	100	1	20
+Rainbow Shield	100	1	20
+Shining Shield	100	1	20
+Faerie Shield	100	1	20
+Peaceful Shield	100	1	20
+Shaman Shield	100	1	20
+Barrier Shield	100	1	20
+Star Shield	100	1	20
+Marching Shield	100	1	20
+Moon Shield	100	1	20
+Regen Shield	100	1	20
+Haste Shield	100	1	20
+Reflect Shield	100	1	20
+Protect Shield	100	1	20
+Shell Shield	100	1	20
+Platinum Shield	100	1	20
+Sapphire Shield	100	1	20
+Knight's Shield	100	1	20
+Wizard Shield	100	1	20
+Elemental Shield	100	1	20
+Defending Shield	100	1	20
+Crimson Shield	100	1	20
+Snow Shield	100	1	20
+Ochre Shield	100	1	20
+Cerulean Shield	100	1	20
+Medical Shield	100	1	20
+Lucid Shield	100	1	20
+Serene Shield	100	1	20
+Light Shield	100	1	20
+Soul Shield	100	1	20
+Blessed Shield	100	1	20
+Soft Shield	100	1	20
+Serum Shield	100	1	20
+Alert Shield	100	1	20
+Echo Shield	100	1	20
+Bright Shield	100	1	20
+Red Shield	100	1	20
+White Shield	100	1	20
+Yellow Shield	100	1	20
+Blue Shield	100	1	20
+NulTide Shield	100	1	20
+NulBlaze Shield	100	1	20
+NulFrost Shield	100	1	20
+Adept's Shield	100	1	20
+Tetra Shield	100	1	20
+Mythril Shield	100	1	20
+Gold Shield	100	1	20
+Emerald Shield	100	1	20
+Soldier's Shield	100	1	20
+Mage's Shield	100	1	20
+Silver Shield	100	1	20
+Onyx Shield	100	1	20
+Sorcery Shield	100	1	20
+Warrior's Shield	100	1	20
+Glorious Shield	100	1	20
+Metal Shield	100	1	20
+Pearl Shield	100	1	20
+Magic Shield	100	1	20
+Seeker's Shield	100	1	20
