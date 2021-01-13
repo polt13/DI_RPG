@@ -41,15 +41,10 @@ void Game::InitGame()
     std::cout << "\n\n";
 
     InitWeapons();
-    sleep(1);
     InitArmors();
-    sleep(1);
     InitPotions();
-    sleep(1);
     InitSpells();
-    sleep(1);
     InitGrid();
-    sleep(1);
     
     std::cout << "\n";
     std::cout << "\tOpening DI_RPG ";
@@ -62,6 +57,8 @@ void Game::InitGame()
     fflush(stdout);
     sleep(1);
     std::cout << ".";
+    fflush(stdout);
+    sleep(1);
 
     sleep(2);
 
