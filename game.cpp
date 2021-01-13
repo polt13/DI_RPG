@@ -182,6 +182,7 @@ void Game::ExitScreen()
     std::cout << "\tQuitting Game...\n\n";
     playing = false;
     sleep(2);
+    system("clear");
 }
 
 void Game::MainMenu()
