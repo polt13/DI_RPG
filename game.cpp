@@ -38,6 +38,7 @@ void Game::InitGame()
     system("clear");
 
     InitWeapons();
+    sleep(5);
     /*
     InitArmors();
     InitPotions();
