@@ -169,6 +169,8 @@ public:
     void set_xp(const int);
 
     //  Accessors
+    int get_strength() const;
+    int get_dexterity() const;
     int get_agility() const;
     int getMoney() const;
     Armor* get_armor() const;
@@ -326,13 +328,16 @@ class Game
         void InitPotions();
         void InitSpells();
         void InitGrid();
-        void printWeap();
-        //
+/*         void printWeap(); */
         void CreditsScreen();
         void ExitScreen();
         void MainMenu();
         void DisplayMap();
-        void CreateNewHero();
+        void NewHeroMenu();
+        void WarriorInfo();
+        void SorcererInfo();
+        void PaladinInfo();
+        void CreateNewHero(heroType);
         void DisplayMarket();
         void BuyMenu();
         void BuyWeapons();

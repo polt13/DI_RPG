@@ -1,66 +1,66 @@
-Potion
-Hi-Potion
-X-Potion
-Mega-Potion
-Ether
-Turbo Ether
-Elixir
-Megalixir
-Phoenix Down
-Mega Phoenix
-Antidote
-Echo Screen
-Eye Drops
-Holy Water
-Remedy
-Soft
-Al Bhed Potion
-Healing Water
-Tetra Elemental
-Candle of Life
-Dream Powder
-Farplane Shadow
-Farplane Wind
-Frag Grenade
-Silence Grenade
-Sleeping Powder
-Smoke Bomb
-Petrify Grenade
-Poison Fang
-Blessed Gem
-Dark Matter
-Shadow Gem
-Shining Gem
-Supreme Gem
-Gold Hourglass
-Healing Spring
-Light Curtain
-Lunar Curtain
-Mana Spring
-Mana Tablet
-Mana Tonic
-Purifying Salt
-Silver Hourglass
-Soul Spring
-Stamina Spring
-Stamina Tablet
-Stamina Tonic
-Star Curtain
-Three Stars
-Twin Stars
-Ability Distiller
-Amulet
-Designer Wallet
-Door to Tomorrow
-Gambler's Spirit
-Hypello Potion
-Mana Distiller
-Map
-Musk
-Pendulum
-Power Distiller
-Shining Thorn
-Speed Distiller
-Underdog's Secret
-Wings to Discovery
-Winning Formula
+Potion	100	1	4
+Hi-Potion	100	1	2
+X-Potion	100	1	3
+Mega-Potion	100	1	4
+Ether	100	1	3
+Turbo Ether	100	1	5
+Elixir	100	1	5
+Megalixir	100	1	1
+Phoenix Down	100	1	5
+Mega Phoenix	100	1	1
+Antidote	100	1	1
+Echo Screen	100	1	5
+Eye Drops	100	1	2
+Holy Water	100	1	2
+Remedy	100	1	5
+Soft	100	1	4
+Al Bhed Potion	100	1	5
+Healing Water	100	1	4
+Tetra Elemental	100	1	3
+Candle of Life	100	1	3
+Dream Powder	100	1	2
+Farplane Shadow	100	1	3
+Farplane Wind	100	1	4
+Frag Grenade	100	1	5
+Silence Grenade	100	1	2
+Sleeping Powder	100	1	5
+Smoke Bomb	100	1	5
+Petrify Grenade	100	1	2
+Poison Fang	100	1	1
+Blessed Gem	100	1	5
+Dark Matter	100	1	4
+Shadow Gem	100	1	4
+Shining Gem	100	1	4
+Supreme Gem	100	1	2
+Gold Hourglass	100	1	3
+Healing Spring	100	1	5
+Light Curtain	100	1	4
+Lunar Curtain	100	1	4
+Mana Spring	100	1	5
+Mana Tablet	100	1	2
+Mana Tonic	100	1	1
+Purifying Salt	100	1	4
+Silver Hourglass	100	1	4
+Soul Spring	100	1	1
+Stamina Spring	100	1	1
+Stamina Tablet	100	1	1
+Stamina Tonic	100	1	2
+Star Curtain	100	1	3
+Three Stars	100	1	5
+Twin Stars	100	1	1
+Ability Distiller	100	1	3
+Amulet	100	1	5
+Designer Wallet	100	1	2
+Door to Tomorrow	100	1	2
+Gambler's Spirit	100	1	5
+Hypello Potion	100	1	3
+Mana Distiller	100	1	4
+Map	100	1	4
+Musk	100	1	2
+Pendulum	100	1	5
+Power Distiller	100	1	1
+Shining Thorn	100	1	5
+Speed Distiller	100	1	5
+Underdog's Secret	100	1	4
+Wings to Discovery	100	1	4
+Winning Formula	100	1	4

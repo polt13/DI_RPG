@@ -10,7 +10,7 @@ using std::string;
 Hero::~Hero()
 {
     //std::cout << "A Hero to be destroyed!" <<'\n';
-    std::cout << Name << '\n';
+/*     std::cout << Name << '\n';
     std::cout << "Level: " << Level << '\n';
     std::cout << "HP: " << HealthPower << '\n';
     std::cout << "MP: " << MagicPower << '\n';
@@ -20,7 +20,7 @@ Hero::~Hero()
               << "\n\n";
     std::cout << "Money: " << Money << '\n';
     std::cout << "XP: " << Experience << " / " << XPmax << '\n';
-    std::cout << std::endl;
+    std::cout << std::endl; */
 }
 
 Hero::Hero(const string MyName, int STR, int DEX, int AG)
@@ -37,7 +37,7 @@ Hero::Hero(const string MyName, int STR, int DEX, int AG)
     , Living(MyName, 50)
 {
     //std::cout << "A New Hero has been created!" << endl <<'\n';
-    std::cout << Name << '\n';
+/*     std::cout << Name << '\n';
     std::cout << "Level: " << Level << '\n';
     std::cout << "HP: " << HealthPower << '\n';
     std::cout << "MP: " << MagicPower
@@ -47,12 +47,22 @@ Hero::Hero(const string MyName, int STR, int DEX, int AG)
     std::cout << "AG: " << Agility << "\n\n";
     std::cout << "Money: " << Money << '\n';
     std::cout << "XP: " << Experience << " / " << XPmax << '\n';
-    std::cout << '\n';
+    std::cout << '\n'; */
 }
 
 void Hero::set_xp(const int value)
 {
     Experience += value;
+}
+
+int Hero::get_strength() const
+{
+    return Strength;
+}
+
+int Hero::get_dexterity() const
+{
+    return Dexterity;
 }
 
 int Hero::get_agility() const
@@ -288,7 +298,6 @@ void Hero::equip(int whichArmor)
         std::cout << "Try again\n";
         return;
     }
-    // --> error // Armor* Armour = Inventory[whichArmor];
     Armor* Armour = ArmorsInv[whichArmor];
     if (Armour->get_minlvl() <= Level) {
         if (MyArmor != nullptr) {
