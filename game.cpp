@@ -95,7 +95,8 @@ void Game::InitWeapons()
 
         if(grip == '0')
             AllWeapons.push_back(new Weapon(name, stoi(price), stoi(lvl), stoi(dmg), false));
-        AllWeapons.push_back(new Weapon(name, stoi(price), stoi(lvl), stoi(dmg), true));
+        else
+            AllWeapons.push_back(new Weapon(name, stoi(price), stoi(lvl), stoi(dmg), true));
     }
     inFile.close();
 
