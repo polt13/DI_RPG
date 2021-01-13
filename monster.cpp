@@ -23,8 +23,9 @@ Monster::Monster(const string MyName, int LowDMG, int HighDMG, int DEF, int Miss
     , Defense(DEF)
     , Dodge(MissChance)
     , Living(MyName, LvL * 20, LvL)
-    , debuffStatus { { spellType::ICE, 0 }, { spellType::FIRE, 0 }, { spellType::LIGHTNING, 0 } } //spelltype and round duration
+
 {
+    debuffDur.fill(0); //spelltype and round duration
 }
 
 int Monster::get_defense() const
@@ -61,31 +62,40 @@ void Monster::attack(Hero* MyHero)
 void Monster::debuff(spellType st, int rounds)
 {
     //debuff lasts for + rounds
-    //add round_start(),round_end()
-    if (debuffStatus.find(st)->second == 0) { //apply effect if not already applied
-        if (st == spellType::ICE) {
+    // i = 0 for dur of ice, i =1 dur of fire, i=2 dur of lightning
+
+    switch (st) {
+    case spellType::ICE:
+        if (debuffDur[0] == 0)
             maxDMG -= 5;
-        } else if (st == spellType::FIRE) {
+        debuffDur[0] += rounds;
+        break;
+    case spellType::FIRE:
+        if (debuffDur[1] == 0)
             Defense -= 5;
-        } else {
+        debuffDur[1] += rounds;
+        break;
+    case spellType::LIGHTNING:
+        if (debuffDur[2] == 0)
             Dodge -= 5;
-        }
+        debuffDur[2] += rounds;
+        break;
     }
-    debuffStatus[st] += rounds;
 }
 
-void Monster::resetStats()
+void Monster::finish_round()
 {
-    for (auto& stats : debuffStatus) {
-        if (stats.second > 0) { //check rounds passed since spell effect applied
-            --stats.second;
-            if (stats.second == 0) { //reset stats to normal if x rounds passed
-                if (stats.first == spellType::ICE) {
-                    maxDMG += 5;
-                } else if (stats.first == spellType::FIRE) {
-                    Defense += 5;
-                } else {
-                    Dodge += 5;
+    for (auto i = 0; i < debuffDur.size(); i++) {
+        if (debuffDur[i] > 0) {
+            {
+                debuffDur[i]--;
+                if (debuffDur[i] == 0) {
+                    if (i == 0) {
+                        maxDMG += 5;
+                    } else if (i == 1) {
+                        Defense += 5;
+                    } else
+                        Dodge += 5;
                 }
             }
         }

@@ -1,5 +1,6 @@
 #ifndef RPG_H
 #define RPG_H
+#include <array>
 #include <iostream>
 #include <map>
 #include <string>
@@ -244,7 +245,7 @@ protected:
     int maxDMG;
     int Defense;
     int Dodge;
-    std::map<spellType, int> debuffStatus; //map type to spell dur
+    std::array<int, 3> debuffDur; //hold dur for each debuff..
 
 public:
     void displayStats() const;
@@ -256,7 +257,7 @@ public:
 
     void debuff(spellType, int);
     void attack(Hero*);
-    void resetStats();
+    void finish_round();
 };
 
 class Dragon : public Monster {

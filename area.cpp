@@ -310,7 +310,9 @@ void common::fight(std::vector<Monster*>& enemies)
 
 void common::end_round(std::vector<Monster*>& enemies)
 {
-    
+    for (auto m : enemies) {
+        m->finish_round(); //checks when it's time to remove an effect
+    }
 }
 
 void common::displayStats(const std::vector<Monster*>& enemies) const
