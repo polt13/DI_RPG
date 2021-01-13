@@ -133,8 +133,22 @@ void Game::InitGrid()
 {
     std::cout << "\tInitializing Grid... ";
     fflush(stdout);
-    sleep(2);
+    sleep(1);
     std::cout << "Done\n";
+}
+
+void Game::printWeap()
+{
+    system("clear");
+    std::cout << "\n\n";
+    for (auto it = AllWeapons.begin(); it != AllWeapons.end(); ++it)
+    {
+        (*it)->print();
+    }
+    std::cout << "\n\n";
+    std::cout << "Returning to Main Menu...\n";
+    sleep(60);
+    system("clear");
 }
 
 void Game::CreditsScreen()
@@ -205,6 +219,8 @@ void Game::MainMenu()
     std::cout << "////////"                                << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(27) << "[ 4 ]\tDisplay Market" << std::setw(33) << "////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(28) << "[ 5 ]\tPrint AllWeapo" << std::setw(32) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(22) << "[ 0 ]\tQuit Game" << std::setw(38) << "////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n";
@@ -237,6 +253,11 @@ void Game::MainMenu()
         case 4:
             clearbuffer();
             DisplayMarket();
+            break;
+        case 5:
+            clearbuffer();
+            printWeap();
+            break;
         case 0:
             clearbuffer();
             ExitScreen();

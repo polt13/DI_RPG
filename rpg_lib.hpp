@@ -326,6 +326,7 @@ class Game
         void InitPotions();
         void InitSpells();
         void InitGrid();
+        void printWeap();
         //
         void CreditsScreen();
         void ExitScreen();
