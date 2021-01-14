@@ -185,7 +185,7 @@ public:
     virtual void levelUp() = 0;
     virtual void levelUp(int, int, int);
 
-    void equip(int, int = 1);
+    void set_weapon(int, int = 1);
     void equip(int);
     void unequip(gearType);
     void checkInventory() const;
@@ -328,7 +328,7 @@ class Game
         void InitPotions();
         void InitSpells();
         void InitGrid();
-/*         void printWeap(); */
+        void printWeap();
         void DIRPG();
         void CreditsScreen();
         void ExitScreen();

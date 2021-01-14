@@ -52,16 +52,16 @@ void Game::InitGame()
     std::cout << "\n";
     std::cout << "\tOpening DI_RPG ";
     std::flush(std::cout);
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
     std::cout << ".";
     std::flush(std::cout);
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
     std::cout << ".";
     std::flush(std::cout);
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
     std::cout << ".";
     std::flush(std::cout);
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     system("clear");
     MainMenu();
@@ -143,7 +143,7 @@ void Game::InitArmors()
     std::flush(std::cout);
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::cout << "Done\n";
-    std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
 
 void Game::InitPotions()
@@ -198,7 +198,7 @@ void Game::InitPotions()
     std::flush(std::cout);
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::cout << "Done\n";
-    std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
 
 void Game::InitSpells()
@@ -255,7 +255,7 @@ void Game::InitSpells()
     std::flush(std::cout);
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::cout << "Done\n";
-    std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
 
 void Game::InitGrid()
@@ -264,10 +264,10 @@ void Game::InitGrid()
     std::flush(std::cout);
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::cout << "Done\n";
-    std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
 
-/* void Game::printWeap()
+void Game::printWeap()
 {
     system("clear");
     std::cout << "\n\n";
@@ -281,7 +281,7 @@ void Game::InitGrid()
     std::cout << "Returning to Main Menu...\n";
     std::this_thread::sleep_for(std::chrono::milliseconds(60000));
     system("clear");
-} */
+}
 
 void Game::DIRPG()
 {
@@ -401,8 +401,8 @@ void Game::MainMenu()
     std::cout << "////////"                                << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(27) << "[ 2 ]\tDisplay Market" << std::setw(33) << "////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n";
-/*     std::cout << "////////" << std::setw(30) << "[ 3 ]\tPrint All Weapons" << std::setw(30) << "////////\n";
-    std::cout << "////////"                                << std::setw(63) << "////////\n"; */
+    std::cout << "////////" << std::setw(30) << "[ 3 ]\tPrint All Weapons" << std::setw(30) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(22) << "[ 0 ]\tQuit Game" << std::setw(38) << "////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n";
@@ -430,10 +430,10 @@ void Game::MainMenu()
             clearbuffer();
             DisplayMarket();
             break;
-/*      case 3:
+        case 3:
             clearbuffer();
             printWeap();
-            break; */
+            break;
         case 0:
             clearbuffer();
             ExitScreen();
@@ -792,9 +792,11 @@ void Game::CreateNewHero(heroType htype)
             MyHeroes.push_back(new Paladin(input_name));
             break;
     }
+    MyHeroes[MyHeroes.size()-1]->addToInv(AllWeapons[0]);
 
     std::cout << "\n\n";
     std::cout << "\tCreated a New Hero successfully!\n\n";
+    MyHeroes[MyHeroes.size()-1]->set_weapon(0);
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::cout << "\tReturning to Main Menu...\n";
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));

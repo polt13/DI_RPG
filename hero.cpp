@@ -28,7 +28,7 @@ Hero::Hero(const string MyName, int STR, int DEX, int AG)
     , Strength(STR)
     , Dexterity(DEX)
     , Agility(AG)
-    , Money(0)
+    , Money(100)
     , Experience(0)
     , XPmax(125)
     , RightHand(nullptr)
@@ -172,7 +172,7 @@ void Hero::use(int whichPotion)
     PotionsInv.erase(PotionsInv.begin() + whichPotion);
 }
 
-void Hero::equip(int whichWeapon, int hand)
+void Hero::set_weapon(int whichWeapon, int hand)
 {
     if (whichWeapon < 0 || (whichWeapon > WeaponsInv.size() - 1))
     {
