@@ -7,6 +7,7 @@
 class Hero;
 class Monster;
 
+
 enum class heroType
 {
     WARRIOR,
