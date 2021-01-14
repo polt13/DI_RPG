@@ -1,4 +1,5 @@
 #include "rpg_lib.hpp"
+#include <iomanip>
 market::market()
 {
     int itemcount = std::rand() % 4 + 1;
@@ -68,9 +69,9 @@ Spell* market::purchase(Hero* MyHero, int num)
 
 void market::menu()
 {
-    clearscreen();
+    Game::clearscreen();
     std::cout << "\n\n\tWelcome.." << std::endl;
-    clearscreen();
+    Game::clearscreen();
     std::cout << "//////////////////////////////////////////////////////////////////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(34) << "=== Market Menu ===" << std::setw(29) << "////////\n";
@@ -102,15 +103,15 @@ void market::visit(Hero& h)
     while (true) {
         menu();
         int input {};
-        std::cin << input;
+        std::cin >> input;
         switch (input) {
         case 1:
-            clearbuffer();
+            Game::clearbuffer();
             buyMenu(h);
             break;
 
         case 2:
-            clearbuffer();
+            Game::clearbuffer();
             sellMenu(h);
             break;
 
@@ -213,7 +214,7 @@ void market::move(std::vector<Hero*>& toMove)
     Game::clearbuffer();
 }
 
-void market::display()
+void market::displayStock()
 {
     std::cout << "Welcome!\n";
     unsigned int itemCount = 0;

@@ -246,8 +246,6 @@ void Game::InitSpells()
 void Game::InitGrid()
 {
 
-    Grid[0] = new common();
-
     std::cout << "\tInitializing Grid... ";
     std::flush(std::cout);
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
@@ -386,11 +384,11 @@ void Game::MainMenu()
     std::cout << "////////" << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(28) << "[ 1 ]\tCreate New Hero" << std::setw(32) << "////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(27) << "[ 2 ]\tMarket Menu..." << std::setw(33) << "////////\n";
+    /* std::cout << "////////" << std::setw(27) << "[ 2 ]\tMarket Menu..." << std::setw(33) << "////////\n";*/
     std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(30) << "[ 3 ]\tPrint All Weapons" << std::setw(30) << "////////\n";
+    std::cout << "////////" << std::setw(30) << "[ 2 ]\tPrint All Weapons" << std::setw(30) << "////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(22) << "[ 0 ]\tQuit Game" << std::setw(38) << "////////\n";
+    std::cout << "////////" << std::setw(22) << "[ 3 ]\tQuit Game" << std::setw(38) << "////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
     std::cout << "//////////////////////////////////////////////////////////////////////\n";
@@ -401,7 +399,7 @@ void Game::MainMenu()
 
     while (!(std::cin >> input) || input > 3) {
         std::cout << "\n";
-        std::cout << std::setw(50) << "Invalid input (Must be: 0 - 3)\n";
+        std::cout << std::setw(50) << "Invalid input (Must be: 1 - 3)\n";
         clearbuffer();
         std::cout << std::setw(37) << "Input: ";
     }
@@ -411,10 +409,10 @@ void Game::MainMenu()
         clearbuffer();
         NewHeroMenu();
         break;
-    case 2:
+    /*case 2:
         clearbuffer();
         MarketMenu();
-        break;
+        break;*/
     case 3:
         clearbuffer();
         printWeap();
@@ -443,7 +441,7 @@ void Game::DisplayMap()
         }
     }
 }
-
+/*
 void Game::TravelMenu()
 {
     clearscreen();
@@ -505,7 +503,7 @@ void Game::TravelMenu()
         MainMenu();
         break;
     }
-}
+}*/
 
 void Game::NewHeroMenu()
 {
@@ -838,7 +836,7 @@ void Game::CreateNewHero(heroType htype)
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     clearscreen();
 }
-
+/*
 void market::menu()
 {
     clearscreen();
@@ -1075,14 +1073,14 @@ void Game::SellMenu()
         break;
     }
 }
-
+*/
 void Game::clearbuffer()
 {
     std::cin.clear(); //reset possible error flag
     std::cin.ignore(500, '\n'); //clear buffer
 }
 
-void Game::clearscreen() const
+void Game::clearscreen()
 {
     std::cout << "\033c";
 }

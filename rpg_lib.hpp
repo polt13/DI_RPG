@@ -333,7 +333,7 @@ private:
     int Dimension;
 
     int ActiveHero;
-
+    std::vector<Hero*> MyHeroes;
     std::vector<Weapon*> AllWeapons;
     std::vector<Armor*> AllArmors;
     std::vector<Potion*> AllPotions;
@@ -382,7 +382,7 @@ public:
     void BuySpells();
 
     //  Clear Functions
-    void clearscreen() const;
+    void static clearscreen();
     void static clearbuffer();
 
     //  Accessors
