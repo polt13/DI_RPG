@@ -18,9 +18,12 @@ Hero::~Hero()
         delete s;
     for (auto& a : ArmorsInv)
         delete a;
+    delete LeftHand;
+    delete RightHand;
+    delete MyArmor;
 }
 
-Hero::Hero(const string MyName, int STR, int DEX, int AG, Weapon* MyWeapon, Armor* MyArmour, Spell* MySpell)
+Hero::Hero(const string& MyName, int STR, int DEX, int AG, Weapon* MyWeapon, Armor* MyArmour, Spell* MySpell)
     : MagicPower(150)
     , Strength(STR)
     , Dexterity(DEX)

@@ -6,7 +6,6 @@ using std::string;
 
 Monster::~Monster()
 {
-    //cout << "A Monster to be destroyed!" <'\n';
     std::cout << Name << '\n';
     std::cout << "Level: " << Level << '\n';
     std::cout << "HP: " << HealthPower
@@ -17,7 +16,7 @@ Monster::~Monster()
     std::cout << std::endl;
 }
 
-Monster::Monster(const string MyName, int LowDMG, int HighDMG, int DEF, int MissChance, int LvL)
+Monster::Monster(const string& MyName, int LowDMG, int HighDMG, int DEF, int MissChance, int LvL)
     : minDMG(LowDMG)
     , maxDMG(HighDMG)
     , Defense(DEF)

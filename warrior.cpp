@@ -5,13 +5,11 @@
 
 Warrior::~Warrior()
 {
-    //cout << "A Warrior to be destroyed!" << endl << endl;
 }
 
-Warrior::Warrior(const std::string MyName, Weapon* MyWeapon, Armor* MyArmour, Spell* MySpell)
+Warrior::Warrior(const std::string& MyName, Weapon* MyWeapon, Armor* MyArmour, Spell* MySpell)
     : Hero(MyName, 4, 2, 3, MyWeapon, MyArmour, MySpell)
 {
-    //cout << "A New Warrior has been created!" << endl << endl;
 }
 
 void Warrior::levelUp()

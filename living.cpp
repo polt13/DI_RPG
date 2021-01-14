@@ -9,7 +9,7 @@ Living::~Living()
 {
 }
 
-Living::Living(const string MyName, const int HP, int LvL)
+Living::Living(const string& MyName, const int HP, int LvL)
     : Name(MyName)
     , Level(LvL)
     , MaxHealthPower(HP)

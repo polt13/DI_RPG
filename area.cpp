@@ -2,7 +2,7 @@
 #include <iomanip>
 market::market()
 {
-    int itemcount = std::rand() % 4 + 1;
+    int itemcount = (std::rand() % 4) + 1;
     for (int i = 1; i <= itemcount; ++i) { //ADD RANDOM ITEMS
         potions.push_back(new Potion("Item", std::rand() % 10, 5, potionType::HP));
         spells.push_back(new FireSpell("Potion", std::rand() % 10, 1, 2, 3, 4, 5));
@@ -291,6 +291,8 @@ void common::fight_start()
     }
 
     fight(Enemies);
+
+    //after battle is done//
     for (auto& e : Enemies) {
         delete e;
     }
@@ -302,7 +304,7 @@ void common::fight(std::vector<Monster*>& enemies)
     while (end_fight(enemies) == false) {
         auto whoAttacks = 0;
         auto whichMonsterAttacks = 0;
-        char option {};
+        char option = 0;
         do {
             Game::clearbuffer();
             std::cout << "I for inventory, A for attack, D for stats display";
@@ -388,18 +390,18 @@ void common::fight(std::vector<Monster*>& enemies)
         ++rounds;
     }
     bool all_dead = true;
-    for (const auto& h : squad) { //find if all heroes dead
+    for (auto h : squad) { //find if all heroes dead
         if (h->get_hp() != 0) {
             all_dead = false;
-            for (auto& h : squad) {
-                h->set_xp(enemies[0]->getLevel() * 5); //get xp based on level of enemy
-                h->addMoney(enemies[0]->getLevel() * 3); //get money based on level of enemy
-            }
+            h->set_xp(enemies[0]->getLevel() * 5); //get xp based on level of enemy
+            h->addMoney(enemies[0]->getLevel() * 3); //get money based on level of enemy
         }
     }
+    if (all_dead == false)
+        return; //not all heroes dead
 
     //if reached here -- all heroes are dead -- revive them with some HP and cost half the money
-    for (auto& h : squad) {
+    for (auto h : squad) {
         h->moneyLoss();
         //revive with some HP
         h->revive();
@@ -417,11 +419,11 @@ void common::end_round(std::vector<Monster*>& enemies)
 
 void common::displayStats(const std::vector<Monster*>& enemies) const
 {
-    for (const auto& m : enemies) {
+    for (const auto m : enemies) {
         m->displayStats();
     }
     std::cout << std::endl;
-    for (const auto& h : squad) {
+    for (const auto h : squad) {
         h->displayStats();
     }
 }
@@ -430,13 +432,13 @@ bool common::end_fight(const std::vector<Monster*>& enemies)
 {
     //check if all heroes/monsters are dead
     bool heroes_dead = false, monsters_dead = false;
-    for (const auto& monster : enemies) {
+    for (const auto monster : enemies) {
         if (monster->get_hp() != 0) {
             monsters_dead = false;
         }
     }
 
-    for (const auto& h : squad) {
+    for (const auto h : squad) {
         if (h->get_hp() != 0) {
             heroes_dead = false;
         }
@@ -483,12 +485,19 @@ void market::acquire(Spell* s)
 
 market::~market()
 {
-    for (auto& w : weapons)
+    for (auto w : weapons)
         delete w;
-    for (auto& p : potions)
+    for (auto p : potions)
         delete p;
-    for (auto& s : spells)
+    for (auto s : spells)
         delete s;
-    for (auto& a : armors)
+    for (auto a : armors)
         delete a;
+}
+block::~block()
+{
+    //delete heroes in block;
+    for (auto h : squad) {
+        delete h;
+    }
 }

@@ -3,10 +3,8 @@
 #include <thread>
 Grid::Grid()
 {
-    std::cout << "CONSTRUCTOR!!\n";
-    std::cout << grid.size() << '\n';
-    int marketcount {};
-    int blockcount {};
+    hero_pos = 0;
+
     for (auto block = 0; block < grid.size(); block++) {
         if (block == 11) {
             grid[block] = new market();
@@ -26,6 +24,21 @@ void Grid::displayMap()
             std::cout << "|";
             printed = 0;
             std::cout << '\n';
+        }
+    }
+}
+
+void Grid::move(std::string m)
+{
+    std::string dir;
+    while (std::getline(std::cin, dir)) {
+        if (dir == "up") {
+
+        } else if (dir == "down") {
+
+        } else if (dir == "left") {
+
+        } else if (dir == "right") {
         }
     }
 }

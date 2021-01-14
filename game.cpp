@@ -21,8 +21,7 @@ Game::Game()
 
 Game::~Game()
 {
-    for (auto h : MyHeroes)
-        delete h;
+
     for (auto w : AllWeapons)
         delete w;
     for (auto a : AllArmors)
@@ -31,6 +30,7 @@ Game::~Game()
         delete s;
     for (auto p : AllPotions)
         delete p;
+    delete grid;
 }
 
 void Game::StartScreen()

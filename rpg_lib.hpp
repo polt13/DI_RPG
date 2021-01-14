@@ -38,6 +38,7 @@ enum class gearType {
 class Item {
 public:
     virtual void print() const = 0;
+    virtual ~Item() = default;
 
 protected:
     const std::string name;
@@ -128,7 +129,7 @@ protected:
     bool Faint;
 
 public:
-    Living(const std::string, const int, int = 1);
+    Living(const std::string&, const int, int = 1);
     virtual ~Living() = 0;
     void regenHP();
     void decrease_hp(int);
@@ -162,7 +163,7 @@ public:
     void addMoney(int);
     void sell(market&);
     void displayStats() const;
-    Hero(const std::string, int, int, int, Weapon*, Armor*, Spell*);
+    Hero(const std::string&, int, int, int, Weapon*, Armor*, Spell*);
     void moneyLoss();
     virtual ~Hero() = 0;
     void revive();
@@ -207,7 +208,7 @@ public:
 
 class Warrior : public Hero {
 public:
-    Warrior(const std::string, Weapon*, Armor*, Spell*);
+    Warrior(const std::string&, Weapon*, Armor*, Spell*);
     ~Warrior();
 
     void levelUp();
@@ -215,7 +216,7 @@ public:
 
 class Sorcerer : public Hero {
 public:
-    Sorcerer(const std::string, Weapon*, Armor*, Spell*);
+    Sorcerer(const std::string&, Weapon*, Armor*, Spell*);
     ~Sorcerer();
 
     void levelUp();
@@ -223,7 +224,7 @@ public:
 
 class Paladin : public Hero {
 public:
-    Paladin(const std::string, Weapon*, Armor*, Spell*);
+    Paladin(const std::string&, Weapon*, Armor*, Spell*);
     ~Paladin();
 
     void levelUp();
@@ -239,7 +240,7 @@ protected:
 
 public:
     void displayStats() const;
-    Monster(const std::string, int, int, int, int, int);
+    Monster(const std::string&, int, int, int, int, int);
     virtual ~Monster() = 0;
 
     int get_defense() const;
@@ -252,19 +253,19 @@ public:
 
 class Dragon : public Monster {
 public:
-    Dragon(const std::string, int = 1);
+    Dragon(const std::string&, int = 1);
     ~Dragon();
 };
 
 class Exoskeleton : public Monster {
 public:
-    Exoskeleton(const std::string, int = 1);
+    Exoskeleton(const std::string&, int = 1);
     ~Exoskeleton();
 };
 
 class Spirit : public Monster {
 public:
-    Spirit(const std::string, int = 1);
+    Spirit(const std::string&, int = 1);
     ~Spirit();
 };
 
@@ -275,6 +276,7 @@ protected:
     std::vector<Hero*> squad;
 
 public:
+    virtual ~block() = 0;
     virtual void printBlock() const = 0;
     virtual void move(std::vector<Hero*>&) = 0;
 };
@@ -310,7 +312,6 @@ public:
 class common : public block {
     void end_round(std::vector<Monster*>&);
     bool end_fight(const std::vector<Monster*>&); //check if time to end fight
-
     void fight(std::vector<Monster*>&);
 
 public:
@@ -331,6 +332,7 @@ class Grid {
 private:
     //5x5 grid
     std::array<block*, 25> grid;
+    int hero_pos;
 
 public:
     Grid();
@@ -346,11 +348,12 @@ private:
     bool playing;
     int Dimension;
     int ActiveHero;
-    std::vector<Hero*> MyHeroes;
+
     std::vector<Weapon*> AllWeapons;
     std::vector<Armor*> AllArmors;
     std::vector<Potion*> AllPotions;
     std::vector<Spell*> AllSpells;
+    std::vector<Hero*> MyHeroes;
 
 public:
     Game();
