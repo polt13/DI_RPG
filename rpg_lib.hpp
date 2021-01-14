@@ -322,32 +322,47 @@ class Game
         virtual ~Game();
 
         void StartScreen();
+        void ExitScreen();
+
+        //  DI_RPG Menu
+        void DIRPG();
+        void MainMenu();
+        void CreditsScreen();
+
+        //  Initialization
         void InitGame();
         void InitWeapons();
         void InitArmors();
         void InitPotions();
         void InitSpells();
         void InitGrid();
-        void printWeap();
-        void DIRPG();
-        void CreditsScreen();
-        void ExitScreen();
-        void MainMenu();
-        void DisplayMap();
+
+        //  Main Menu
         void NewHeroMenu();
+        void DisplayMarket();
+        void printWeap();
+        
+        void DisplayMap();
+
+        //  New Hero Menu
         void WarriorInfo();
         void SorcererInfo();
         void PaladinInfo();
         void CreateNewHero(heroType);
-        void DisplayMarket();
+
+        //  Market Menu
         void BuyMenu();
+        void SellMenu();
         void BuyWeapons();
         void BuyArmors();
         void BuyPotions();
         void BuySpells();
-        void SellMenu();
 
+        //  Clear Functions
+        void clearscreen() const;
         void clearbuffer();
+
+        //  Accessors
         bool get_playing() const;
 };
 
