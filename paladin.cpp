@@ -1,19 +1,19 @@
 //  File Name:  paladin_constr.cpp
 
-#include <iostream>
 #include "rpg_lib.hpp"
+#include <iostream>
 
 using namespace std;
 
 Paladin::~Paladin()
 {
-    cout << "A Paladin to be destroyed!" << endl << endl;
+    //cout << "A Paladin to be destroyed!" << endl << endl;
 }
 
-Paladin::Paladin(const string MyName)
-        : Hero(MyName, 4, 3, 2)
+Paladin::Paladin(const string MyName, Weapon* MyWeapon, Armor* MyArmour, Spell* MySpell)
+    : Hero(MyName, 4, 3, 2, MyWeapon, MyArmour, MySpell)
 {
-    cout << "A New Paladin has been created!" << endl << endl;
+    //cout << "A New Paladin has been created!" << endl << endl;
 }
 
 void Paladin::levelUp()

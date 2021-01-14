@@ -12,7 +12,10 @@ int main()
     Game MyGame;
 
     MyGame.StartScreen();
+    MyGame.DIRPG();
 
     while (MyGame.get_playing())
         MyGame.MainMenu();
+
+    return 0;
 }

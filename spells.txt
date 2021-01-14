@@ -1,0 +1,91 @@
+Flame	100	1	10	20	40	3	1
+Torch	100	1	10	20	40	3	1
+Eruption	100	1	10	20	40	3	2
+Flare	100	1	10	20	40	3	2
+Blaze	100	1	10	20	40	3	2
+Inferno	100	1	10	20	40	3	2
+Fireball	100	1	10	20	40	3	3
+Explosion	100	1	10	20	40	3	3
+Meteor	100	1	10	20	40	3	1
+Salamander’s Blade	100	1	10	20	40	3	2
+Dragon Fire	100	1	10	20	40	3	3
+Sinkhole	100	1	10	20	40	3	2
+Pit	100	1	10	20	40	3	1
+Chasm	100	1	10	20	40	3	3
+Vine	100	1	10	20	40	3	2
+Thorn	100	1	10	20	40	3	1
+Nettle	100	1	10	20	40	3	3
+Rockfall	100	1	10	20	40	3	1
+Landslide	100	1	10	20	40	3	1
+Avalanche	100	1	10	20	40	3	1
+Chill	100	1	10	20	40	3	2
+Freeze	100	1	10	20	40	3	1
+Frostbite	100	1	10	20	40	3	1
+Douse	100	1	10	20	40	3	1
+Deluge	100	1	10	20	40	3	2
+Flood	100	1	10	20	40	3	2
+Wave	100	1	10	20	40	3	1
+Surge	100	1	10	20	40	3	1
+Tsunami	100	1	10	20	40	3	2
+Nyad’s Lore	100	1	10	20	40	3	2
+Sleep	100	1	10	20	40	3	3
+Slumber	100	1	10	20	40	3	3
+Shock	100	1	10	20	40	3	1
+Bolt	100	1	10	20	40	3	2
+Plasma	100	1	10	20	40	3	3
+Gust	100	1	10	20	40	3	1
+Gale	100	1	10	20	40	3	3
+Tempest	100	1	10	20	40	3	2
+Whirlwhind	100	1	10	20	40	3	2
+Cyclone	100	1	10	20	40	3	2
+Vortex	100	1	10	20	40	3	1
+Wyvern’s Wings	100	1	10	20	40	3	1
+Daze	100	1	10	20	40	3	2
+Stun	100	1	10	20	40	3	3
+Confuse	100	1	10	20	40	3	3
+Light	100	1	10	20	40	3	3
+Flash	100	1	10	20	40	3	3
+Radiance	100	1	10	20	40	3	2
+Cleanse	100	1	10	20	40	3	3
+Scour	100	1	10	20	40	3	3
+Purge	100	1	10	20	40	3	2
+Wrath	100	1	10	20	40	3	1
+Retribution	100	1	10	20	40	3	1
+Judgment	100	1	10	20	40	3	1
+Angel’s Mercy	100	1	10	20	40	3	2
+Darkness	100	1	10	20	40	3	3
+Shade	100	1	10	20	40	3	3
+Gloom	100	1	10	20	40	3	1
+Decay	100	1	10	20	40	3	1
+Fester	100	1	10	20	40	3	3
+Corrupt	100	1	10	20	40	3	3
+Spite	100	1	10	20	40	3	2
+Rancor	100	1	10	20	40	3	2
+Malice	100	1	10	20	40	3	1
+Demon’s Rage	100	1	10	20	40	3	1
+Drain	100	1	10	20	40	3	3
+Siphon	100	1	10	20	40	3	2
+Void	100	1	10	20	40	3	1
+Bolt Strike	100	1	10	20	40	3	1
+Freeze Wave	100	1	10	20	40	3	1
+Inferno Blaze	100	1	10	20	40	3	2
+Channel Energy	100	1	10	20	40	3	2
+Shadow Blade	100	1	10	20	40	3	1
+Heaven's Sword	100	1	10	20	40	3	1
+Blazing Katana	100	1	10	20	40	3	2
+Staff of Ice	100	1	10	20	40	3	3
+Arrow of Purity	100	1	10	20	40	3	2
+Blazing Arrows	100	1	10	20	40	3	3
+Burn the Soul	100	1	10	20	40	3	2
+Fire Wings	100	1	10	20	40	3	2
+Fury of Osano-Wo	100	1	10	20	40	3	2
+Gaijin Flames	100	1	10	20	40	3	3
+Hungry Blade	100	1	10	20	40	3	1
+Yakamo’s Wrath	100	1	10	20	40	3	2
+Yakamo’s Eye	100	1	10	20	40	3	3
+Breath of Suitengu	100	1	10	20	40	3	1
+The Inner Ocean	100	1	10	20	40	3	1
+Surging Soul	100	1	10	20	40	3	3
+Endless Depth	100	1	10	20	40	3	2
+Kharmic Intent	100	1	10	20	40	3	3
+Whispered Blade	100	1	10	20	40	3	1

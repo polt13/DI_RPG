@@ -9,19 +9,6 @@ using std::string;
 
 Hero::~Hero()
 {
-    //std::cout << "A Hero to be destroyed!" <<'\n';
-    /*std::cout << Name << '\n';
-    std::cout << "Level: " << Level << '\n';
-    std::cout << "HP: " << HealthPower << '\n';
-    std::cout << "MP: " << MagicPower << '\n';
-    std::cout << "STR: " << Strength << '\n';
-    std::cout << "DEX: " << Dexterity << '\n';
-    std::cout << "AG: " << Agility
-              << "\n\n";
-    std::cout << "Money: " << Money << '\n';
-    std::cout << "XP: " << Experience << " / " << XPmax << '\n';
-    std::cout << std::endl;*/
-
     //cleanup
     for (auto& w : WeaponsInv)
         delete w;
@@ -33,31 +20,20 @@ Hero::~Hero()
         delete a;
 }
 
-Hero::Hero(const string MyName, int STR, int DEX, int AG)
+Hero::Hero(const string MyName, int STR, int DEX, int AG, Weapon* MyWeapon, Armor* MyArmour, Spell* MySpell)
     : MagicPower(150)
     , Strength(STR)
     , Dexterity(DEX)
     , Agility(AG)
-    , Money(0)
+    , Money(100)
     , Experience(0)
     , XPmax(125)
-    , RightHand(nullptr)
+    , RightHand(MyWeapon)
     , LeftHand(nullptr)
-    , MyArmor(nullptr)
+    , MyArmor(MyArmour)
     , Living(MyName, 50)
 {
-    //std::cout << "A New Hero has been created!" << endl <<'\n';
-    std::cout << Name << '\n';
-    std::cout << "Level: " << Level << '\n';
-    std::cout << "HP: " << MaxHealthPower << '\n';
-    std::cout << "MP: " << MagicPower
-              << '\n';
-    std::cout << "STR: " << Strength << '\n';
-    std::cout << "DEX: " << Dexterity << '\n';
-    std::cout << "AG: " << Agility << "\n\n";
-    std::cout << "Money: " << Money << '\n';
-    std::cout << "XP: " << Experience << " / " << XPmax << '\n';
-    std::cout << '\n';
+    SpellsInv.push_back(MySpell); //start with one spell;
 }
 
 void Hero::set_xp(const int value)
@@ -66,6 +42,16 @@ void Hero::set_xp(const int value)
     if (Experience > XPmax) {
         levelUp();
     }
+}
+
+int Hero::get_strength() const
+{
+    return Strength;
+}
+
+int Hero::get_dexterity() const
+{
+    return Dexterity;
 }
 
 int Hero::get_agility() const
@@ -223,6 +209,18 @@ void Hero::levelUp(int str, int dex, int ag)
     Strength = MaxStr;
 }
 
+/* void Hero::purchase(market* MyMarket, std::string itype, int input)
+{
+    if (itype == "Weapons")
+        WeaponsInv.push_back(MyMarket->purchase(this, input));
+    else if (itype == "Armors")
+        ArmorsInv.push_back(MyMarket->purchase(this, input));
+    else if (itype == "Potions")
+        PotionsInv.push_back(MyMarket->purchase(this, input));
+    else
+        SpellsInv.push_back(MyMarket->purchase(this, input));
+} */
+
 void Hero::buy(Weapon* w)
 {
     Money -= w->getPrice();
@@ -271,7 +269,7 @@ void Hero::use(int whichPotion)
     PotionsInv.erase(PotionsInv.begin() + whichPotion);
 }
 
-void Hero::equip(int whichWeapon, int hand)
+void Hero::set_weapon(int whichWeapon, int hand)
 {
     if (whichWeapon < 0 || (whichWeapon > WeaponsInv.size() - 1)) {
         std::cout << "Invalid position of Weapon (Must be: 0 - " << WeaponsInv.size() - 1 << ")\n ";

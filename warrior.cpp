@@ -1,19 +1,17 @@
 //  File Name:  warrior_constr.cpp
 
-#include <iostream>
 #include "rpg_lib.hpp"
-
-using namespace std;
+#include <iostream>
 
 Warrior::~Warrior()
 {
-    cout << "A Warrior to be destroyed!" << endl << endl;
+    //cout << "A Warrior to be destroyed!" << endl << endl;
 }
 
-Warrior::Warrior(const string MyName)
-        : Hero(MyName, 4, 2, 3)
+Warrior::Warrior(const std::string MyName, Weapon* MyWeapon, Armor* MyArmour, Spell* MySpell)
+    : Hero(MyName, 4, 2, 3, MyWeapon, MyArmour, MySpell)
 {
-    cout << "A New Warrior has been created!" << endl << endl;
+    //cout << "A New Warrior has been created!" << endl << endl;
 }
 
 void Warrior::levelUp()
