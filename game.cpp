@@ -64,6 +64,7 @@ void Game::InitGame()
     //sleep(2);
 
     system("clear");
+    MainMenu();
 }
 
 void Game::InitWeapons()
@@ -277,6 +278,57 @@ void Game::InitGrid()
     system("clear");
 } */
 
+void Game::DIRPG()
+{
+    system("clear");
+    std::cout << "\n\n\tLoading.." << std::endl;
+    system("clear");
+    std::cout << "//////////////////////////////////////////////////////////////////////\n";
+    std::cout << "////////" << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(34) << "=== DI_RPG ===" << std::setw(29) << "////////\n";
+    std::cout << "////////" << std::setw(63) << "////////\n";
+    std::cout << "//////////////////////////////////////////////////////////////////////\n";
+    std::cout << "//////////////////////////////////////////////////////////////////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(22) << "[ 1 ]\tPlay Game" << std::setw(38) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(20) << "[ 2 ]\tCredits" << std::setw(40) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(22) << "[ 0 ]\tQuit Game" << std::setw(38) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "////////"                                << std::setw(63) << "////////\n";
+    std::cout << "//////////////////////////////////////////////////////////////////////\n";
+    
+    std::cout << "\n";
+
+    std::cout << std::setw(37) << "Input: ";
+
+    while(!(std::cin >> input) || input > 2)
+    {
+        std::cout << "\n";
+        std::cout << std::setw(50) << "Invalid input (Must be: 0 - 2)\n";
+        clearbuffer();
+        std::cout << std::setw(37) << "Input: ";
+    }
+
+    switch(input)
+    {
+        case 1:
+            clearbuffer();
+            InitGame();
+            break;
+        case 2:
+            clearbuffer();
+            CreditsScreen();
+            break;
+        case 0:
+            clearbuffer();
+            ExitScreen();
+            break;
+    }
+}
+
 void Game::CreditsScreen()
 {
     system("clear");
@@ -284,24 +336,24 @@ void Game::CreditsScreen()
     system("clear");
     std::cout << "//////////////////////////////////////////////////////////////////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(36) << "=== Credits ===" << std::setw(27) << "////////\n";
+    std::cout << "////////" << std::setw(35) << "=== Credits ===" << std::setw(28) << "////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
     std::cout << "//////////////////////////////////////////////////////////////////////\n";
     std::cout << "//////////////////////////////////////////////////////////////////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(37) << "Polydoros Tamtamis" << std::setw(26) << "////////\n";
-    std::cout << "////////" << std::setw(33) << "sdi1900184" << std::setw(30) << "////////\n";
+    std::cout << "////////" << std::setw(36) << "Polydoros Tamtamis" << std::setw(27) << "////////\n";
+    std::cout << "////////" << std::setw(32) << "sdi1900184" << std::setw(31) << "////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(36) << "Christos Ioannou" << std::setw(27) << "////////\n";
-    std::cout << "////////" << std::setw(33) << "sdi1900222" << std::setw(30) << "////////\n";
+    std::cout << "////////" << std::setw(35) << "Christos Ioannou" << std::setw(28) << "////////\n";
+    std::cout << "////////" << std::setw(32) << "sdi1900222" << std::setw(31) << "////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n";
     std::cout << "//////////////////////////////////////////////////////////////////////\n";
 
     std::cout << "\n";
 
-    std::cout << "\tReturning to Main Menu in\n";
+    std::cout << "\tReturning to DI_RPG in\n";
     sleep(1); 
     for(int i=5; i>=1; i--)
     {
@@ -311,7 +363,7 @@ void Game::CreditsScreen()
         sleep(1);
     }
     system("clear");
-    MainMenu();
+    DIRPG();
 }
 
 void Game::ExitScreen()
@@ -340,15 +392,11 @@ void Game::MainMenu()
     std::cout << "//////////////////////////////////////////////////////////////////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(22) << "[ 1 ]\tPlay Game" << std::setw(38) << "////////\n";
+    std::cout << "////////" << std::setw(28) << "[ 1 ]\tCreate New Hero" << std::setw(32) << "////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(20) << "[ 2 ]\tCredits" << std::setw(40) << "////////\n";
+    std::cout << "////////" << std::setw(27) << "[ 2 ]\tDisplay Market" << std::setw(33) << "////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(28) << "[ 3 ]\tCreate New Hero" << std::setw(32) << "////////\n";
-    std::cout << "////////"                                << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(27) << "[ 4 ]\tDisplay Market" << std::setw(33) << "////////\n";
-    std::cout << "////////"                                << std::setw(63) << "////////\n";
-/*     std::cout << "////////" << std::setw(30) << "[ 5 ]\tPrint All Weapons" << std::setw(30) << "////////\n";
+/*     std::cout << "////////" << std::setw(30) << "[ 3 ]\tPrint All Weapons" << std::setw(30) << "////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n"; */
     std::cout << "////////" << std::setw(22) << "[ 0 ]\tQuit Game" << std::setw(38) << "////////\n";
     std::cout << "////////"                                << std::setw(63) << "////////\n";
@@ -359,10 +407,10 @@ void Game::MainMenu()
 
     std::cout << std::setw(37) << "Input: ";
 
-    while(!(std::cin >> input) || input > 9)
+    while(!(std::cin >> input) || input > 3)
     {
         std::cout << "\n";
-        std::cout << std::setw(50) << "Invalid input (Must be: 0 - 9)\n";
+        std::cout << std::setw(50) << "Invalid input (Must be: 0 - 3)\n";
         clearbuffer();
         std::cout << std::setw(37) << "Input: ";
     }
@@ -370,20 +418,14 @@ void Game::MainMenu()
     switch(input)
     {
         case 1:
-            break;
-        case 2:
-            clearbuffer();
-            CreditsScreen();
-            break;
-        case 3:
             clearbuffer();
             NewHeroMenu();
             break;
-        case 4:
+        case 2:
             clearbuffer();
             DisplayMarket();
             break;
-/*         case 5:
+/*      case 3:
             clearbuffer();
             printWeap();
             break; */
