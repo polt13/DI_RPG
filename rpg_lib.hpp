@@ -9,6 +9,7 @@
 class Hero;
 class Monster;
 class market;
+class block;
 
 enum class heroType {
     WARRIOR,
@@ -326,12 +327,24 @@ public:
     Monster* m;
 };
 
+class Grid {
+private:
+    //5x5 grid
+    std::array<block*, 25> grid;
+
+public:
+    Grid();
+    void displayMap();
+    void move(std::string);
+    ~Grid();
+};
+
 class Game {
 private:
+    Grid* grid;
     int input;
     bool playing;
     int Dimension;
-
     int ActiveHero;
     std::vector<Hero*> MyHeroes;
     std::vector<Weapon*> AllWeapons;

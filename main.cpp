@@ -16,6 +16,4 @@ int main()
 
     while (MyGame.get_playing())
         MyGame.MainMenu();
-
-    return 0;
 }

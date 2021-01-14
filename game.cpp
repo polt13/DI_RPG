@@ -6,8 +6,6 @@
 #include <iostream>
 #include <stdio.h>
 #include <thread> //  for sleep
-//  Needed for sleep function
-#include "grid.hpp"
 #ifdef _WIN32
 #include <Windows.h>
 #else
@@ -23,8 +21,16 @@ Game::Game()
 
 Game::~Game()
 {
-    for (auto it = MyHeroes.begin(); it != MyHeroes.end(); ++it)
-        delete (*it);
+    for (auto h : MyHeroes)
+        delete h;
+    for (auto w : AllWeapons)
+        delete w;
+    for (auto a : AllArmors)
+        delete a;
+    for (auto s : AllSpells)
+        delete s;
+    for (auto p : AllPotions)
+        delete p;
 }
 
 void Game::StartScreen()
@@ -247,6 +253,7 @@ void Game::InitGrid()
 {
 
     std::cout << "\tInitializing Grid... ";
+    grid = new Grid(); //draw map
     std::flush(std::cout);
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::cout << "Done\n";
@@ -388,7 +395,9 @@ void Game::MainMenu()
     std::cout << "////////" << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(30) << "[ 2 ]\tPrint All Weapons" << std::setw(30) << "////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(22) << "[ 3 ]\tQuit Game" << std::setw(38) << "////////\n";
+    std::cout << "////////" << std::setw(30) << "[ 3 ]\tDisplay Map" << std::setw(30) << "////////\n";
+    std::cout << "////////" << std::setw(63) << "////////\n";
+    std::cout << "////////" << std::setw(22) << "[ 0 ]\tQuit Game" << std::setw(38) << "////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
     std::cout << "//////////////////////////////////////////////////////////////////////\n";
@@ -397,9 +406,9 @@ void Game::MainMenu()
 
     std::cout << std::setw(37) << "Input: ";
 
-    while (!(std::cin >> input) || input > 3) {
+    while (!(std::cin >> input) || input > 4) {
         std::cout << "\n";
-        std::cout << std::setw(50) << "Invalid input (Must be: 1 - 3)\n";
+        std::cout << std::setw(50) << "Invalid input (Must be: 1 - 4)\n";
         clearbuffer();
         std::cout << std::setw(37) << "Input: ";
     }
@@ -415,6 +424,10 @@ void Game::MainMenu()
         break;*/
     case 3:
         clearbuffer();
+        grid->displayMap();
+        break;
+    case 4:
+        clearbuffer();
         printWeap();
         break;
     case 0:
@@ -424,25 +437,7 @@ void Game::MainMenu()
     }
 }
 
-void Game::DisplayMap()
-{
-    clearscreen();
-    std::cout << "\n\n\tLoading.." << std::endl;
-    clearscreen();
-    int printed = 0;
-    for (int i = 0; i < 16; i++) {
-        std::cout << "|";
-        //Grid[i]->print();
-        printed++;
-        if (printed == 4) {
-            printed = 0;
-            std::cout << "|";
-            putchar('\n');
-        }
-    }
-}
-/*
-void Game::TravelMenu()
+/*void Game::TravelMenu()
 {
     clearscreen();
     std::cout << "\n\n\tLoading.." << std::endl;
@@ -503,7 +498,8 @@ void Game::TravelMenu()
         MainMenu();
         break;
     }
-}*/
+}
+*/
 
 void Game::NewHeroMenu()
 {
