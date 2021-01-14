@@ -4,6 +4,8 @@
 #include <cstdlib>
 #include <iomanip>
 #include <stdio.h>
+#include <chrono>   //
+#include <thread>   //  for sleep
 //  Needed for sleep function
 #ifdef _WIN32
 #include <Windows.h>
@@ -49,19 +51,17 @@ void Game::InitGame()
     
     std::cout << "\n";
     std::cout << "\tOpening DI_RPG ";
-    fflush(stdout);
-    sleep(1);
+    std::flush(std::cout);
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::cout << ".";
-    fflush(stdout);
-    sleep(1);
+    std::flush(std::cout);
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::cout << ".";
-    fflush(stdout);
-    sleep(1);
+    std::flush(std::cout);
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::cout << ".";
-    fflush(stdout);
-    sleep(1);
-
-    //sleep(2);
+    std::flush(std::cout);
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     system("clear");
     MainMenu();
@@ -103,9 +103,10 @@ void Game::InitWeapons()
     inFile.close();
 
     std::cout << "\tInitializing All Weapons... ";
-    fflush(stdout);
-    sleep(1);
+    std::flush(std::cout);
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::cout << "Done\n";
+    std::this_thread::sleep_for(std::chrono::milliseconds(200));
 }
 
 void Game::InitArmors()
@@ -139,9 +140,10 @@ void Game::InitArmors()
     inFile.close();
 
     std::cout << "\tInitializing All Armors... ";
-    fflush(stdout);
-    sleep(1);
+    std::flush(std::cout);
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::cout << "Done\n";
+    std::this_thread::sleep_for(std::chrono::milliseconds(200));
 }
 
 void Game::InitPotions()
@@ -193,9 +195,10 @@ void Game::InitPotions()
     inFile.close();
 
     std::cout << "\tInitializing All Potions... ";
-    fflush(stdout);
-    sleep(1);
+    std::flush(std::cout);
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::cout << "Done\n";
+    std::this_thread::sleep_for(std::chrono::milliseconds(200));
 }
 
 void Game::InitSpells()
@@ -249,17 +252,19 @@ void Game::InitSpells()
     inFile.close();
 
     std::cout << "\tInitializing All Spells... ";
-    fflush(stdout);
-    sleep(1);
+    std::flush(std::cout);
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::cout << "Done\n";
+    std::this_thread::sleep_for(std::chrono::milliseconds(200));
 }
 
 void Game::InitGrid()
 {
     std::cout << "\tInitializing Grid... ";
-    fflush(stdout);
-    sleep(1);
+    std::flush(std::cout);
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::cout << "Done\n";
+    std::this_thread::sleep_for(std::chrono::milliseconds(200));
 }
 
 /* void Game::printWeap()
@@ -274,7 +279,7 @@ void Game::InitGrid()
     std::cout << AllPotions.size() << "\n" << AllSpells.size() << "\n";
     std::cout << "\n\n";
     std::cout << "Returning to Main Menu...\n";
-    sleep(60);
+    std::this_thread::sleep_for(std::chrono::milliseconds(60000));
     system("clear");
 } */
 
@@ -354,13 +359,13 @@ void Game::CreditsScreen()
     std::cout << "\n";
 
     std::cout << "\tReturning to DI_RPG in\n";
-    sleep(1); 
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000)); 
     for(int i=5; i>=1; i--)
     {
         for(int y=5; y>=i; y--)
             std::cout << "\t";
         std::cout << i << "..\n";
-        sleep(1);
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
     system("clear");
     DIRPG();
@@ -375,7 +380,7 @@ void Game::ExitScreen()
     std::cout << "\tThank you for playing DI_RPG\n\n";
     std::cout << "\tQuitting Game...\n\n";
     playing = false;
-    sleep(2);
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     system("clear");
 }
 
@@ -708,11 +713,11 @@ void Game::CreateNewHero(heroType htype)
     {
         std::cout << "\n\n";
         std::cout << "\tMaximum number of Heroes is reached!\n\n";
-        sleep(1);
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         std::cout << "\tYou cannot create more Heroes\n\n";
-        sleep(1);
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         std::cout << "\tReturning to Main Menu...\n";
-        sleep(1);
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         system("clear");
         MainMenu();
     }
@@ -790,9 +795,9 @@ void Game::CreateNewHero(heroType htype)
 
     std::cout << "\n\n";
     std::cout << "\tCreated a New Hero successfully!\n\n";
-    sleep(1);
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::cout << "\tReturning to Main Menu...\n";
-    sleep(1);
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     system("clear");
 }
 
