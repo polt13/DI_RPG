@@ -331,7 +331,7 @@ public:
 class Grid {
 private:
     //5x5 grid
-    std::array<block*, 25> grid;
+    std::array<std::array<block*, 5>, 5> grid; //simulate 2D Matrix of abstract type
     int hero_pos;
 
 public:

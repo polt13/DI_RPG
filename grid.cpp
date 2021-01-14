@@ -5,27 +5,31 @@ Grid::Grid()
 {
     hero_pos = 0;
 
-    for (auto block = 0; block < grid.size(); block++) {
-        if (block == 11) {
-            grid[block] = new market();
-        } else
-            grid[block] = new common();
+    for (auto row = 0; row < grid.size(); row++) {
+        for (auto col = 0; col < grid[row].size(); col++) {
+            if (row == (2 * col) + 1)
+                grid[row][col] = new market;
+            else if (row == col + 3)
+                grid[row][col] = new inaccessible();
+            else
+                grid[row][col]
+                    = new common();
+        }
     }
 }
 
 void Grid::displayMap()
 {
     Game::clearscreen();
-    auto printed = 0;
     for (auto r = 0; r < grid.size(); ++r) {
-        std::cout << "|";
-        grid[r]->printBlock();
-        if (++printed == 5) {
+        for (auto c = 0; c < grid[r].size(); ++c) {
+
             std::cout << "|";
-            printed = 0;
-            std::cout << '\n';
+            grid[r][c]->printBlock();
         }
     }
+    std::cout << "|";
+    std::cout << '\n';
 }
 
 void Grid::move(std::string m)
@@ -45,7 +49,8 @@ void Grid::move(std::string m)
 
 Grid::~Grid()
 {
-    for (auto p : grid) {
-        delete p;
+    for (auto r = 0; r < grid.size(); r++) {
+        for (auto c = 0; c < grid[r].size(); c++)
+            delete grid[r][c];
     }
 }
