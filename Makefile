@@ -231,33 +231,6 @@ game.cpp.s:
 	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/game.cpp.s
 .PHONY : game.cpp.s
 
-grid.o: grid.cpp.o
-
-.PHONY : grid.o
-
-# target to build an object file
-grid.cpp.o:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/grid.cpp.o
-.PHONY : grid.cpp.o
-
-grid.i: grid.cpp.i
-
-.PHONY : grid.i
-
-# target to preprocess a source file
-grid.cpp.i:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/grid.cpp.i
-.PHONY : grid.cpp.i
-
-grid.s: grid.cpp.s
-
-.PHONY : grid.s
-
-# target to generate assembly for a file
-grid.cpp.s:
-	$(MAKE) -f CMakeFiles/DI_RPG.dir/build.make CMakeFiles/DI_RPG.dir/grid.cpp.s
-.PHONY : grid.cpp.s
-
 hero.o: hero.cpp.o
 
 .PHONY : hero.o
@@ -522,9 +495,6 @@ help:
 	@echo "... game.o"
 	@echo "... game.i"
 	@echo "... game.s"
-	@echo "... grid.o"
-	@echo "... grid.i"
-	@echo "... grid.s"
 	@echo "... hero.o"
 	@echo "... hero.i"
 	@echo "... hero.s"

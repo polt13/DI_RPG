@@ -33,7 +33,7 @@ Weapon::Weapon(const string& _name, const int price, const int lvl, const int da
 
 void Weapon::print() const
 {
-    std::cout << name << " | Price: " << buy_price << " | Damage:" << dmg << (two_handed == true ? " | Two Handed" : " | One Handed") << " | Minimum level: " << min_level;
+    std::cout << name << " | Price: " << buy_price << " | Damage: " << dmg << (two_handed == true ? " | Two Handed" : " | One Handed") << " | Minimum level: " << min_level << std::endl;
 }
 
 int Weapon::getDamage(void) const
@@ -66,8 +66,7 @@ int Armor::get_def() const
 
 void Armor::print() const
 {
-    std::cout << " Armor: "
-              << name << " | Price: " << buy_price << " | Defense: " << def << " | Minimum level: " << min_level;
+    std::cout << name << " | Price: " << buy_price << " | Defense: " << def << " | Minimum level: " << min_level << std::endl;
 }
 
 string Potion::typeToString() const
@@ -93,10 +92,14 @@ Potion::Potion(const string& _name, const int price, const int lvl, potionType t
 {
 }
 
+int Potion::get_buff_amount() const
+{
+    return buffAmount;
+}
+
 void Potion::print() const
 {
-    std::cout << " Potion: "
-              << name << " | Price: " << buy_price << " | Buff: " << typeToString() << " | Buff Amount: " << buffAmount << " | Minimum level: " << min_level;
+    std::cout << name << " | Price: " << buy_price << " | Buff: " << typeToString() << " | Buff Amount: " << buffAmount << " | Minimum level: " << min_level << std::endl;
 }
 void Potion::buff(Hero& h)
 {
@@ -139,7 +142,7 @@ int Spell::getSpellDmg(void) const
 
 void Spell::print() const
 {
-    std::cout << name << "| Price: " << buy_price << "| Damage: " << max_dmg << "-" << min_dmg << "| Max Damage: " << max_dmg << "| MP cost: " << mp_cost << "| Duration: " << duration << "Minimum level: " << min_level;
+    std::cout << name << " | Price: " << buy_price << " | Damage Range: " << min_dmg << " - " << max_dmg << " | MP cost: " << mp_cost << " | Duration: " << duration << " | Minimum level: " << min_level;
 }
 
 IceSpell::IceSpell(const string& _name, const int price, const int lvl, const int mindmg, const int maxdmg, const int mp, const int dur)
@@ -154,8 +157,8 @@ void IceSpell::apply_effect(Monster* m)
 
 void IceSpell::print() const
 {
-    std::cout << " Ice Spell ";
     Spell::print();
+    std::cout << " [ Ice Spell ]" << std::endl;
 }
 FireSpell::FireSpell(const string& _name, const int price, const int lvl, const int mindmg, const int maxdmg, const int mp, const int dur)
     : Spell(_name, price, lvl, mindmg, maxdmg, mp, dur)
@@ -164,8 +167,8 @@ FireSpell::FireSpell(const string& _name, const int price, const int lvl, const 
 
 void FireSpell::print() const
 {
-    std::cout << " Fire Spell ";
     Spell::print();
+    std::cout << " [ Fire Spell ]" << std::endl;
 }
 
 void FireSpell::apply_effect(Monster* m)
@@ -180,8 +183,8 @@ LightningSpell::LightningSpell(const string& _name, const int price, const int l
 
 void LightningSpell::print() const
 {
-    std::cout << " Lightning Spell ";
     Spell::print();
+    std::cout << " [ Lightning Spell ]" << std::endl;
 }
 void LightningSpell::apply_effect(Monster* m)
 {

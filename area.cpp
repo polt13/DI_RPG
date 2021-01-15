@@ -1,6 +1,209 @@
 #include "rpg_lib.hpp"
 #include <iomanip>
-market::market()
+
+Market::Market(std::vector<Weapon*> AllWeapons, std::vector<Armor*> AllArmors, std::vector<Potion*> AllPotions, std::vector<Spell*> AllSpells)
+    : size(5)
+{
+    for(int i = 1; i <= size; i++)
+    {
+        int index;
+        index = (std::rand() % AllWeapons.size());
+        weapons.push_back(AllWeapons[index]);
+        index = (std::rand() % AllArmors.size());
+        armors.push_back(AllArmors[index]);
+        index = (std::rand() % AllPotions.size());
+        potions.push_back(AllPotions[index]);
+        index = (std::rand() % AllSpells.size());
+        spells.push_back(AllSpells[index]);
+    }
+    //
+}
+
+Market::~Market()
+{
+    for (auto w : weapons)
+        delete w;
+    for (auto a : armors)
+        delete a;
+    for (auto p : potions)
+        delete p;
+    for (auto s : spells)
+        delete s;
+}
+
+int Market::get_vector_size(std::string type) const
+{
+    if(type == "Weapon")
+        return weapons.size();
+    else if(type == "Armor")
+        return armors.size();
+    else if(type == "Potion")
+        return potions.size();
+    return spells.size();
+}
+
+void Market::DisplayItems(std::string itype) const
+{
+    int index = 1;
+    if (itype == "Weapons")
+        for (const auto& w : weapons)
+        {
+            std::cout << "[ " << index++ << " ] ";
+            w->print();
+        }
+    else if (itype == "Armors")
+        for (const auto& a : armors)
+        {
+            std::cout << "[ " << index++ << " ] ";
+            a->print();
+        }
+    else if (itype == "Potions")
+        for (const auto& p : potions)
+        {
+            std::cout << "[ " << index++ << " ] ";
+            p->print();
+        }
+    else
+        for (const auto& s : spells)
+        {
+            std::cout << "[ " << index++ << " ] ";
+            s->print();
+        }
+}
+
+void Market::buy(Hero* MyHero, std::string type, int index)
+{
+    if(type == "Weapon")
+    {
+        if(weapons[index]->getPrice() <= MyHero->getMoney())
+        {
+            std::cout << "\n\n";
+            std::cout << "\tPurchased '" << weapons[index]->get_name() << "' Weapon for " << MyHero->get_name() << "\n";
+            MyHero->buy(weapons[index]);
+            weapons.erase(weapons.begin() + index);
+            return;
+        }
+        std::cout << "\n\n";
+        std::cout << "\tNot enough money\n";
+    }
+    else if(type == "Armor")
+    {
+        if(armors[index]->getPrice() <= MyHero->getMoney())
+        {
+            std::cout << "\n\n";
+            std::cout << "\tPurchased '" << armors[index]->get_name() << "' Armor for " << MyHero->get_name() << "\n";
+            MyHero->buy(armors[index]);
+            armors.erase(armors.begin() + index);
+            return;
+        }
+        std::cout << "\n\n";
+        std::cout << "\tNot enough money\n";
+    }
+    else if(type == "Potion")
+    {
+        if(potions[index]->getPrice() <= MyHero->getMoney())
+        {
+            std::cout << "\n\n";
+            std::cout << "\tPurchased '" << potions[index]->get_name() << "' Potion for " << MyHero->get_name() << "\n";
+            MyHero->buy(potions[index]);
+            potions.erase(potions.begin() + index);
+            return;
+        }
+        std::cout << "\n\n";
+        std::cout << "\tNot enough money\n";
+    }
+    else
+    {
+        if(spells[index]->getPrice() <= MyHero->getMoney())
+        {
+            std::cout << "\n\n";
+            std::cout << "\tPurchased '" << spells[index]->get_name() << "' Spell for " << MyHero->get_name() << "\n";
+            MyHero->buy(spells[index]);
+            spells.erase(spells.begin() + index);
+            return;
+        }
+        std::cout << "\n\n";
+        std::cout << "\tNot enough money\n";
+    }
+}
+
+void Market::sell(Weapon* MyWeapon)
+{
+    weapons.push_back(MyWeapon);
+}
+
+void Market::sell(Armor* MyArmor)
+{
+    armors.push_back(MyArmor);
+}
+
+void Market::sell(Potion* MyPotion)
+{
+    potions.push_back(MyPotion);
+}
+
+void Market::sell(Spell* MySpell)
+{
+    spells.push_back(MySpell);
+}
+
+Block::Block(blockType btype) : type(btype) , MyMarket(nullptr)
+{
+    //
+}
+
+Block::~Block()
+{
+
+}
+
+Market* Block::get_market() const
+{
+    return MyMarket;
+}
+
+blockType Block::get_type() const
+{
+    return type;
+}
+
+Common::Common(blockType btype, std::vector<Weapon*> AllWeapons, std::vector<Armor*> AllArmors, std::vector<Potion*> AllPotions, std::vector<Spell*> AllSpells) : Block(btype)
+{
+    MyMarket = new Market(AllWeapons, AllArmors, AllPotions, AllSpells);
+    //if(std::rand() % 10 >= 6)
+    //    MyMarket = new Market();
+}
+
+Common::~Common()
+{
+    if(MyMarket != nullptr)
+        delete MyMarket;
+}
+
+void Common::move(int Active)
+{
+    //
+}
+
+Inaccessible::Inaccessible(blockType btype) : Block(btype)
+{
+
+}
+
+Inaccessible::~Inaccessible()
+{
+
+}
+
+void Inaccessible::move(int Active)
+{
+    std::cout << "\n\n";
+    std::cout << "\tThis block is inaccessible\n";
+}
+
+///////////////////////////////////////////////////////////////
+
+/* market::market()
 {
     int itemcount = (std::rand() % 4) + 1;
     for (int i = 1; i <= itemcount; ++i) { //ADD RANDOM ITEMS
@@ -65,7 +268,7 @@ Spell* market::purchase(Hero* MyHero, int num)
     Spell* temp = spells[num];
     spells.erase(spells.begin() + num);
     return temp;
-}*/
+}
 
 void market::menu()
 {
@@ -500,4 +703,4 @@ block::~block()
     for (auto h : squad) {
         delete h;
     }
-}
+} */

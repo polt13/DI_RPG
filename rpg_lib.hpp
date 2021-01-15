@@ -8,8 +8,14 @@
 
 class Hero;
 class Monster;
-class market;
+class Market;
 class block;
+
+enum class blockType
+{
+    COMMON,
+    INACCESSIBLE
+};
 
 enum class heroType {
     WARRIOR,
@@ -76,9 +82,10 @@ public:
 class Potion : public Item {
     const potionType potion_type; //which stat to increase
     const int buffAmount = 5;
-    std::string typeToString() const;
 
 public:
+    int get_buff_amount() const;
+    std::string typeToString() const;
     void print() const;
     void buff(Hero&);
     Potion(const std::string&, const int, const int, potionType);
@@ -165,7 +172,7 @@ protected:
 
 public:
     void addMoney(int);
-    void sell(market&);
+    //void sell(market&);
     void displayStats() const;
     Hero(const std::string&, int, int, int, Weapon*, Armor*, Spell*);
     void moneyLoss();
@@ -179,9 +186,12 @@ public:
     int get_dexterity() const;
     int get_agility() const;
     int getMoney() const;
+    Weapon* get_righthand() const;
+    Weapon* get_lefthand() const;
     Armor* get_armor() const;
     int& getStat(potionType);
-    int get_max_xp();
+    int get_max_xp() const;
+    int get_vector_size(std::string) const;
 
     void attack(Monster*);
     void castSpell(Monster*, int);
@@ -194,6 +204,7 @@ public:
     void set_weapon(int, int = 1);
     void equip(int);
     void unequip(gearType);
+    void DisplayItems(std::string) const;
     void checkInventory() const;
     //
     /* void purchase(market*, std::string, int); */
@@ -201,6 +212,7 @@ public:
     void buy(Armor*);
     void buy(Potion*);
     void buy(Spell*);
+    void sell(Market*, std::string, int);
     char proceed();
 
     void HPbuff(int);
@@ -273,9 +285,65 @@ public:
     ~Spirit();
 };
 
+/////////////////////////////////////////////////////////////////////
+
+class Market
+{
+    private:
+        int size;
+        std::vector<Weapon*> weapons;
+        std::vector<Armor*> armors;
+        std::vector<Potion*> potions;
+        std::vector<Spell*> spells;
+    public:
+        Market(std::vector<Weapon*>, std::vector<Armor*>, std::vector<Potion*>, std::vector<Spell*>);
+        ~Market();
+
+        int get_vector_size(std::string) const;
+        void DisplayItems(std::string) const;
+        void buy(Hero*, std::string, int);
+        void sell(Weapon*);
+        void sell(Armor*);
+        void sell(Potion*);
+        void sell(Spell*);
+};
+
+class Block
+{
+    protected:
+        std::vector<Hero*> Squad;
+        Market* MyMarket;
+        blockType type;
+    public:
+        Block(blockType);
+        virtual ~Block() = 0;
+
+        Market* get_market() const;
+        virtual void move(int) = 0;
+        blockType get_type() const; 
+
+};
+
+class Common : public Block
+{
+    public:
+        Common(blockType, std::vector<Weapon*>, std::vector<Armor*>, std::vector<Potion*>, std::vector<Spell*>);
+        ~Common();
+
+        void move(int);
+};
+
+class Inaccessible : public Block
+{
+    public:
+        Inaccessible(blockType);
+        ~Inaccessible();
+        void move(int);
+};
+
 //////////////////////////////////////////////////////////////////////////////////////////
 
-class block {
+/*class block {
 protected:
     std::vector<Hero*> squad;
 
@@ -293,9 +361,9 @@ class market : public block {
     std::vector<Potion*> potions;
 
 public:
-    /* void DisplayItems(std::string) const;
+    void DisplayItems(std::string) const;
     int vector_count(std::string) const;
-    bool purchase(Hero*, int); */
+    bool purchase(Hero*, int);
 
     void move(std::vector<Hero*>&);
     void displayStock(); //display shop stock
@@ -343,15 +411,17 @@ public:
     void displayMap();
     void move(std::string);
     ~Grid();
-};
+};*/
 
 class Game {
 private:
-    Grid* grid;
     int input;
     bool playing;
     int Dimension;
+    int ActiveBlock_x;
+    int ActiveBlock_y;
     int ActiveHero;
+    std::array<std::array<Block*, 8>, 8> Grid;
 
     std::vector<Weapon*> AllWeapons;
     std::vector<Armor*> AllArmors;
@@ -368,7 +438,7 @@ public:
 
     //  DI_RPG Menu
     void DIRPG();
-    void MainMenu();
+    void NewHeroMenu();
     void CreditsScreen();
 
     //  Initialization
@@ -379,19 +449,26 @@ public:
     void InitSpells();
     void InitGrid();
 
-    //  Main Menu
-    void NewHeroMenu();
-    void MarketMarket();
-    void printWeap();
-
-    void DisplayMap();
-    void TravelMenu();
-
     //  New Hero Menu
     void WarriorInfo();
     void SorcererInfo();
     void PaladinInfo();
     void CreateNewHero(heroType);
+
+    //  Block Menu
+    void CommonBlockMenu();
+    void InventoryMenu();
+    void TravelMenu();
+    void MarketMenu();
+    void MainMenu();
+
+    //  Inventory Menu
+    void ChangeWeapon();
+    void ChangeArmor();
+    void UsePotion();
+
+    //  Travel Menu
+
 
     //  Market Menu
     void BuyMenu();
@@ -400,6 +477,15 @@ public:
     void BuyArmors();
     void BuyPotions();
     void BuySpells();
+    void SellWeapons();
+    void SellArmors();
+    void SellPotions();
+    void SellSpells();
+
+    //  Main Menu
+    /*void HeroesInfoMenu();*/
+    /*void ChangeActiveHero();*/
+    void DisplayMap();
 
     //  Clear Functions
     void static clearscreen();

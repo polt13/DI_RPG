@@ -67,14 +67,35 @@ int Hero::getMoney() const
     return Money;
 }
 
+Weapon* Hero::get_righthand() const
+{
+    return RightHand;
+}
+
+Weapon* Hero::get_lefthand() const
+{
+    return LeftHand;
+}
+
 Armor* Hero::get_armor() const
 {
     return MyArmor;
 }
 
-int Hero::get_max_xp()
+int Hero::get_max_xp() const
 {
     return XPmax;
+}
+
+int Hero::get_vector_size(std::string type) const
+{
+    if(type == "Weapon")
+        return WeaponsInv.size();
+    else if(type == "Armor")
+        return ArmorsInv.size();
+    else if(type == "Potion")
+        return PotionsInv.size();
+    return SpellsInv.size();
 }
 
 int& Hero::getStat(potionType potion_t)
@@ -248,6 +269,39 @@ void Hero::buy(Spell* s)
     SpellsInv.push_back(s);
 }
 
+void Hero::sell(Market* MyMarket, std::string type, int index)
+{
+    std::cout << "\n\n";
+    if(type == "Weapon")
+    {
+        std::cout << "\tSold " << Name << " '" << WeaponsInv[index]->get_name() << "' Weapon for " << WeaponsInv[index]->getPrice()/2 << " Gold!\n";
+        addMoney(WeaponsInv[index]->getPrice()/2);
+        MyMarket->sell(WeaponsInv[index]);
+        WeaponsInv.erase(WeaponsInv.begin() + index);
+    }
+    else if(type == "Armor")
+    {
+        std::cout << "\tSold " << Name << " '" << ArmorsInv[index]->get_name() << "' Armor for " << ArmorsInv[index]->getPrice()/2 << " Gold!\n";
+        addMoney(ArmorsInv[index]->getPrice()/2);
+        MyMarket->sell(ArmorsInv[index]);
+        ArmorsInv.erase(ArmorsInv.begin() + index);
+    }
+    else if(type == "Potion")
+    {
+        std::cout << "\tSold " << Name << " '" << PotionsInv[index]->get_name() << "' Potion for " << PotionsInv[index]->getPrice()/2 << " Gold!\n";
+        addMoney(PotionsInv[index]->getPrice()/2);
+        MyMarket->sell(PotionsInv[index]);
+        PotionsInv.erase(PotionsInv.begin() + index);
+    }
+    else
+    {
+        std::cout << "\tSold " << Name << " '" << SpellsInv[index]->get_name() << "' Spell for " << SpellsInv[index]->getPrice()/2 << " Gold!\n";
+        addMoney(SpellsInv[index]->getPrice()/2);
+        MyMarket->sell(SpellsInv[index]);
+        SpellsInv.erase(SpellsInv.begin() + index);
+    }
+}
+
 void Hero::addMoney(int m)
 {
     Money += m;
@@ -410,9 +464,54 @@ void Hero::unequip(gearType equipT)
     }
 }
 
+void Hero::DisplayItems(std::string itype) const
+{
+    int index = 1;
+    if (itype == "Weapons")
+    {
+        if(WeaponsInv.size() == 0)
+            return;
+        for (const auto& w : WeaponsInv)
+        {
+            std::cout << "[ " << index++ << " ] ";
+            std::cout << w->get_name() << " | Price: " << w->getPrice()/2 << " | Damage: " << w->getDamage() << (w->get_grip() == "Two Handed" ? " | Two Handed" : " | One Handed") << " | Minimum level: " << w->get_minlvl() << std::endl;
+        }
+    }
+    else if (itype == "Armors")
+    {
+        if(ArmorsInv.size() == 0)
+            return;
+        for (const auto& a : ArmorsInv)
+        {
+            std::cout << "[ " << index++ << " ] ";
+            std::cout << a->get_name() << " | Price: " << a->getPrice()/2 << " | Defense: " << a->get_def() << " | Minimum level: " << a->get_minlvl() << std::endl;
+        }
+    }
+    else if (itype == "Potions")
+    {
+        if(PotionsInv.size() == 0)
+            return;
+        for (const auto& p : PotionsInv)
+        {
+            std::cout << "[ " << index++ << " ] ";
+            std::cout << p->get_name() << " | Price: " << p->getPrice()/2 << " | Buff: " << p->typeToString() << " | Buff Amount: " << p->get_buff_amount() << " | Minimum level: " << p->get_minlvl() << std::endl;
+        }
+    }
+    else
+    {
+        if(SpellsInv.size() == 0)
+            return;
+        for (const auto& s : SpellsInv)
+        {
+            std::cout << "[ " << index++ << " ] ";
+            std::cout << s->get_name() << " | Price: " << s->getPrice()/2 << " Damage Range: " << s->get_mindmg() << " - " << s->get_maxdmg() << " | MP cost: " << s->getMPcost() << " | Duration: " << s->get_duration() << " | Minimum level: " << s->get_minlvl() << std::endl;
+        }
+    }
+}
+
 void Hero::checkInventory() const
 {
-    std::cout << Name << "'s Inventory:\n\n";
+    std::cout << Name << "'s Inventory:\n\n\n";
 
     if (RightHand != nullptr) {
         RightHand->print();
@@ -426,7 +525,7 @@ void Hero::checkInventory() const
         MyArmor->print();
         std::cout << "\t[EQUIPPED]\n";
     }
-    int itemCount = 0;
+    int itemCount = 1;
     //print weapons / armors / potions / spells
     std::cout << "Weapons:\n";
     for (const auto& w : WeaponsInv) {
@@ -434,30 +533,30 @@ void Hero::checkInventory() const
         w->print();
         std::cout << '\n';
     }
-    itemCount = 0;
-    std::cout << "Armors:\n";
+    itemCount = 1;
+    std::cout << "\nArmors:\n";
     for (const auto& a : ArmorsInv) {
         std::cout << itemCount++ << ". ";
         a->print();
         std::cout << '\n';
     }
-    itemCount = 0;
-    std::cout << "Spells:\n";
-    for (const auto& s : SpellsInv) {
-        std::cout << itemCount++ << ". ";
-        s->print();
-        std::cout << '\n';
-    }
-    itemCount = 0;
-    std::cout << "Potions:\n";
+    itemCount = 1;
+    std::cout << "\nPotions:\n";
     for (const auto& p : PotionsInv) {
         std::cout << itemCount++ << ". ";
         p->print();
         std::cout << '\n';
     }
+    itemCount = 1;
+    std::cout << "\nSpells:\n";
+    for (const auto& s : SpellsInv) {
+        std::cout << itemCount++ << ". ";
+        s->print();
+        std::cout << '\n';
+    }
 }
 
-void Hero::sell(market& m)
+/* void Hero::sell(market& m)
 {
     std::string op;
     int index {};
@@ -513,7 +612,7 @@ void Hero::sell(market& m)
             return;
         }
     }
-}
+} */
 
 void Hero::displayStats() const
 {
