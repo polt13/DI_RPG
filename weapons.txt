@@ -1,6 +1,6 @@
-Caladbolg	100	1	20	0
-Taming Sword	100	1	20	0
-Crystal Sword	100	1	20	0
+Caladbolg	100	1	4	0
+Taming Sword	100	1	6	0
+Crystal Sword	100	1	8	0
 Excalibur	100	1	20	0
 Ragnarok	100	1	20	0
 Balmung	100	1	20	0

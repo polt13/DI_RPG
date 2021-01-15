@@ -41,6 +41,13 @@ int Weapon::getDamage(void) const
     return dmg;
 }
 
+std::string Weapon::get_grip() const
+{
+    if(two_handed == true)
+        return "Two Handed";
+    return "One Handed";
+}
+
 bool Weapon::isTwoHanded() const
 {
     return two_handed;
@@ -104,6 +111,21 @@ Spell::Spell(const string& _name, const int price, const int lvl, const int mind
     , max_dmg(maxdmg)
     , duration(dur)
     , mp_cost(mp) {};
+
+int Spell::get_mindmg() const
+{
+    return min_dmg;
+}
+
+int Spell::get_maxdmg() const
+{
+    return max_dmg;
+}
+
+int Spell::get_duration() const
+{
+    return duration;
+}
 
 int Spell::getMPcost(void) const
 {

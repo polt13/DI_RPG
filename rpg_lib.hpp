@@ -60,6 +60,7 @@ public:
     void print() const;
     Weapon(const std::string&, const int, const int, const int, const bool);
     int getDamage(void) const;
+    std::string get_grip() const;
     bool isTwoHanded() const;
 };
 
@@ -92,8 +93,11 @@ protected:
 public:
     virtual void print() const;
     virtual void apply_effect(Monster*) = 0;
+    int get_mindmg() const;
+    int get_maxdmg() const;
     int getSpellDmg(void) const;
     int getMPcost(void) const;
+    int get_duration() const;
     Spell(const std::string&, const int, const int, const int, const int, const int, const int);
 };
 
