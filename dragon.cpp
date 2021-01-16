@@ -1,7 +1,6 @@
 //  File Name:  dragon.cpp
 
 #include "rpg_lib.hpp"
-#include <iostream>
 
 Dragon::~Dragon()
 {

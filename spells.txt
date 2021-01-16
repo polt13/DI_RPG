@@ -1,6 +1,6 @@
-Flame	100	1	10	20	40	3	1
-Torch	100	1	10	20	40	3	1
-Eruption	100	1	10	20	40	3	2
+Flame	100	1	4	6	30	3	1
+Torch	100	1	6	8	30	3	1
+Eruption	100	8	10	20	30	3	2
 Flare	100	1	10	20	40	3	2
 Blaze	100	1	10	20	40	3	2
 Inferno	100	1	10	20	40	3	2

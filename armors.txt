@@ -1,6 +1,6 @@
-Endless Road	100	1	20
-Genji Shield	100	1	20
-Emblem	100	1	20
+Endless Road	100	1	4
+Genji Shield	100	1	6
+Emblem	100	1	8
 Crystal Shield	100	1	20
 Aegis Shield	100	1	20
 Golem Shield	100	1	20
