@@ -43,7 +43,7 @@ int Weapon::getDamage(void) const
 
 std::string Weapon::get_grip() const
 {
-    if(two_handed == true)
+    if (two_handed == true)
         return "Two Handed";
     return "One Handed";
 }
@@ -103,8 +103,7 @@ void Potion::print() const
 }
 void Potion::buff(Hero& h)
 {
-    if (potion_type==potionType::HP){
-        
+    if (potion_type == potionType::HP) {
     }
 }
 

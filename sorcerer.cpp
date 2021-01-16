@@ -1,7 +1,6 @@
 //  File Name:  sorcerer_constr.cpp
 
 #include "rpg_lib.hpp"
-#include <iostream>
 
 Sorcerer::~Sorcerer()
 {

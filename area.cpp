@@ -4,8 +4,7 @@
 Market::Market(std::vector<Weapon*> AllWeapons, std::vector<Armor*> AllArmors, std::vector<Potion*> AllPotions, std::vector<Spell*> AllSpells)
     : size(5)
 {
-    for(int i = 1; i <= size; i++)
-    {
+    for (int i = 1; i <= size; i++) {
         int index;
         index = (std::rand() % AllWeapons.size());
         weapons.push_back(AllWeapons[index]);
@@ -19,7 +18,7 @@ Market::Market(std::vector<Weapon*> AllWeapons, std::vector<Armor*> AllArmors, s
     //
 }
 
-Market::~Market()
+/*Market::~Market()
 {
     for (auto w : weapons)
         delete w;
@@ -29,15 +28,15 @@ Market::~Market()
         delete p;
     for (auto s : spells)
         delete s;
-}
+}*/
 
 int Market::get_vector_size(std::string type) const
 {
-    if(type == "Weapon")
+    if (type == "Weapon")
         return weapons.size();
-    else if(type == "Armor")
+    else if (type == "Armor")
         return armors.size();
-    else if(type == "Potion")
+    else if (type == "Potion")
         return potions.size();
     return spells.size();
 }
@@ -46,26 +45,22 @@ void Market::DisplayItems(std::string itype) const
 {
     int index = 1;
     if (itype == "Weapons")
-        for (const auto& w : weapons)
-        {
+        for (const auto& w : weapons) {
             std::cout << "[ " << index++ << " ] ";
             w->print();
         }
     else if (itype == "Armors")
-        for (const auto& a : armors)
-        {
+        for (const auto& a : armors) {
             std::cout << "[ " << index++ << " ] ";
             a->print();
         }
     else if (itype == "Potions")
-        for (const auto& p : potions)
-        {
+        for (const auto& p : potions) {
             std::cout << "[ " << index++ << " ] ";
             p->print();
         }
     else
-        for (const auto& s : spells)
-        {
+        for (const auto& s : spells) {
             std::cout << "[ " << index++ << " ] ";
             s->print();
         }
@@ -73,10 +68,8 @@ void Market::DisplayItems(std::string itype) const
 
 void Market::buy(Hero* MyHero, std::string type, int index)
 {
-    if(type == "Weapon")
-    {
-        if(weapons[index]->getPrice() <= MyHero->getMoney())
-        {
+    if (type == "Weapon") {
+        if (weapons[index]->getPrice() <= MyHero->getMoney()) {
             std::cout << "\n\n";
             std::cout << "\tPurchased '" << weapons[index]->get_name() << "' Weapon for " << MyHero->get_name() << "\n";
             MyHero->buy(weapons[index]);
@@ -85,11 +78,8 @@ void Market::buy(Hero* MyHero, std::string type, int index)
         }
         std::cout << "\n\n";
         std::cout << "\tNot enough money\n";
-    }
-    else if(type == "Armor")
-    {
-        if(armors[index]->getPrice() <= MyHero->getMoney())
-        {
+    } else if (type == "Armor") {
+        if (armors[index]->getPrice() <= MyHero->getMoney()) {
             std::cout << "\n\n";
             std::cout << "\tPurchased '" << armors[index]->get_name() << "' Armor for " << MyHero->get_name() << "\n";
             MyHero->buy(armors[index]);
@@ -98,11 +88,8 @@ void Market::buy(Hero* MyHero, std::string type, int index)
         }
         std::cout << "\n\n";
         std::cout << "\tNot enough money\n";
-    }
-    else if(type == "Potion")
-    {
-        if(potions[index]->getPrice() <= MyHero->getMoney())
-        {
+    } else if (type == "Potion") {
+        if (potions[index]->getPrice() <= MyHero->getMoney()) {
             std::cout << "\n\n";
             std::cout << "\tPurchased '" << potions[index]->get_name() << "' Potion for " << MyHero->get_name() << "\n";
             MyHero->buy(potions[index]);
@@ -111,11 +98,8 @@ void Market::buy(Hero* MyHero, std::string type, int index)
         }
         std::cout << "\n\n";
         std::cout << "\tNot enough money\n";
-    }
-    else
-    {
-        if(spells[index]->getPrice() <= MyHero->getMoney())
-        {
+    } else {
+        if (spells[index]->getPrice() <= MyHero->getMoney()) {
             std::cout << "\n\n";
             std::cout << "\tPurchased '" << spells[index]->get_name() << "' Spell for " << MyHero->get_name() << "\n";
             MyHero->buy(spells[index]);
@@ -151,23 +135,23 @@ Block::Block(blockType btype)
     : type(btype)
     , MyMarket(nullptr)
 {
-    for(auto s : Squad)
+    for (auto s : Squad)
         s = nullptr;
-    for(auto e : Enemies)
+    for (auto e : Enemies)
         e = nullptr;
 }
 
 Block::~Block()
 {
-    for(auto s : Squad)
-        if(s != nullptr)
+    for (auto s : Squad)
+        if (s != nullptr)
             delete s;
-    for(auto e : Enemies)
-        if(e != nullptr)
+    for (auto e : Enemies)
+        if (e != nullptr)
             delete e;
 }
 
-Market* Block::get_market() const
+Market* Block::hasMarket() const // nullptr if common block doesn't have market, else return the market itself
 {
     return MyMarket;
 }
@@ -177,12 +161,14 @@ blockType Block::get_type() const
     return type;
 }
 
+//no market in common
 Common::Common(blockType btype)
     : Block(btype)
 {
     //
 }
 
+//case where common has Market
 Common::Common(blockType btype, std::vector<Weapon*> AllWeapons, std::vector<Armor*> AllArmors, std::vector<Potion*> AllPotions, std::vector<Spell*> AllSpells)
     : Block(btype)
 {
@@ -191,77 +177,32 @@ Common::Common(blockType btype, std::vector<Weapon*> AllWeapons, std::vector<Arm
 
 Common::~Common()
 {
-    if(MyMarket != nullptr)
-        delete MyMarket;
+    delete MyMarket;
 }
 
-void Common::move(std::vector<Hero*> toMove)
+void Common::move(std::vector<Hero*>& toMove)
 {
     Squad.insert(Squad.begin(), toMove.begin(), toMove.end()); //copy heroes to new location (this common block)
-    //toMove.clear(); //empty previous block
-    if (std::rand() % 100 > 50)
-    {
+    toMove.clear(); //empty previous block
+    if (std::rand() % 100 > 50) {
         std::cout << "\n\n";
         std::cout << "\tRandom encounter!\n";
         fight_start();
     }
 }
-
-void Common::fight_start()
-{
-    //
-}
-
 void Common::print() const
 {
-    // na elegxw an einai mesa to squad
-    if (Squad.empty() == false && get_market() != nullptr)
+    if (Squad.empty() == false && hasMarket())
         std::cout << " H - M ";
-    else if(Squad.empty() == true)
-    {
-        if(get_market() != nullptr)
+    else if (Squad.empty() == true) {
+        if (hasMarket())
             std::cout << " M ";
         else
             std::cout << "   ";
     }
 }
 
-Inaccessible::Inaccessible(blockType btype)
-    : Block(btype)
-{
-    //
-}
-
-Inaccessible::~Inaccessible()
-{
-    //
-}
-
-void Inaccessible::move(std::vector<Hero*> toMove)
-{
-    std::cout << "\n\n";
-    std::cout << "\tThis block is inaccessible\n";
-}
-
-void Inaccessible::print() const
-{
-    std::cout << " # ";
-}
-
-///////////////////////////////////////////////////////////////
-
-/*
-void common::move(std::vector<Hero*>& toMove)
-{
-    squad.insert(squad.begin(), toMove.begin(), toMove.end()); //copy heroes to new location
-    toMove.clear(); //empty previous block
-    if (std::rand() % 100 > 50) {
-        std::cout << " Random encounter!\n";
-        fight_start();
-    }
-}
-
-void common::fight_start()
+void Common::fight_start()
 {
     //generate enemy monsters
     std::vector<Monster*> Enemies(3);
@@ -283,7 +224,7 @@ void common::fight_start()
     }
 }
 
-void common::fight(std::vector<Monster*>& enemies)
+void Common::fight(std::vector<Monster*>& enemies)
 {
     auto rounds = 0;
     while (end_fight(enemies) == false) {
@@ -304,11 +245,11 @@ void common::fight(std::vector<Monster*>& enemies)
 
             std::cout << "Check inventory of character:\n";
             int HeroPick;
-            while (!(std::cin >> HeroPick) || HeroPick > squad.size() - 1) {
+            while (!(std::cin >> HeroPick) || HeroPick > Squad.size() - 1) {
                 std::cout << "Not a valid pick\n";
                 Game::clearbuffer();
             }
-            squad[HeroPick]->checkInventory();
+            Squad[HeroPick]->checkInventory();
             std::cout << "1 for Potion, 2 for Spellcast, 3 to go back";
             while (!(std::cin >> pick) || option > 3 || option < 1) {
                 std::cout << "Not a valid pick\n";
@@ -323,7 +264,7 @@ void common::fight(std::vector<Monster*>& enemies)
                     std::cout << "Not a valid pick\n";
                     Game::clearbuffer();
                 }
-                squad[HeroPick]->use(whichItem); //use on the hero itself
+                Squad[HeroPick]->use(whichItem); //use on the hero itself
                 Game::clearbuffer();
                 break;
             case 2:
@@ -340,7 +281,7 @@ void common::fight(std::vector<Monster*>& enemies)
                     Game::clearbuffer();
                 }
 
-                squad[HeroPick]->castSpell(enemies[enemyTarget], whichItem);
+                Squad[HeroPick]->castSpell(enemies[enemyTarget], whichItem);
                 Game::clearbuffer();
                 break;
             case 3:
@@ -352,19 +293,19 @@ void common::fight(std::vector<Monster*>& enemies)
         } else {
             //circular rotation --- who attacks
             int enemy_at {};
-            std::cout << squad[whoAttacks]->get_name() << " attacks: \n";
+            std::cout << Squad[whoAttacks]->get_name() << " attacks: \n";
             while (!(std::cin >> enemy_at) || (enemy_at > enemies.size() - 1)) {
                 std::cout << "Invalid index\n";
             }
-            squad[whoAttacks++]->attack(enemies[enemy_at]); //attack and go to next person
-            if (whoAttacks > squad.size() - 1)
+            Squad[whoAttacks++]->attack(enemies[enemy_at]); //attack and go to next person
+            if (whoAttacks > Squad.size() - 1)
                 whoAttacks = 0;
-            int heroTarget = std::rand() % squad.size();
-            std::cout << enemies[whichMonsterAttacks]->get_name() << " attacks " << squad[heroTarget]->get_name() << '\n';
-            enemies[whichMonsterAttacks]->attack(squad[heroTarget]);
+            int heroTarget = std::rand() % Squad.size();
+            std::cout << enemies[whichMonsterAttacks]->get_name() << " attacks " << Squad[heroTarget]->get_name() << '\n';
+            enemies[whichMonsterAttacks]->attack(Squad[heroTarget]);
         }
 
-        for (auto& h : squad) {
+        for (auto& h : Squad) {
             h->regenHP();
             h->regenMP();
         }
@@ -375,7 +316,7 @@ void common::fight(std::vector<Monster*>& enemies)
         ++rounds;
     }
     bool all_dead = true;
-    for (auto h : squad) { //find if all heroes dead
+    for (auto h : Squad) { //find if all heroes dead
         if (h->get_hp() != 0) {
             all_dead = false;
             h->set_xp(enemies[0]->getLevel() * 5); //get xp based on level of enemy
@@ -386,7 +327,7 @@ void common::fight(std::vector<Monster*>& enemies)
         return; //not all heroes dead
 
     //if reached here -- all heroes are dead -- revive them with some HP and cost half the money
-    for (auto h : squad) {
+    for (auto h : Squad) {
         h->moneyLoss();
         //revive with some HP
         h->revive();
@@ -395,25 +336,25 @@ void common::fight(std::vector<Monster*>& enemies)
     return;
 }
 
-void common::end_round(std::vector<Monster*>& enemies)
+void Common::end_round(std::vector<Monster*>& enemies)
 {
     for (auto m : enemies) {
         m->finish_round(); //checks when it's time to remove an effect
     }
 }
 
-void common::displayStats(const std::vector<Monster*>& enemies) const
+void Common::displayStats(const std::vector<Monster*>& enemies) const
 {
     for (const auto m : enemies) {
         m->displayStats();
     }
     std::cout << std::endl;
-    for (const auto h : squad) {
+    for (const auto h : Squad) {
         h->displayStats();
     }
 }
 
-bool common::end_fight(const std::vector<Monster*>& enemies)
+bool Common::end_fight(const std::vector<Monster*>& enemies)
 {
     //check if all heroes/monsters are dead
     bool heroes_dead = false, monsters_dead = false;
@@ -423,20 +364,36 @@ bool common::end_fight(const std::vector<Monster*>& enemies)
         }
     }
 
-    for (const auto h : squad) {
+    for (const auto h : Squad) {
         if (h->get_hp() != 0) {
             heroes_dead = false;
         }
     }
     displayStats(enemies);
     if (heroes_dead == true && monsters_dead == false) {
-        std::cout << "Game Over!\n";
+        std::cout << " All heroes have fainted\n";
         return true;
     } else if (heroes_dead == false && monsters_dead == true) {
-        std::cout << "Heroes win!\n";
+        std::cout << " Heroes win! \n";
         return true;
     }
 
     return false; //none of the two sides are done
 }
-*/
+
+Inaccessible::Inaccessible(blockType btype)
+    : Block(btype)
+{
+    //
+}
+
+void Inaccessible::move(std::vector<Hero*>& toMove)
+{
+    std::cout << "\n\n";
+    std::cout << "\tThis block is inaccessible\n";
+}
+
+void Inaccessible::print() const
+{
+    std::cout << " # ";
+}

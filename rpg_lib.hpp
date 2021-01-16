@@ -11,8 +11,7 @@ class Monster;
 class Market;
 class block;
 
-enum class blockType
-{
+enum class blockType {
     COMMON,
     INACCESSIBLE
 };
@@ -286,65 +285,67 @@ public:
 
 /////////////////////////////////////////////////////////////////////
 
-class Market
-{
-    private:
-        int size;
-        std::vector<Weapon*> weapons;
-        std::vector<Armor*> armors;
-        std::vector<Potion*> potions;
-        std::vector<Spell*> spells;
-    public:
-        Market(std::vector<Weapon*>, std::vector<Armor*>, std::vector<Potion*>, std::vector<Spell*>);
-        ~Market();
+class Market {
+private:
+    int size;
+    std::vector<Weapon*> weapons;
+    std::vector<Armor*> armors;
+    std::vector<Potion*> potions;
+    std::vector<Spell*> spells;
 
-        int get_vector_size(std::string) const;
-        void DisplayItems(std::string) const;
-        void buy(Hero*, std::string, int);
-        void sell(Weapon*);
-        void sell(Armor*);
-        void sell(Potion*);
-        void sell(Spell*);
+public:
+    Market(std::vector<Weapon*>, std::vector<Armor*>, std::vector<Potion*>, std::vector<Spell*>);
+    //~Market();
+
+    int get_vector_size(std::string) const;
+    void DisplayItems(std::string) const;
+    void buy(Hero*, std::string, int);
+    void sell(Weapon*);
+    void sell(Armor*);
+    void sell(Potion*);
+    void sell(Spell*);
 };
 
-class Block
-{
-    protected:
-        Market* MyMarket;
-        std::vector<Hero*> Squad;
-        std::vector<Monster*> Enemies;
-        blockType type;
-    public:
-        Block(blockType);
-        virtual ~Block() = 0;
+class Block {
+protected:
+    Market* MyMarket; //null if it contains Market
+    std::vector<Hero*> Squad;
+    std::vector<Monster*> Enemies;
+    blockType type;
 
-        Market* get_market() const;
-        virtual void move(std::vector<Hero*>) = 0;
-        virtual void print() const = 0;
-        blockType get_type() const; 
+public:
+    Block(blockType);
+    virtual ~Block() = 0;
 
+    Market* hasMarket() const;
+    virtual void move(std::vector<Hero*>&) = 0;
+    virtual void print() const = 0;
+    blockType get_type() const;
 };
 
-class Common : public Block
-{
-    public:
-        Common(blockType);
-        Common(blockType, std::vector<Weapon*>, std::vector<Armor*>, std::vector<Potion*>, std::vector<Spell*>);
-        ~Common();
+class Common : public Block {
+public:
+    Common(blockType);
+    Common(blockType, std::vector<Weapon*>, std::vector<Armor*>, std::vector<Potion*>, std::vector<Spell*>); //in case it common has market
+    ~Common();
 
-        void move(std::vector<Hero*>);
-        void fight_start();
-        void print() const;
+    void move(std::vector<Hero*>&);
+    void print() const;
+    void end_round(std::vector<Monster*>&);
+    bool end_fight(const std::vector<Monster*>&); //check if time to end fight
+    void fight(std::vector<Monster*>&);
+
+public:
+    void displayStats(const std::vector<Monster*>&) const;
+    void fight_start();
 };
 
-class Inaccessible : public Block
-{
-    public:
-        Inaccessible(blockType);
-        ~Inaccessible();
+class Inaccessible : public Block {
+public:
+    Inaccessible(blockType);
 
-        void move(std::vector<Hero*>);
-        void print() const;
+    void move(std::vector<Hero*>&);
+    void print() const;
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -370,7 +371,6 @@ private:
     int ActiveBlock_y;
     int ActiveHero;
     std::array<std::array<Block*, 8>, 8> Grid;
-
     std::vector<Weapon*> AllWeapons;
     std::vector<Armor*> AllArmors;
     std::vector<Potion*> AllPotions;
@@ -379,7 +379,7 @@ private:
 
 public:
     Game();
-    virtual ~Game();
+    ~Game();
 
     void StartScreen();
     void ExitScreen();
@@ -418,7 +418,6 @@ public:
 
     //  Move Menu
 
-
     //  Market Menu
     void BuyMenu();
     void SellMenu();
@@ -434,7 +433,7 @@ public:
     //  Main Menu
     /*void HeroesInfoMenu();*/
     /*void ChangeActiveHero();*/
-    void DisplayMap();
+    void DisplayMap() const;
 
     //  Clear Functions
     void static clearscreen();

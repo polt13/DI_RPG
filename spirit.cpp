@@ -1,7 +1,6 @@
 //  File Name:  spirit.cpp
 
 #include "rpg_lib.hpp"
-#include <iostream>
 
 Spirit::~Spirit()
 {
