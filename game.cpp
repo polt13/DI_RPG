@@ -67,6 +67,7 @@ void Game::InitGame()
     InitArmors();
     InitPotions();
     InitSpells();
+    //InitMonsters();
     InitGrid();
 
     /* std::cout << "\n";
@@ -270,6 +271,61 @@ void Game::InitSpells()
     std::this_thread::sleep_for(std::chrono::milliseconds(100)); */
 }
 
+void Game::InitMonsters()
+{
+    std::ifstream inFile("names.txt");
+
+    if (inFile.fail())
+    {
+        std::cout << "Error Opening File 'spells.txt'\n";
+        exit(1);
+    }
+
+    std::string name;
+    std::string price;
+    std::string lvl;
+    std::string mindmg;
+    std::string maxdmg;
+    std::string mp;
+    std::string dur;
+    std::string type;
+
+    while (!inFile.eof())
+    {
+        getline(inFile, name, '\t');
+        getline(inFile, price, '\t');
+        getline(inFile, lvl, '\t');
+        getline(inFile, mindmg, '\t');
+        getline(inFile, maxdmg, '\t');
+        getline(inFile, mp, '\t');
+        getline(inFile, dur, '\t');
+        getline(inFile, type, '\n');
+
+        if (inFile.eof())
+            break;
+
+        int type_num = std::stoi(type);
+        switch (type_num)
+        {
+        case 1:
+            AllSpells.push_back(new IceSpell(name, std::stoi(price), std::stoi(lvl), std::stoi(mindmg), std::stoi(maxdmg), std::stoi(mp), std::stoi(dur)));
+            break;
+        case 2:
+            AllSpells.push_back(new FireSpell(name, std::stoi(price), std::stoi(lvl), std::stoi(mindmg), std::stoi(maxdmg), std::stoi(mp), std::stoi(dur)));
+            break;
+        case 3:
+            AllSpells.push_back(new LightningSpell(name, std::stoi(price), std::stoi(lvl), std::stoi(mindmg), std::stoi(maxdmg), std::stoi(mp), std::stoi(dur)));
+            break;
+        }
+    }
+
+    std::cout << "\tInitializing All Monsters... ";
+    std::flush(std::cout);
+    /* std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    std::cout << "Done\n";
+    std::this_thread::sleep_for(std::chrono::milliseconds(100)); */
+}
+
 void Game::InitGrid()
 {
 
@@ -278,6 +334,9 @@ void Game::InitGrid()
     {
         for (auto j = 0; j < Grid[i].size(); ++j)
         {
+            //if(std::rand() % 100 >= 60)
+            //  Grid[i][j] = new Common(blockType::COMMON, AllWeapons, AllArmors, AllPotions, AllSpells);
+            //Grid[i][j] = new Common(blockType::COMMON);
             Grid[i][j] = new Common(blockType::COMMON, AllWeapons, AllArmors, AllPotions, AllSpells);
         }
     }
@@ -451,14 +510,14 @@ void Game::MainMenu()
     }
 }
 
-void Game::TravelMenu()
+void Game::MoveMenu()
 {
     clearscreen();
     std::cout << "\n\n\tLoading.." << std::endl;
     clearscreen();
     std::cout << "//////////////////////////////////////////////////////////////////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(37) << "=== Travel Menu ===" << std::setw(26) << "////////\n";
+    std::cout << "////////" << std::setw(37) << "=== Move Menu ===" << std::setw(26) << "////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
     std::cout << "//////////////////////////////////////////////////////////////////////\n";
     std::cout << "//////////////////////////////////////////////////////////////////////\n";
@@ -481,7 +540,8 @@ void Game::TravelMenu()
 
     std::cout << std::setw(37) << "Input: ";
 
-    while (!(std::cin >> input) || input < 0 || input > 4) {
+    while (!(std::cin >> input) || input < 0 || input > 4)
+    {
         std::cout << "\n";
         std::cout << std::setw(50) << "Invalid input (Must be: 0 - 4)\n";
         clearbuffer();
@@ -492,19 +552,43 @@ void Game::TravelMenu()
     {
         case 1:
             clearbuffer();
-            //
+            /*if(Grid[ActiveBlock_x-1][ActiveBlock_y]->get_type() == blockType::INACCESSIBLE)
+                Grid[ActiveBlock_x-1][ActiveBlock_y]->move(MyHeroes);
+            else
+            {
+                ActiveBlock_x--;
+                Grid[ActiveBlock_x][ActiveBlock_y]->move(MyHeroes);
+            }*/
             break;
         case 2:
             clearbuffer();
-            //
+            /*if(Grid[ActiveBlock_x+1][ActiveBlock_y]->get_type() == blockType::INACCESSIBLE)
+                Grid[ActiveBlock_x+1][ActiveBlock_y]->move(MyHeroes);
+            else
+            {
+                ActiveBlock_x++;
+                Grid[ActiveBlock_x][ActiveBlock_y]->move(MyHeroes);
+            }*/
             break;
         case 3:
             clearbuffer();
-            //
+            /*if(Grid[ActiveBlock_x][ActiveBlock_y-1]->get_type() == blockType::INACCESSIBLE)
+                Grid[ActiveBlock_x][ActiveBlock_y-1]->move(MyHeroes);
+            else
+            {
+                ActiveBlock_y--;
+                Grid[ActiveBlock_x][ActiveBlock_y]->move(MyHeroes);
+            }*/
             break;
         case 4:
             clearbuffer();
-            //
+            /*if(Grid[ActiveBlock_x][ActiveBlock_y+1]->get_type() == blockType::INACCESSIBLE)
+                Grid[ActiveBlock_x][ActiveBlock_y+1]->move(MyHeroes);
+            else
+            {
+                ActiveBlock_y++;
+                Grid[ActiveBlock_x][ActiveBlock_y]->move(MyHeroes);
+            }*/
             break;
         case 0:
             clearbuffer();
@@ -1016,7 +1100,7 @@ void Game::CommonBlockMenu()
     std::cout << "////////" << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(28) << "[ 1 ]\tCheck Inventory" << std::setw(32) << "////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(27) << "[ 2 ]\tTravel" << std::setw(33) << "////////\n";
+    std::cout << "////////" << std::setw(27) << "[ 2 ]\tMove" << std::setw(33) << "////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
     if(Grid[ActiveBlock_x][ActiveBlock_y]->get_market() != nullptr)
     {
@@ -1048,7 +1132,7 @@ void Game::CommonBlockMenu()
         break;
     case 2:
         clearbuffer();
-        TravelMenu();
+        MoveMenu();
         break;
     case 3:
         clearbuffer();

@@ -207,7 +207,6 @@ public:
     void DisplayItems(std::string) const;
     void checkInventory() const;
     //
-    /* void purchase(market*, std::string, int); */
     void buy(Weapon*);
     void buy(Armor*);
     void buy(Potion*);
@@ -311,15 +310,17 @@ class Market
 class Block
 {
     protected:
-        std::vector<Hero*> Squad;
         Market* MyMarket;
+        std::vector<Hero*> Squad;
+        std::vector<Monster*> Enemies;
         blockType type;
     public:
         Block(blockType);
         virtual ~Block() = 0;
 
         Market* get_market() const;
-        virtual void move(int) = 0;
+        virtual void move(std::vector<Hero*>) = 0;
+        virtual void print() const = 0;
         blockType get_type() const; 
 
 };
@@ -327,10 +328,13 @@ class Block
 class Common : public Block
 {
     public:
+        Common(blockType);
         Common(blockType, std::vector<Weapon*>, std::vector<Armor*>, std::vector<Potion*>, std::vector<Spell*>);
         ~Common();
 
-        void move(int);
+        void move(std::vector<Hero*>);
+        void fight_start();
+        void print() const;
 };
 
 class Inaccessible : public Block
@@ -338,49 +342,14 @@ class Inaccessible : public Block
     public:
         Inaccessible(blockType);
         ~Inaccessible();
-        void move(int);
+
+        void move(std::vector<Hero*>);
+        void print() const;
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-/*class block {
-protected:
-    std::vector<Hero*> squad;
-
-public:
-    virtual ~block() = 0;
-    virtual void printBlock() const = 0;
-    virtual void move(std::vector<Hero*>&) = 0;
-};
-
-class market : public block {
-    //item stock//
-    std::vector<Spell*> spells;
-    std::vector<Weapon*> weapons;
-    std::vector<Armor*> armors;
-    std::vector<Potion*> potions;
-
-public:
-    void DisplayItems(std::string) const;
-    int vector_count(std::string) const;
-    bool purchase(Hero*, int);
-
-    void move(std::vector<Hero*>&);
-    void displayStock(); //display shop stock
-    void printBlock() const; //print as 'M' on map
-    void visit(Hero&);
-    //when hero sells, pass the market so it can buy the hero's stuff depending on type
-    void acquire(Potion*);
-    void acquire(Armor*);
-    void acquire(Weapon*);
-    void acquire(Spell*);
-    void menu();
-    void buyMenu(Hero&);
-    void sellMenu(Hero&);
-    market();
-    ~market();
-};
-
+/*
 class common : public block {
     void end_round(std::vector<Monster*>&);
     bool end_fight(const std::vector<Monster*>&); //check if time to end fight
@@ -388,30 +357,9 @@ class common : public block {
 
 public:
     void displayStats(const std::vector<Monster*>&) const;
-    void printBlock() const;
-    void move(std::vector<Hero*>&);
     void fight_start();
 };
-
-class inaccessible : public block {
-public:
-    void printBlock() const;
-    void move(std::vector<Hero*>& squad);
-    Monster* m;
-};
-
-class Grid {
-private:
-    //5x5 grid
-    std::array<block*, 25> grid;
-    int hero_pos;
-
-public:
-    Grid();
-    void displayMap();
-    void move(std::string);
-    ~Grid();
-};*/
+*/
 
 class Game {
 private:
@@ -447,6 +395,7 @@ public:
     void InitArmors();
     void InitPotions();
     void InitSpells();
+    void InitMonsters();
     void InitGrid();
 
     //  New Hero Menu
@@ -458,7 +407,7 @@ public:
     //  Block Menu
     void CommonBlockMenu();
     void InventoryMenu();
-    void TravelMenu();
+    void MoveMenu();
     void MarketMenu();
     void MainMenu();
 
@@ -467,7 +416,7 @@ public:
     void ChangeArmor();
     void UsePotion();
 
-    //  Travel Menu
+    //  Move Menu
 
 
     //  Market Menu
