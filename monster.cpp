@@ -4,18 +4,6 @@
 
 using std::string;
 
-Monster::~Monster()
-{
-    std::cout << Name << '\n';
-    std::cout << "Level: " << Level << '\n';
-    std::cout << "HP: " << HealthPower
-              << "\n\n";
-    std::cout << "DMG: " << minDMG << " - " << maxDMG << '\n';
-    std::cout << "DEF: " << Defense << '\n';
-    std::cout << "DODGE: " << Dodge << "%" << '\n';
-    std::cout << std::endl;
-}
-
 Monster::Monster(const string& MyName, int LowDMG, int HighDMG, int DEF, int MissChance, int LvL)
     : minDMG(LowDMG)
     , maxDMG(HighDMG)
@@ -26,6 +14,8 @@ Monster::Monster(const string& MyName, int LowDMG, int HighDMG, int DEF, int Mis
 {
     debuffDur.fill(0); //spelltype and round duration
 }
+
+Monster::~Monster() { }
 
 int Monster::get_defense() const
 {

@@ -13,8 +13,8 @@ Game::Game()
     : playing(true)
     , Dimension(8)
     , ActiveHero(0)
-    , ActiveBlock_x(2)
-    , ActiveBlock_y(2)
+    , ActiveBlock_x(0)
+    , ActiveBlock_y(0)
 {
     //
 }
@@ -314,16 +314,10 @@ void Game::InitGrid()
     std::cout << "\tInitializing Grid... ";
     for (auto i = 0; i < Grid.size(); i++) {
         for (auto j = 0; j < Grid[i].size(); ++j) {
-            //if(std::rand() % 100 >= 60)
-            //  Grid[i][j] = new Common(blockType::COMMON, AllWeapons, AllArmors, AllPotions, AllSpells);
-            //Grid[i][j] = new Common(blockType::COMMON);
-            Grid[i][j] = new Common(blockType::COMMON, AllWeapons, AllArmors, AllPotions, AllSpells);
+            Grid[i][j] = new Common(blockType::COMMON);
         }
     }
     std::flush(std::cout);
-    /* std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    std::cout << "Done\n";
-    std::this_thread::sleep_for(std::chrono::milliseconds(100)); */
 }
 
 void Game::DIRPG()
@@ -358,18 +352,18 @@ void Game::DIRPG()
         clearbuffer();
         std::cout << std::setw(37) << "Input: ";
     }
-
+    clearbuffer();
     switch (input) {
     case 1:
-        clearbuffer();
+
         InitGame();
         break;
     case 2:
-        clearbuffer();
+
         CreditsScreen();
         break;
     case 0:
-        clearbuffer();
+
         ExitScreen();
         break;
     }
@@ -426,6 +420,7 @@ void Game::ExitScreen()
 
 void Game::MainMenu()
 {
+    int input;
     clearscreen();
     std::cout << "\n\n\tLoading.." << std::endl;
     clearscreen();
@@ -487,6 +482,7 @@ void Game::MainMenu()
 
 void Game::MoveMenu()
 {
+    int input;
     clearscreen();
     std::cout << "\n\n\tLoading.." << std::endl;
     clearscreen();
@@ -521,10 +517,10 @@ void Game::MoveMenu()
         clearbuffer();
         std::cout << std::setw(37) << "Input: ";
     }
-
+    clearbuffer();
     switch (input) {
     case 1:
-        clearbuffer();
+
         /*if(Grid[ActiveBlock_x-1][ActiveBlock_y]->get_type() == blockType::INACCESSIBLE)
                 Grid[ActiveBlock_x-1][ActiveBlock_y]->move(MyHeroes);
             else
@@ -534,7 +530,7 @@ void Game::MoveMenu()
             }*/
         break;
     case 2:
-        clearbuffer();
+
         /*if(Grid[ActiveBlock_x+1][ActiveBlock_y]->get_type() == blockType::INACCESSIBLE)
                 Grid[ActiveBlock_x+1][ActiveBlock_y]->move(MyHeroes);
             else
@@ -544,7 +540,7 @@ void Game::MoveMenu()
             }*/
         break;
     case 3:
-        clearbuffer();
+
         /*if(Grid[ActiveBlock_x][ActiveBlock_y-1]->get_type() == blockType::INACCESSIBLE)
                 Grid[ActiveBlock_x][ActiveBlock_y-1]->move(MyHeroes);
             else
@@ -554,7 +550,7 @@ void Game::MoveMenu()
             }*/
         break;
     case 4:
-        clearbuffer();
+
         /*if(Grid[ActiveBlock_x][ActiveBlock_y+1]->get_type() == blockType::INACCESSIBLE)
                 Grid[ActiveBlock_x][ActiveBlock_y+1]->move(MyHeroes);
             else
@@ -564,7 +560,7 @@ void Game::MoveMenu()
             }*/
         break;
     case 0:
-        clearbuffer();
+
         CommonBlockMenu();
         break;
     }
@@ -1037,7 +1033,7 @@ void Game::CommonBlockMenu()
     std::cout << "////////" << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(26) << "[ 2 ]\t Move" << std::setw(35) << "  ////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
-    if (Grid[ActiveBlock_x][ActiveBlock_y]->hasMarket()) {
+    if (Grid[ActiveBlock_x][ActiveBlock_y]->get_type() == blockType::MARKET) {
         std::cout << "////////" << std::setw(29) << "[ 3 ]\t Market" << std::setw(32) << "////////\n";
         std::cout << "////////" << std::setw(63) << "////////\n";
     }
@@ -1052,26 +1048,27 @@ void Game::CommonBlockMenu()
 
     while (!(std::cin >> input) || input < 0 || input > 3) {
         std::cout << "\n";
-        std::cout << std::setw(50) << "Invalid input (Must be: 0 - " << (Grid[ActiveBlock_x][ActiveBlock_y]->hasMarket() ? '3' : '2') << " )\n";
+        std::cout << std::setw(50) << "Invalid input (Must be: 0 - " << (Grid[ActiveBlock_x][ActiveBlock_y]->get_type() == blockType::MARKET ? '3' : '2') << " )\n";
         clearbuffer();
         std::cout << std::setw(37) << "Input: ";
     }
-
+    clearbuffer();
     switch (input) {
     case 1:
-        clearbuffer();
+
         InventoryMenu();
         break;
     case 2:
-        clearbuffer();
+
         MoveMenu();
         break;
     case 3:
-        clearbuffer();
-        MarketMenu();
+        if (Grid[ActiveBlock_x][ActiveBlock_y]->get_type() != blockType::MARKET) {
+            std::cout << "This block doesn't have a market\n";
+        }
+        Grid[ActiveBlock_x][ActiveBlock_y]->interact_with();
         break;
     case 0:
-        clearbuffer();
         MainMenu();
         break;
     }
@@ -1321,122 +1318,7 @@ void Game::UsePotion()
     CommonBlockMenu();
 }
 
-void Game::MarketMenu()
-{
-    clearscreen();
-    std::cout << "\n\n\tLoading.." << std::endl;
-    clearscreen();
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(34) << "=== Market Menu ===" << std::setw(29) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(16) << "[ 1 ]\tBuy" << std::setw(44) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(17) << "[ 2 ]\tSell" << std::setw(43) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(17) << "[ 0 ]\tExit" << std::setw(43) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-
-    std::cout << "\n";
-
-    std::cout << std::setw(37) << "Input: ";
-
-    while (!(std::cin >> input) || input < 0 || input > 2) {
-        std::cout << "\n";
-        std::cout << std::setw(50) << "Invalid input (Must be: 0 - 2)\n";
-        clearbuffer();
-        std::cout << std::setw(37) << "Input: ";
-    }
-
-    switch (input) {
-    case 1:
-        clearbuffer();
-        BuyMenu();
-        break;
-    case 2:
-        clearbuffer();
-        SellMenu();
-        break;
-    case 0:
-        clearbuffer();
-        CommonBlockMenu();
-        break;
-    }
-}
-
-void Game::BuyMenu()
-{
-    clearscreen();
-    std::cout << "\n\n\tLoading.." << std::endl;
-    clearscreen();
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(34) << "=== Buy Menu ===" << std::setw(29) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(20) << "[ 1 ]\tWeapons" << std::setw(40) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(19) << "[ 2 ]\tArmors" << std::setw(41) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(20) << "[ 3 ]\tPotions" << std::setw(40) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(19) << "[ 4 ]\tSpells" << std::setw(41) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(17) << "[ 5 ]\tBack" << std::setw(43) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(17) << "[ 0 ]\tExit" << std::setw(43) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-
-    std::cout << "\n";
-
-    std::cout << std::setw(37) << "Input: ";
-
-    while (!(std::cin >> input) || input < 0 || input > 5) {
-        std::cout << "\n";
-        std::cout << std::setw(50) << "Invalid input (Must be: 0 - 5)\n";
-        clearbuffer();
-        std::cout << std::setw(37) << "Input: ";
-    }
-
-    switch (input) {
-    case 1:
-        clearbuffer();
-        BuyWeapons();
-        break;
-    case 2:
-        clearbuffer();
-        BuyArmors();
-        break;
-    case 3:
-        clearbuffer();
-        BuyPotions();
-        break;
-    case 4:
-        clearbuffer();
-        BuySpells();
-        break;
-    case 5:
-        clearbuffer();
-        MarketMenu();
-        break;
-    case 0:
-        clearbuffer();
-        CommonBlockMenu();
-        break;
-    }
-}
-
+/*
 void Game::BuyWeapons()
 {
     clearscreen();
@@ -1450,9 +1332,9 @@ void Game::BuyWeapons()
     std::cout << "//////////////////////////////////////////////////////////////////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
-    Grid[ActiveBlock_x][ActiveBlock_y]->hasMarket()->DisplayItems("Weapons");
+    //Grid[ActiveBlock_x][ActiveBlock_y]->hasMarket()->DisplayItems("Weapons");
     std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(9) << "[ " << Grid[ActiveBlock_x][ActiveBlock_y]->hasMarket()->get_vector_size("Weapon") + 1 << " ]\tBack" << std::setw(43) << "////////\n";
+    //std::cout << "////////" << std::setw(9) << "[ " << Grid[ActiveBlock_x][ActiveBlock_y]->hasMarket()->get_vector_size("Weapon") + 1 << " ]\tBack" << std::setw(43) << "////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(17) << "[ 0 ]\tExit" << std::setw(43) << "////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
@@ -1469,21 +1351,21 @@ void Game::BuyWeapons()
 
     std::cout << std::setw(37) << "Input: ";
 
-    while (!(std::cin >> input) || input < 0 || input > Grid[ActiveBlock_x][ActiveBlock_y]->hasMarket()->get_vector_size("Weapon") + 1) {
+    while (!(std::cin >> input) || input < 0 || input > get_vector_size("Weapon") + 1) {
         std::cout << "\n";
-        std::cout << std::setw(50) << "Invalid input (Must be: 0 - " << Grid[ActiveBlock_x][ActiveBlock_y]->hasMarket()->get_vector_size("Weapon") + 1 << ")\n";
+        std::cout << std::setw(50) << "Invalid input (Must be: 0 - " << get_vector_size("Weapon") + 1 << ")\n";
         clearbuffer();
         std::cout << std::setw(37) << "Input: ";
     }
 
-    if (input == Grid[ActiveBlock_x][ActiveBlock_y]->hasMarket()->get_vector_size("Weapon") + 1) {
+    if (input == get_vector_size("Weapon") + 1) {
         clearbuffer();
         BuyMenu();
     } else if (input == 0) {
         clearbuffer();
         CommonBlockMenu();
     }
-    Grid[ActiveBlock_x][ActiveBlock_y]->hasMarket()->buy(MyHeroes[ActiveHero], "Weapon", input - 1);
+    buy(MyHeroes[ActiveHero], "Weapon", input - 1);
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     clearbuffer();
     CommonBlockMenu();
@@ -1502,9 +1384,9 @@ void Game::BuyArmors()
     std::cout << "//////////////////////////////////////////////////////////////////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
-    Grid[ActiveBlock_x][ActiveBlock_y]->hasMarket()->DisplayItems("Armors");
+    DisplayItems("Armors");
     std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(9) << "[ " << Grid[ActiveBlock_x][ActiveBlock_y]->hasMarket()->get_vector_size("Armor") + 1 << " ]\tBack" << std::setw(43) << "////////\n";
+    std::cout << "////////" << std::setw(9) << "[ " << get_vector_size("Armor") + 1 << " ]\tBack" << std::setw(43) << "////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(17) << "[ 0 ]\tExit" << std::setw(43) << "////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
@@ -1644,75 +1526,9 @@ void Game::BuySpells()
     clearbuffer();
     CommonBlockMenu();
 }
+*/
 
-void Game::SellMenu()
-{
-    clearscreen();
-    std::cout << "\n\n\tLoading.." << std::endl;
-    clearscreen();
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(35) << "=== Sell Menu ===" << std::setw(28) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(20) << "[ 1 ]\tWeapons" << std::setw(40) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(19) << "[ 2 ]\tArmors" << std::setw(41) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(20) << "[ 3 ]\tPotions" << std::setw(40) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(19) << "[ 4 ]\tSpells" << std::setw(41) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(17) << "[ 5 ]\tBack" << std::setw(43) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(17) << "[ 0 ]\tExit" << std::setw(43) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-
-    std::cout << "\n";
-
-    std::cout << std::setw(37) << "Input: ";
-
-    while (!(std::cin >> input) || input < 0 || input > 5) {
-        std::cout << "\n";
-        std::cout << std::setw(50) << "Invalid input (Must be: 0 - 5)\n";
-        clearbuffer();
-        std::cout << std::setw(37) << "Input: ";
-    }
-
-    switch (input) {
-    case 1:
-        clearbuffer();
-        SellWeapons();
-        break;
-    case 2:
-        clearbuffer();
-        SellArmors();
-        break;
-    case 3:
-        clearbuffer();
-        SellPotions();
-        break;
-    case 4:
-        clearbuffer();
-        SellSpells();
-        break;
-    case 5:
-        clearbuffer();
-        MarketMenu();
-        break;
-    case 0:
-        clearbuffer();
-        CommonBlockMenu();
-        break;
-    }
-}
-
-void Game::SellWeapons()
+/*void Game::SellWeapons()
 {
     clearscreen();
     std::cout << "\n\n\tLoading.." << std::endl;
@@ -1758,7 +1574,7 @@ void Game::SellWeapons()
         clearbuffer();
         CommonBlockMenu();
     }
-    MyHeroes[ActiveHero]->sell(Grid[ActiveBlock_x][ActiveBlock_y]->hasMarket(), "Weapon", input - 1);
+    MyHeroes[ActiveHero]->sell(this, "Weapon", input - 1);
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     clearbuffer();
     CommonBlockMenu();
@@ -1918,7 +1734,7 @@ void Game::SellSpells()
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     clearbuffer();
     CommonBlockMenu();
-}
+}*/
 
 void Game::clearbuffer()
 {

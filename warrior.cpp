@@ -3,10 +3,6 @@
 #include "rpg_lib.hpp"
 #include <iostream>
 
-Warrior::~Warrior()
-{
-}
-
 Warrior::Warrior(const std::string& MyName, Weapon* MyWeapon, Armor* MyArmour, Spell* MySpell)
     : Hero(MyName, 4, 2, 3, MyWeapon, MyArmour, MySpell)
 {

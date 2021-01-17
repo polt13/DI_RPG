@@ -2,10 +2,6 @@
 
 #include "rpg_lib.hpp"
 
-Sorcerer::~Sorcerer()
-{
-}
-
 Sorcerer::Sorcerer(const std::string& MyName, Weapon* MyWeapon, Armor* MyArmour, Spell* MySpell)
     : Hero(MyName, 2, 4, 3, MyWeapon, MyArmour, MySpell)
 {
