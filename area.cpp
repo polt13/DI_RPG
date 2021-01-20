@@ -22,22 +22,31 @@ Market::Market(const std::vector<Weapon*>& AllWeapons, const std::vector<Armor*>
 
 void Market::DisplayItems(std::string itype) const
 {
-    int index = 1;
+    int index = 0;
     if (itype == "Weapons")
+    {
         for (const auto& w : weapons) {
             std::cout << "[ " << index++ << " ] ";
             w->print();
         }
+        index = 0;
+    }
     else if (itype == "Armors")
+    {
         for (const auto& a : armors) {
             std::cout << "[ " << index++ << " ] ";
             a->print();
         }
+        index = 0;
+    }
     else if (itype == "Potions")
+    {
         for (const auto& p : potions) {
             std::cout << "[ " << index++ << " ] ";
             p->print();
         }
+        index = 0;
+    }
     else
         for (const auto& s : spells) {
             std::cout << "[ " << index++ << " ] ";
@@ -110,6 +119,11 @@ void Market::sell(Spell* MySpell)
     spells.push_back(MySpell);
 }
 
+void Market::print() const
+{
+    std::cout << " M ";
+}
+
 Block::Block(blockType btype)
     : type(btype)
 
@@ -142,9 +156,9 @@ void Common::print() const
 {
     if (Squad.empty())
 
-        std::cout << " H "; //heroes at this block
+        std::cout << "   "; 
     else
-        std::cout << " ";
+        std::cout << " H "; //heroes at this block
 }
 
 void Common::interact_with()

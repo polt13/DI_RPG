@@ -13,8 +13,8 @@ Game::Game()
     : playing(true)
     , Dimension(8)
     , ActiveHero(0)
-    , ActiveBlock_x(0)
-    , ActiveBlock_y(0)
+    , ActiveBlock_x(1)
+    , ActiveBlock_y(1)
 {
     //
 }
@@ -313,8 +313,17 @@ void Game::InitGrid()
 
     std::cout << "\tInitializing Grid... ";
     for (auto i = 0; i < Grid.size(); i++) {
-        for (auto j = 0; j < Grid[i].size(); ++j) {
-            Grid[i][j] = new Common(blockType::COMMON);
+        for (auto j = 0; j < Grid[i].size(); ++j)
+        {
+            if(i == 0 || j == 0 || i == Grid.size()-1 || j == Grid[i].size()-1)
+                Grid[i][j] = new Inaccessible(blockType::INACCESSIBLE);
+            else
+            {
+                if(std::rand() % 100 > 75)
+                    Grid[i][j] = new Market(AllWeapons, AllArmors, AllPotions, AllSpells);
+                else
+                    Grid[i][j] = new Common(blockType::COMMON);
+            }
         }
     }
     std::flush(std::cout);
@@ -449,9 +458,9 @@ void Game::MainMenu()
 
     std::cout << std::setw(37) << "Input: ";
 
-    while (!(std::cin >> input) || input < 0 || input > 3) {
+    while (!(std::cin >> input) || input < 0 || input > 4) {
         std::cout << "\n";
-        std::cout << std::setw(50) << "Invalid input (Must be: 0 - 3)\n";
+        std::cout << std::setw(50) << "Invalid input (Must be: 0 - 4)\n";
         clearbuffer();
         std::cout << std::setw(37) << "Input: ";
     }
@@ -467,11 +476,11 @@ void Game::MainMenu()
         break;
     case 3:
         clearbuffer();
-        //ChangeActiveHero();
+        ChangeActiveHero();
         break;
     case 4:
         clearbuffer();
-        //DisplayMap();
+        DisplayMap();
         break;
     case 0:
         clearbuffer();
@@ -1752,13 +1761,65 @@ bool Game::get_playing() const
     return playing;
 }
 
+void Game::ChangeActiveHero()
+{
+    clearscreen();
+    std::cout << "\n\n\tLoading.." << std::endl;
+    clearscreen();
+    std::cout << "\n\n";
+    std::cout << "\t=== Change Active Hero ===\n";
+    std::cout << "\n\n";
+    for(int i=0; i<MyHeroes.size(); i++)
+    {
+        if(MyHeroes[i] != nullptr)
+        {
+            std::cout << "\t[ " << i+1 << " ] " << MyHeroes[i]->get_name() << "\n";
+        }
+        else
+        {
+            std::cout << "\t-\n";
+        }
+    }
+    std::cout << "\n";
+    std::cout << "\t[ 0 ] Exit\n";
+    
+    std::cout << "\n";
+
+    std::cout << std::setw(37) << "Input: ";
+
+    while (!(std::cin >> input) || input < 0 || input > MyHeroes.size()) {
+        std::cout << "\n";
+        std::cout << std::setw(50) << "Invalid input (Must be: 0 - " << MyHeroes.size() << ")\n";
+        clearbuffer();
+        std::cout << std::setw(37) << "Input: ";
+    }
+
+    if(input == 0)
+    {
+        clearbuffer();
+        MainMenu();
+    }
+
+    ActiveHero = input-1;
+}
+
 void Game::DisplayMap() const
 {
+    clearscreen();
+    std::cout << "\n\n\tLoading.." << std::endl;
+    clearscreen();
+    std::cout << "\n\n";
+    std::cout << "\t=== Map ===\n";
+    std::cout << "\n\n\t";
     for (auto r = 0; r < Grid.size(); ++r) {
         for (auto c = 0; c < Grid[r].size(); ++c) {
             std::cout << "|";
             Grid[r][c]->print();
         }
-        std::cout << "|\n";
+        std::cout << "|\n\t";
     }
+    std::cout << "\n\n";
+    std::cout << "\tPress ENTER to continue..." << std::endl;
+    std::cin.get();
+    clearscreen();
 }

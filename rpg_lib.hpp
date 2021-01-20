@@ -337,6 +337,7 @@ public:
     void sell(Armor*);
     void sell(Potion*);
     void sell(Spell*);
+    void print() const;
 };
 
 class Game {
@@ -409,7 +410,7 @@ public:
 
     //  Main Menu
     /*void HeroesInfoMenu();*/
-    /*void ChangeActiveHero();*/
+    void ChangeActiveHero();
     void DisplayMap() const;
 
     //  Clear Functions
