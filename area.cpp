@@ -4,7 +4,9 @@
 Market::Market(const std::vector<Weapon*>& AllWeapons, const std::vector<Armor*>& AllArmors, const std::vector<Potion*>& AllPotions, const std::vector<Spell*>& AllSpells)
     : size(5)
     , Block(blockType::MARKET)
+
 {
+    std::cout << (int)Btype << '\n';
     //from universal item pool make market
     for (int i = 1; i <= size; i++) {
         int index;
@@ -17,7 +19,6 @@ Market::Market(const std::vector<Weapon*>& AllWeapons, const std::vector<Armor*>
         index = (std::rand() % AllSpells.size());
         spells.push_back(AllSpells[index]);
     }
-    //
 }
 
 void Market::DisplayItems(std::string itype) const
@@ -111,21 +112,20 @@ void Market::sell(Spell* MySpell)
 }
 
 Block::Block(blockType btype)
-    : type(btype)
+    : Btype(btype)
 
 {
 }
 
 blockType Block::get_type() const
 {
-    return type;
+    return Btype;
 }
 
 //no market in common
-Common::Common(blockType btype)
-    : Block(btype)
+Common::Common()
+    : Block(blockType::COMMON)
 {
-    //
 }
 
 void Common::move(std::vector<Hero*>& toMove)
@@ -331,8 +331,8 @@ bool Common::end_fight(const std::vector<Monster*>& enemies)
     return false; //none of the two sides are done
 }
 
-Inaccessible::Inaccessible(blockType btype)
-    : Block(btype)
+Inaccessible::Inaccessible()
+    : Block(blockType::INACCESSIBLE)
 {
     //
 }
@@ -358,6 +358,16 @@ void Market::move(std::vector<Hero*>& toMove)
     Squad.insert(Squad.begin(), toMove.begin(), toMove.end()); //copy heroes to new location (this common block)
     toMove.clear();
     interact_with();
+}
+
+void Market::print() const
+{
+
+    if (Squad.empty())
+
+        std::cout << " H-M "; //heroes at market block
+    else
+        std::cout << " M ";
 }
 
 void Market::interact_with()

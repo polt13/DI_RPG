@@ -310,11 +310,16 @@ void Game::InitMonsters()
 
 void Game::InitGrid()
 {
-
+    int inaccess_counter = 0;
     std::cout << "\tInitializing Grid... ";
     for (auto i = 0; i < Grid.size(); i++) {
         for (auto j = 0; j < Grid[i].size(); ++j) {
-            Grid[i][j] = new Common(blockType::COMMON);
+            if (j % (Dimension - 1) == 0) {
+                Grid[i][j] = new Inaccessible();
+            } else if (j % (Dimension - 4) == 0) {
+                Grid[i][j] = new Market(AllWeapons, AllArmors, AllPotions, AllSpells);
+            } else
+                Grid[i][j] = new Common();
         }
     }
     std::flush(std::cout);

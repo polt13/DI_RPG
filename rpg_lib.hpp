@@ -281,7 +281,7 @@ public:
 class Block {
 protected:
     std::vector<Hero*> Squad;
-    blockType type;
+    blockType Btype;
 
 public:
     Block(blockType);
@@ -294,7 +294,7 @@ public:
 
 class Common : public Block {
 public:
-    Common(blockType);
+    Common();
     void move(std::vector<Hero*>&);
     void print() const;
     void end_round(std::vector<Monster*>&); //for applying monster debuffs
@@ -311,7 +311,7 @@ private:
     void interact_with();
 
 public:
-    Inaccessible(blockType);
+    Inaccessible();
     void move(std::vector<Hero*>&);
     void print() const;
 };
@@ -337,6 +337,7 @@ public:
     void sell(Armor*);
     void sell(Potion*);
     void sell(Spell*);
+    void print() const;
 };
 
 class Game {
