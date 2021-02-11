@@ -495,28 +495,20 @@ void Game::MoveMenu()
     clearscreen();
     std::cout << "\n\n\tLoading.." << std::endl;
     clearscreen();
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(37) << "=== Move Menu ===" << std::setw(26) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(25) << "[ 1 ]\tUp" << std::setw(35) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(26) << "[ 2 ]\tDown" << std::setw(34) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(25) << "[ 3 ]\tLeft" << std::setw(35) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(25) << "[ 4 ]\tRight" << std::setw(35) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(17) << "[ 0 ]\tExit" << std::setw(43) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-
+    std::cout << "\n\n";
+    std::cout << "\t=== Move Menu ===\n\n";
+    std::cout << "\n--------------------------------------------------\n\n";
+    std::cout << "\t[ 1 ]\tUp\n";
     std::cout << "\n";
+    std::cout << "\t[ 2 ]\tDown\n";
+    std::cout << "\n";
+    std::cout << "\t[ 3 ]\tLeft\n";
+    std::cout << "\n";
+    std::cout << "\t[ 4 ]\tRight\n";
+    std::cout << "\n";
+    std::cout << "\t[ 0 ]\tExit\n";
+    std::cout << "\n";
+    std::cout << "--------------------------------------------------\n\n\n";
 
     std::cout << std::setw(37) << "Input: ";
 
@@ -1030,28 +1022,22 @@ void Game::CommonBlockMenu()
     clearscreen();
     std::cout << "\n\n\tLoading.." << std::endl;
     clearscreen();
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(39) << "=== Common Block Menu ===" << std::setw(24) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(31) << "[ 1 ]\t Inventory" << std::setw(30) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(26) << "[ 2 ]\t Move" << std::setw(35) << "  ////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    if (Grid[ActiveBlock_x][ActiveBlock_y]->get_type() == blockType::MARKET) {
-        std::cout << "////////" << std::setw(29) << "[ 3 ]\t Market" << std::setw(32) << "////////\n";
-        std::cout << "////////" << std::setw(63) << "////////\n";
-    }
-    std::cout << "////////" << std::setw(32) << "[ 0 ]\t Main Menu" << std::setw(29) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
 
+    std::cout << "\n\n";
+    std::cout << "\t=== Common Block Menu ===\n\n";
+    std::cout << "\n--------------------------------------------------\n\n";
+    std::cout << "\t[ 1 ]\tInventory\n";
     std::cout << "\n";
+    std::cout << "\t[ 2 ]\tMove\n";
+    std::cout << "\n";
+    if (Grid[ActiveBlock_x][ActiveBlock_y]->get_type() == blockType::MARKET)
+    {
+        std::cout << "\t[ 3 ]\tMarket\n";
+        std::cout << "\n";
+    }
+    std::cout << "\t[ 0 ]\tMain Menu\n";
+    std::cout << "\n";
+    std::cout << "--------------------------------------------------\n\n\n";
 
     std::cout << std::setw(37) << "Input: ";
 
@@ -1088,32 +1074,19 @@ void Game::InventoryMenu()
     clearscreen();
     std::cout << "\n\n\tLoading.." << std::endl;
     clearscreen();
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(39) << "=== Inventory Menu ===" << std::setw(24) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    MyHeroes[ActiveHero]->checkInventory();
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(49) << "--------------------------------------------" << std::setw(14) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(28) << "[ 1 ]\tChange Weapon" << std::setw(32) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(27) << "[ 2 ]\tChange Armor" << std::setw(33) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(28) << "[ 3 ]\tUse Potion" << std::setw(32) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(30) << "[ 0 ]\tExit" << std::setw(30) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
 
+    std::cout << "\n\n";
+    std::cout << "\t=== Inventory Menu ===\n\n";
+    std::cout << "\n--------------------------------------------------\n\n";
+    std::cout << "\t[ 1 ]\tChange Weapon\n";
     std::cout << "\n";
+    std::cout << "\t[ 2 ]\tChange Armor\n";
+    std::cout << "\n";
+    std::cout << "\t[ 3 ]\tUse Potion\n";
+    std::cout << "\n";
+    std::cout << "\t[ 0 ]\tExit\n";
+    std::cout << "\n";
+    std::cout << "--------------------------------------------------\n\n\n";
 
     std::cout << std::setw(37) << "Input: ";
 
@@ -1149,40 +1122,28 @@ void Game::ChangeWeapon()
     clearscreen();
     std::cout << "\n\n\tLoading.." << std::endl;
     clearscreen();
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(37) << "=== Change Weapon ===" << std::setw(26) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    MyHeroes[ActiveHero]->DisplayItems("Weapons");
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(9) << "[ " << MyHeroes[ActiveHero]->get_vector_size("Weapon") + 1 << " ]\tBack" << std::setw(43) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(17) << "[ 0 ]\tExit" << std::setw(43) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(49) << "--------------------------------------------" << std::setw(14) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(20) << "Hero Selected: " << MyHeroes[ActiveHero]->get_name() << std::setw(20) << "////////\n";
-    std::cout << "////////" << std::setw(20) << "Right Hand: ";
-    if (MyHeroes[ActiveHero]->get_righthand() != nullptr)
-        std::cout << MyHeroes[ActiveHero]->get_righthand()->get_name() << std::setw(30) << "////////\n";
-    else
-        std::cout << "-" << std::setw(30) << "////////\n";
-    std::cout << "////////" << std::setw(20) << "Left Hand: ";
-    if (MyHeroes[ActiveHero]->get_lefthand() != nullptr)
-        std::cout << MyHeroes[ActiveHero]->get_lefthand()->get_name() << std::setw(30) << "////////\n";
-    else
-        std::cout << "-" << std::setw(30) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
 
+    std::cout << "\n\n";
+    std::cout << "\t=== Change Weapon ===\n\n";
+    std::cout << "\n--------------------------------------------------\n\n";
+    MyHeroes[ActiveHero]->DisplayItems("Weapons");
+    std::cout << "\n--------------------------------------------------\n\n";
+    std::cout << "\t[ " << MyHeroes[ActiveHero]->get_vector_size("Weapon") + 1 << " ]\tBack\n";
     std::cout << "\n";
+    std::cout << "\t[ 0 ]\tExit\n\n";
+    std::cout << "--------------------------------------------------\n\n";
+    std::cout << "\tHero Selected: " << MyHeroes[ActiveHero]->get_name() << "\n";
+    std::cout << "\tRight Hand: ";
+    if (MyHeroes[ActiveHero]->get_righthand() != nullptr)
+        std::cout << MyHeroes[ActiveHero]->get_righthand()->get_name() << "\n";
+    else
+        std::cout << "-\n";
+    std::cout << "\tLeft Hand: ";
+    if (MyHeroes[ActiveHero]->get_lefthand() != nullptr)
+        std::cout << MyHeroes[ActiveHero]->get_lefthand()->get_name() << "\n";
+    else
+        std::cout << "-\n";
+    std::cout << "\n--------------------------------------------------\n\n\n";
 
     std::cout << std::setw(37) << "Input: ";
 
@@ -1223,35 +1184,23 @@ void Game::ChangeArmor()
     clearscreen();
     std::cout << "\n\n\tLoading.." << std::endl;
     clearscreen();
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(37) << "=== Change Armor ===" << std::setw(26) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    MyHeroes[ActiveHero]->DisplayItems("Armors");
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(9) << "[ " << MyHeroes[ActiveHero]->get_vector_size("Armor") + 1 << " ]\tBack" << std::setw(43) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(17) << "[ 0 ]\tExit" << std::setw(43) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(49) << "--------------------------------------------" << std::setw(14) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(20) << "Hero Selected: " << MyHeroes[ActiveHero]->get_name() << std::setw(20) << "////////\n";
-    std::cout << "////////" << std::setw(20) << "Armor: ";
-    if (MyHeroes[ActiveHero]->get_armor() != nullptr)
-        std::cout << MyHeroes[ActiveHero]->get_armor()->get_name() << std::setw(30) << "////////\n";
-    else
-        std::cout << "-" << std::setw(30) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
 
+    std::cout << "\n\n";
+    std::cout << "\t=== Change Armor ===\n\n";
+    std::cout << "\n--------------------------------------------------\n\n";
+    MyHeroes[ActiveHero]->DisplayItems("Armors");
+    std::cout << "\n--------------------------------------------------\n\n";
+    std::cout << "\t[ " << MyHeroes[ActiveHero]->get_vector_size("Armor") + 1 << " ]\tBack\n";
     std::cout << "\n";
+    std::cout << "\t[ 0 ]\tExit\n\n";
+    std::cout << "--------------------------------------------------\n\n";
+    std::cout << "\tHero Selected: " << MyHeroes[ActiveHero]->get_name() << "\n";
+    std::cout << "\tArmor: ";
+    if (MyHeroes[ActiveHero]->get_armor() != nullptr)
+        std::cout << MyHeroes[ActiveHero]->get_armor()->get_name() << "\n";
+    else
+        std::cout << "-\n";
+    std::cout << "\n--------------------------------------------------\n\n\n";
 
     std::cout << std::setw(37) << "Input: ";
 
