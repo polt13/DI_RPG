@@ -517,45 +517,59 @@ void Game::MoveMenu()
     clearbuffer();
     switch (input) {
     case 1:
-
-        if (Grid[posx - 1][posy]->get_type() == blockType::INACCESSIBLE)
-            Grid[posx - 1][posy]->move(Grid[posx][posy]->getSquad()); //move the heroes from the current block to the next...
-        else {
-            posx--;
-            Grid[posx][posy]->move(MyHeroes);
+        if (posx - 1 < 0) {
+            std::cout << " Out of bounds\n";
+            break;
+        } else {
+            if (Grid[posx - 1][posy]->get_type() == blockType::INACCESSIBLE)
+                Grid[posx - 1][posy]->move(Grid[posx][posy]->getSquad()); //move the heroes from the current block to the next...
+            else {
+                Grid[posx - 1][posy]->move(Grid[posx][posy]->getSquad());
+                posx--;
+            }
         }
+
         break;
     case 2:
-
-        if (Grid[posx + 1][posy]->get_type() == blockType::INACCESSIBLE)
-            Grid[posx + 1][posy]->move(Grid[posx][posy]->getSquad());
-        else {
-            posx++;
-            Grid[posx][posy]->move(Grid[posx][posy]->getSquad());
+        if (posx + 1 >= Dimension) {
+            std::cout << " Out of bounds\n";
+        } else {
+            if (Grid[posx + 1][posy]->get_type() == blockType::INACCESSIBLE)
+                Grid[posx + 1][posy]->move(Grid[posx][posy]->getSquad());
+            else {
+                Grid[posx + 1][posy]->move(Grid[posx][posy]->getSquad());
+                posx++;
+            }
         }
         break;
     case 3:
-
-        if (Grid[posx][posy - 1]->get_type() == blockType::INACCESSIBLE)
-            Grid[posx][posy - 1]->move(MyHeroes);
-        else {
-            posy--;
-            Grid[posx][posy]->move(Grid[posx][posy]->getSquad());
+        if (posy - 1 < 0) {
+            std::cout << " Out of bounds\n";
+        } else {
+            if (Grid[posx][posy - 1]->get_type() == blockType::INACCESSIBLE)
+                Grid[posx][posy - 1]
+                    ->move(Grid[posx][posy]->getSquad());
+            else {
+                Grid[posx][posy - 1]->move(Grid[posx][posy]->getSquad());
+                posy--;
+            }
         }
         break;
     case 4:
-
-        if (Grid[posx][posy + 1]->get_type() == blockType::INACCESSIBLE)
-            Grid[posx][posy + 1]->move(MyHeroes);
-        else {
-            posy++;
-            Grid[posx][posy]->move(Grid[posx][posy]->getSquad());
+        if (posy + 1 >= Dimension) {
+            std::cout << " Out of bounds\n";
+        } else {
+            if (Grid[posx][posy + 1]->get_type() == blockType::INACCESSIBLE)
+                Grid[posx][posy + 1]->move(Grid[posx][posy]->getSquad());
+            else {
+                Grid[posx][posy + 1]->move(Grid[posx][posy]->getSquad());
+                posy++;
+            }
         }
         break;
     default:
         DisplayMap();
-        CommonBlockMenu();
-        break;
+        return;
     }
     DisplayMap();
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
@@ -1006,7 +1020,6 @@ void Game::CommonBlockMenu()
     clearscreen();
     std::cout << "\n\n\tLoading.." << std::endl;
     clearscreen();
-
     std::cout << "\n\n";
     std::cout << "\t=== Common Block Menu ===\n\n";
     std::cout << "\n--------------------------------------------------\n\n";
@@ -1301,6 +1314,5 @@ void Game::DisplayMap() const
     }
     std::cout << "\n\n";
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    clearbuffer();
     clearscreen();
 }
