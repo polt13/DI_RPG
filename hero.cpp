@@ -73,7 +73,7 @@ int Hero::get_max_xp() const
     return XPmax;
 }
 
-int Hero::get_vector_size(std::string type) const
+int Hero::inv_size(std::string type) const
 {
     if (type == "Weapon")
         return WeaponsInv.size();

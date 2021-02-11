@@ -189,7 +189,7 @@ public:
     Armor* get_armor() const;
     int& getStat(potionType);
     int get_max_xp() const;
-    int get_vector_size(std::string) const;
+    int inv_size(std::string) const;
 
     void attack(Monster*);
     void castSpell(Monster*, int);
@@ -284,6 +284,7 @@ protected:
     blockType Btype;
 
 public:
+    std::vector<Hero*>& getSquad();
     Block(blockType);
     virtual ~Block() = default;
     virtual void interact_with() = 0;
@@ -345,8 +346,8 @@ private:
     int input;
     bool playing;
     int Dimension;
-    int ActiveBlock_x;
-    int ActiveBlock_y;
+    int posx;
+    int posy;
     int ActiveHero;
     std::array<std::array<Block*, 8>, 8> Grid;
     std::vector<Weapon*> AllWeapons;
@@ -410,7 +411,7 @@ public:
 
     //  Main Menu
     /*void HeroesInfoMenu();*/
-    /*void ChangeActiveHero();*/
+    void ChangeActiveHero();
     void DisplayMap() const;
 
     //  Clear Functions

@@ -23,23 +23,26 @@ Market::Market(const std::vector<Weapon*>& AllWeapons, const std::vector<Armor*>
 
 void Market::DisplayItems(std::string itype) const
 {
-    int index = 1;
-    if (itype == "Weapons")
+    int index = 0;
+    if (itype == "Weapons") {
         for (const auto& w : weapons) {
             std::cout << "[ " << index++ << " ] ";
             w->print();
         }
-    else if (itype == "Armors")
+        index = 0;
+    } else if (itype == "Armors") {
         for (const auto& a : armors) {
             std::cout << "[ " << index++ << " ] ";
             a->print();
         }
-    else if (itype == "Potions")
+        index = 0;
+    } else if (itype == "Potions") {
         for (const auto& p : potions) {
             std::cout << "[ " << index++ << " ] ";
             p->print();
         }
-    else
+        index = 0;
+    } else
         for (const auto& s : spells) {
             std::cout << "[ " << index++ << " ] ";
             s->print();
@@ -117,6 +120,11 @@ Block::Block(blockType btype)
 {
 }
 
+std::vector<Hero*>& Block::getSquad()
+{
+    return Squad; //get heroes from current block, so that they can move to next
+}
+
 blockType Block::get_type() const
 {
     return Btype;
@@ -135,16 +143,16 @@ void Common::move(std::vector<Hero*>& toMove)
     if (std::rand() % 100 > 50) {
         std::cout << "\n\n";
         std::cout << "\tRandom encounter!\n";
-        interact_with();
+        /*interact_with();*/
     }
 }
 void Common::print() const
 {
     if (Squad.empty())
 
-        std::cout << " H "; //heroes at this block
+        std::cout << "   ";
     else
-        std::cout << " ";
+        std::cout << " H "; //heroes at this block
 }
 
 void Common::interact_with()
