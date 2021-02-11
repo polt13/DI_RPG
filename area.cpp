@@ -6,11 +6,9 @@ Market::Market(const std::vector<Weapon*>& AllWeapons, const std::vector<Armor*>
     , Block(blockType::MARKET)
 
 {
-    std::cout << (int)Btype << '\n';
     //from universal item pool make market
     for (int i = 1; i <= size; i++) {
-        int index;
-        index = (std::rand() % AllWeapons.size());
+        int index = (std::rand() % AllWeapons.size());
         weapons.push_back(AllWeapons[index]);
         index = (std::rand() % AllArmors.size());
         armors.push_back(AllArmors[index]);
@@ -373,9 +371,9 @@ void Market::print() const
 
     if (Squad.empty())
 
-        std::cout << " H-M "; //heroes at market block
+        std::cout << " M "; //heroes at market block
     else
-        std::cout << " M ";
+        std::cout << " H-M ";
 }
 
 void Market::interact_with()
