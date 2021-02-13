@@ -101,10 +101,18 @@ void Potion::print() const
 {
     std::cout << name << " | Price: " << buy_price << " | Buff: " << typeToString() << " | Buff Amount: " << buffAmount << " | Minimum level: " << min_level << std::endl;
 }
-void Potion::buff(Hero& h)
+void Potion::buff(Hero* h)
 {
     if (potion_type == potionType::HP) {
-    }
+        h->HPbuff(buffAmount);
+    } else if (potion_type == potionType::MP) {
+        h->MPbuff(buffAmount);
+    } else if (potion_type == potionType::AGIL) {
+        h->AGILbuff(buffAmount);
+    } else if (potion_type == potionType::DEX) {
+        h->DEXbuff(buffAmount);
+    } else
+        h->STRbuff(buffAmount);
 }
 
 Spell::Spell(const string& _name, const int price, const int lvl, const int mindmg, const int maxdmg, const int mp, const int dur)

@@ -19,29 +19,26 @@ Market::Market(const std::vector<Weapon*>& AllWeapons, const std::vector<Armor*>
     }
 }
 
-void Market::DisplayItems(std::string itype) const
+void Market::DisplayItems(itemType itype) const
 {
     int index = 0;
-    if (itype == "Weapons") {
-        for (const auto& w : weapons) {
+    if (itype == itemType::WEAPON) {
+        for (const auto w : weapons) {
             std::cout << "[ " << index++ << " ] ";
             w->print();
         }
-        index = 0;
-    } else if (itype == "Armors") {
-        for (const auto& a : armors) {
+    } else if (itype == itemType::ARMOR) {
+        for (const auto a : armors) {
             std::cout << "[ " << index++ << " ] ";
             a->print();
         }
-        index = 0;
-    } else if (itype == "Potions") {
-        for (const auto& p : potions) {
+    } else if (itype == itemType::POTION) {
+        for (const auto p : potions) {
             std::cout << "[ " << index++ << " ] ";
             p->print();
         }
-        index = 0;
     } else
-        for (const auto& s : spells) {
+        for (const auto s : spells) {
             std::cout << "[ " << index++ << " ] ";
             s->print();
         }
@@ -140,8 +137,8 @@ void Common::move(std::vector<Hero*>& toMove)
     toMove.clear(); //empty previous block
     if (std::rand() % 100 > 50) {
         std::cout << "\n\n";
-        std::cout << "\tRandom encounter!\n";
-        /*interact_with();*/
+        std::cout << "\t\tRandom encounter!\n\n";
+        interact_with();
     }
 }
 void Common::print() const
@@ -156,15 +153,15 @@ void Common::print() const
 void Common::interact_with()
 {
     //generate enemy monsters
-    std::vector<Monster*> Enemies(3);
+    std::vector<Monster*> Enemies;
     for (auto i = 1; i <= 3; i++) {
         auto whichMonster = std::rand() % 60;
         if (whichMonster > 50) {
-            Enemies.push_back(new Dragon("Vaggelis"));
+            Enemies.push_back(new Dragon("Duragon"));
         } else if (whichMonster > 25) {
-            Enemies.push_back(new Exoskeleton("Iakovos"));
+            Enemies.push_back(new Exoskeleton("Skelly"));
         } else
-            Enemies.push_back(new Spirit("Kekw"));
+            Enemies.push_back(new Spirit("Wild Spirit"));
     }
 
     fight(Enemies);
@@ -176,25 +173,25 @@ void Common::interact_with()
 
 void Common::fight(std::vector<Monster*>& enemies)
 {
+    auto atk_hero = 0;
+    auto enemy_lvl = enemies[0]->getLevel();
 
     while (end_fight(enemies) == false) { //checks if condition to finish battle are met
         //round starts here
-        auto whoAttacks = 0;
-        auto whichMonsterAttacks = 0;
-        char option = 0;
+        int option = 0;
         do {
-            Game::clearbuffer();
-            std::cout << "I for inventory, A for attack, D for stats display";
+
+            std::cout << "\n\n1 to view battle status, 2 to view inventory, 3 to attack";
             std::cin >> option;
 
-        } while (option != 'i' && option != 'I' && option != 'a' && option != 'A' && option != 'D' && option != 'd');
+        } while (option != 1 && option != 2 && option != 3);
         int pick;
-        if (option == 'D' || option == 'd') {
-            displayStats(enemies);
+        if (option == 1) {
+            battle_status(enemies);
             continue;
-        } else if (option == 'i' || option == 'I') {
+        } else if (option == 2) {
 
-            std::cout << "Check inventory of character:\n";
+            std::cout << "Check inventory of character? [ 0 to " << Squad.size() - 1 << "]\n";
             int HeroPick;
             while (!(std::cin >> HeroPick) || HeroPick > Squad.size() - 1) {
                 std::cout << "Not a valid pick\n";
@@ -210,13 +207,14 @@ void Common::fight(std::vector<Monster*>& enemies)
             int who;
             switch (pick) {
             case 1:
+                Squad[HeroPick]->DisplayItems(itemType::POTION);
                 std::cout << "Use which potion?\n";
                 while (!(std::cin >> whichItem)) {
                     std::cout << "Not a valid pick\n";
                     Game::clearbuffer();
                 }
                 Squad[HeroPick]->use(whichItem); //use on the hero itself
-                Game::clearbuffer();
+
                 break;
             case 2:
                 int enemyTarget;
@@ -224,52 +222,53 @@ void Common::fight(std::vector<Monster*>& enemies)
                 std::cout << "Use which spell?\n";
                 while (!(std::cin >> whichSpell)) {
                     std::cout << "Not a valid pick\n";
-                    Game::clearbuffer();
                 }
-                std::cout << " Use spell on: \n";
+                battle_status(enemies);
+                std::cout << " Use spell on: [0 to \n"
+                          << enemies.size() - 1 << "]\n";
                 while (!(std::cin >> enemyTarget) || enemyTarget < 0 || (enemyTarget > enemies.size() - 1)) {
                     std::cout << "Not a valid pick\n";
-                    Game::clearbuffer();
                 }
-
-                Squad[HeroPick]->castSpell(enemies[enemyTarget], whichItem);
+                Squad[HeroPick]->castSpell(enemies[enemyTarget], whichSpell);
                 if (enemies[enemyTarget]->get_hp() == 0) {
                     delete enemies[enemyTarget]; //if monster dead after attack remove it
                     enemies.erase(enemies.begin() + enemyTarget);
                 }
-                Game::clearbuffer();
                 break;
             case 3:
-                Game::clearbuffer();
-                std::cout << "Exiting..\n";
-                return;
+                continue;
             }
             continue;
         } else {
+            // init  combat
             //circular rotation --- who attacks
-            int enemy_at {};
-            std::cout << Squad[whoAttacks]->get_name() << " attacks: \n";
+            int enemy_at;
+            battle_status(enemies);
+            std::cout << Squad[atk_hero]->get_name() << " attacks: \n";
             while (!(std::cin >> enemy_at) || (enemy_at > enemies.size() - 1)) {
                 std::cout << "Invalid index\n";
             }
-            Squad[whoAttacks++]->attack(enemies[enemy_at]); //attack and go to next person
+            Squad[atk_hero++]->attack(enemies[enemy_at]); //attack and go to next hero
             if (enemies[enemy_at]->get_hp() == 0) {
-                delete enemies[enemy_at]; //if monster dead after attack remove it
+                delete enemies[enemy_at]; //if monster dead after attack remove it from battle
                 enemies.erase(enemies.begin() + enemy_at);
+                if (enemies.size() == 0)
+                    continue; //fight needs to end
             }
-            if (whoAttacks > Squad.size() - 1) //circle around players
-                whoAttacks = 0;
-            int heroTarget = std::rand() % Squad.size(); //randomly pick hero target for monster AI
-            std::cout << enemies[whichMonsterAttacks]->get_name() << " attacks " << Squad[heroTarget]->get_name() << '\n';
-            enemies[whichMonsterAttacks]->attack(Squad[heroTarget]);
+            if (atk_hero > Squad.size() - 1) //circle around players
+                atk_hero = 0;
+            auto atk_monster = std::rand() % enemies.size();
+            auto heroTarget = std::rand() % Squad.size(); //randomly pick hero target for monster AI
+            std::cout << enemies[atk_monster]->get_name() << " attacks " << Squad[heroTarget]->get_name() << '\n';
+            enemies[atk_monster]->attack(Squad[heroTarget]);
         }
 
         for (auto h : Squad) {
             h->regenHP();
             h->regenMP();
         }
-        for (auto m : enemies) {
-            m->regenHP();
+        for (auto e : enemies) {
+            e->regenHP();
         }
         end_round(enemies);
         //round ends here
@@ -278,8 +277,8 @@ void Common::fight(std::vector<Monster*>& enemies)
     for (auto h : Squad) { //find if all heroes dead
         if (h->get_hp() != 0) {
             all_dead = false;
-            h->set_xp(enemies[0]->getLevel() * 5); //get xp based on level of enemy
-            h->addMoney(enemies[0]->getLevel() * 3); //get money based on level of enemy
+            h->set_xp(enemy_lvl * 5); //get xp based on level of enemy
+            h->addMoney(enemy_lvl * 3); //get money based on level of enemy
         }
     }
     if (all_dead == false)
@@ -297,16 +296,16 @@ void Common::fight(std::vector<Monster*>& enemies)
 
 void Common::end_round(std::vector<Monster*>& enemies)
 {
-    for (auto m : enemies)
-        m->finish_round(); //checks when it's time to remove an effect
+    for (auto e : enemies)
+        e->finish_round(); //checks when it's time to remove an effect
 }
 
-void Common::displayStats(const std::vector<Monster*>& enemies) const
+void Common::battle_status(const std::vector<Monster*>& enemies) const
 {
     for (const auto m : enemies) {
         m->displayStats();
     }
-    std::cout << std::endl;
+    std::cout << "\n\n";
     for (const auto h : Squad) {
         h->displayStats();
     }
@@ -325,7 +324,7 @@ bool Common::end_fight(const std::vector<Monster*>& enemies)
         if (h->get_hp() != 0)
             heroes_dead = false;
     }
-    displayStats(enemies);
+    battle_status(enemies);
     if (heroes_dead == true && monsters_dead == false) {
         std::cout << " All heroes have fainted\n";
         return true;
@@ -561,19 +560,19 @@ void Market::SellMenu(Hero* h)
 
         switch (input) {
         case 1:
-            h->sell(this, "Weapon", index);
+            h->sell(this, itemType::WEAPON, index); //sell to this(market)
             break;
         case 2:
 
-            h->sell(this, "Armor", index);
+            h->sell(this, itemType::ARMOR, index);
             break;
         case 3:
 
-            h->sell(this, "Potion", index);
+            h->sell(this, itemType::SPELL, index);
             break;
         case 4:
 
-            h->sell(this, "Potion", index);
+            h->sell(this, itemType::POTION, index);
             break;
         }
     } while (input != 5);

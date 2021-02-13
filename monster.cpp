@@ -40,7 +40,7 @@ void Monster::attack(Hero* MyHero)
         std::cout << "Higher defense than dmg\n";
         return;
     }
-    if (rand() % 100 > MyHero->get_agility()) {
+    if ((std::rand() % 100) > MyHero->get_agility()) {
         std::cout << get_name() << " dealt " << DMGdealt << " DMG to " << MyHero->get_name() << "!" << '\n';
         MyHero->decrease_hp(DMGdealt);
     } else
@@ -55,6 +55,7 @@ void Monster::debuff(spellType st, int rounds)
 
     switch (st) {
     case spellType::ICE:
+        //only apply the debuff once, if it's casted again only increase debuff duration
         if (debuffDur[0] == 0)
             maxDMG -= 5;
         debuffDur[0] += rounds;
@@ -78,6 +79,7 @@ void Monster::finish_round()
         if (debuffDur[i] > 0) {
             {
                 debuffDur[i]--;
+                //checks if debuff effect duration has come to an end
                 if (debuffDur[i] == 0) {
                     if (i == 0) {
                         maxDMG += 5;

@@ -84,11 +84,12 @@ void Game::InitGame()
 
 void Game::InitWeapons()
 {
-    std::ifstream inFile("weapons.txt");
-
-    if (inFile.fail()) {
-        std::cout << "Error Opening File 'weapons.txt'\n";
-        exit(1);
+    std::ifstream inFile;
+    try {
+        inFile.open("weapons.txt");
+    } catch (std::exception& e) {
+        std::cerr << "Exception opening/reading weapons.txt\n";
+        std::exit(0);
     }
 
     std::string name;
@@ -96,7 +97,6 @@ void Game::InitWeapons()
     std::string lvl;
     std::string dmg;
     std::string grip;
-
     while (!inFile.eof()) {
         getline(inFile, name, '\t');
         getline(inFile, price, '\t');
@@ -122,11 +122,12 @@ void Game::InitWeapons()
 
 void Game::InitArmors()
 {
-    std::ifstream inFile("armors.txt");
-
-    if (inFile.fail()) {
-        std::cout << "Error Opening File 'armors.txt'\n";
-        exit(1);
+    std::ifstream inFile;
+    try {
+        inFile.open("armors.txt");
+    } catch (std::exception& e) {
+        std::cerr << "Exception opening/reading armors.txt\n";
+        std::exit(0);
     }
 
     std::string name;
@@ -155,11 +156,12 @@ void Game::InitArmors()
 
 void Game::InitPotions()
 {
-    std::ifstream inFile("potions.txt");
-
-    if (inFile.fail()) {
-        std::cout << "Error Opening File 'potions.txt'\n";
-        exit(1);
+    std::ifstream inFile;
+    try {
+        inFile.open("potions.txt");
+    } catch (std::exception& e) {
+        std::cerr << "Exception opening/reading potions.txt file\n";
+        std::exit(0);
     }
 
     std::string name;
@@ -205,11 +207,12 @@ void Game::InitPotions()
 
 void Game::InitSpells()
 {
-    std::ifstream inFile("spells.txt");
-
-    if (inFile.fail()) {
-        std::cout << "Error Opening File 'spells.txt'\n";
-        exit(1);
+    std::ifstream inFile;
+    try {
+        inFile.open("spells.txt");
+    } catch (std::exception& e) {
+        std::cerr << "Exception opening/reading spells.txt\n";
+        std::exit(0);
     }
 
     std::string name;
@@ -257,11 +260,12 @@ void Game::InitSpells()
 
 void Game::InitMonsters()
 {
-    std::ifstream inFile("names.txt");
-
-    if (inFile.fail()) {
-        std::cout << "Error Opening File 'spells.txt'\n";
-        exit(1);
+    std::ifstream inFile;
+    try {
+        inFile.open("names.txt");
+    } catch (std::exception& e) {
+        std::cerr << "Exception opening/reading names.txt\n";
+        std::exit(0);
     }
 
     std::string name;
@@ -597,7 +601,7 @@ void Game::NewHeroMenu()
             std::cout << "////////" << std::setw(25) << "[ 3 ]\tPaladin Info" << std::setw(35) << "////////\n";
             if (MyHeroes.size() != 0) {
                 std::cout << "////////" << std::setw(63) << "////////\n";
-                std::cout << "////////" << std::setw(17) << "[ 0 ]\tExit" << std::setw(43) << "////////\n";
+                std::cout << "////////" << std::setw(17) << "[ 0 ]\tContinue" << std::setw(43) << "////////\n";
             }
             std::cout << "////////" << std::setw(63) << "////////\n";
             std::cout << "////////" << std::setw(63) << "////////\n";
@@ -1122,7 +1126,7 @@ void Game::ChangeWeapon()
     std::cout << "\n\n";
     std::cout << "\t=== Change Weapon ===\n\n";
     std::cout << "\n--------------------------------------------------\n\n";
-    MyHeroes[ActiveHero]->DisplayItems("Weapons");
+    MyHeroes[ActiveHero]->DisplayItems(itemType::WEAPON);
     std::cout << "\n--------------------------------------------------\n\n";
     std::cout << "\t[ 0 ]\tExit\n\n";
     std::cout << "--------------------------------------------------\n\n";
@@ -1176,7 +1180,7 @@ void Game::ChangeArmor()
     std::cout << "\n\n";
     std::cout << "\t=== Change Armor ===\n\n";
     std::cout << "\n--------------------------------------------------\n\n";
-    MyHeroes[ActiveHero]->DisplayItems("Armors");
+    MyHeroes[ActiveHero]->DisplayItems(itemType::ARMOR);
     std::cout << "\n--------------------------------------------------\n\n";
     std::cout << "\t[ 0 ]\tExit\n\n";
     std::cout << "--------------------------------------------------\n\n";
@@ -1217,7 +1221,7 @@ void Game::UsePotion()
     std::cout << "//////////////////////////////////////////////////////////////////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
-    MyHeroes[ActiveHero]->DisplayItems("Potions");
+    MyHeroes[ActiveHero]->DisplayItems(itemType::POTION);
     std::cout << "////////" << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(17) << "[ 0 ]\tExit" << std::setw(43) << "////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";

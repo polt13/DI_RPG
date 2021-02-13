@@ -40,6 +40,13 @@ enum class gearType {
     LWEAPON
 };
 
+enum class itemType {
+    WEAPON,
+    ARMOR,
+    POTION,
+    SPELL
+};
+
 class Item {
 public:
     virtual void print() const = 0;
@@ -86,7 +93,7 @@ public:
     int get_buff_amount() const;
     std::string typeToString() const;
     void print() const;
-    void buff(Hero&);
+    void buff(Hero*);
     Potion(const std::string&, const int, const int, potionType);
 };
 
@@ -202,14 +209,14 @@ public:
     void set_weapon(int, int = 1);
     void equip(int);
     void unequip(gearType);
-    void DisplayItems(std::string) const;
+    void DisplayItems(itemType) const;
     void checkInventory() const;
     //
     void buy(Weapon*);
     void buy(Armor*);
     void buy(Potion*);
     void buy(Spell*);
-    void sell(Market*, std::string, int);
+    void sell(Market*, itemType, int);
     char proceed();
 
     void HPbuff(int);
@@ -303,7 +310,7 @@ public:
     void fight(std::vector<Monster*>&); //fight logic
 
 public:
-    void displayStats(const std::vector<Monster*>&) const;
+    void battle_status(const std::vector<Monster*>&) const;
     void interact_with(); //init monsters
 };
 
@@ -332,7 +339,7 @@ public:
     void Menu(Hero*);
     void BuyMenu(Hero*);
     void SellMenu(Hero*);
-    void DisplayItems(std::string) const;
+    void DisplayItems(itemType) const;
     void buy(Hero*, std::string, int);
     void sell(Weapon*);
     void sell(Armor*);
