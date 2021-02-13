@@ -194,7 +194,7 @@ void Hero::castSpell(Monster* MyMonster, int whichSpell)
         if ((rand() % 100) > MyMonster->get_dodge()) {
             MagicPower -= s->getMPcost();
             MyMonster->decrease_hp(DMGdealt);
-            std::cout << get_name() << " dealt  " << DMGdealt << " to " << MyMonster->get_name() << '\n';
+            std::cout << get_name() << " dealt  " << DMGdealt << "magic damage to " << MyMonster->get_name() << '\n';
             s->apply_effect(MyMonster);
         } else
             std::cout << MyMonster->get_name() << " DODGED the Spell!" << '\n';
@@ -584,7 +584,7 @@ void Hero::checkInventory() const
 
 void Hero::displayStats() const
 {
-    std::cout << Name << " | HP: " << HealthPower << " | MP:" << MagicPower << '\t';
+    std::cout << Name << " | HP: " << HealthPower << " | MP: " << MagicPower << '\t';
 }
 
 char Hero::proceed() //make menu

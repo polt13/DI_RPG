@@ -181,7 +181,7 @@ void Common::fight(std::vector<Monster*>& enemies)
         int option = 0;
         do {
 
-            std::cout << "\n\n1 to view battle status, 2 to view inventory, 3 to attack";
+            std::cout << "\n\n1 to view battle status, 2 to view inventory, 3 to attack\n";
             std::cin >> option;
 
         } while (option != 1 && option != 2 && option != 3);
@@ -224,7 +224,7 @@ void Common::fight(std::vector<Monster*>& enemies)
                     std::cout << "Not a valid pick\n";
                 }
                 battle_status(enemies);
-                std::cout << " Use spell on: [0 to \n"
+                std::cout << " Use spell on: [0 to "
                           << enemies.size() - 1 << "]\n";
                 while (!(std::cin >> enemyTarget) || enemyTarget < 0 || (enemyTarget > enemies.size() - 1)) {
                     std::cout << "Not a valid pick\n";
@@ -244,7 +244,7 @@ void Common::fight(std::vector<Monster*>& enemies)
             //circular rotation --- who attacks
             int enemy_at;
             battle_status(enemies);
-            std::cout << Squad[atk_hero]->get_name() << " attacks: \n";
+            std::cout << Squad[atk_hero]->get_name() << " attacks: [0 to " << enemies.size() - 1 << "]\n";
             while (!(std::cin >> enemy_at) || (enemy_at > enemies.size() - 1)) {
                 std::cout << "Invalid index\n";
             }
@@ -309,6 +309,7 @@ void Common::battle_status(const std::vector<Monster*>& enemies) const
     for (const auto h : Squad) {
         h->displayStats();
     }
+    std::cout << std::endl;
 }
 
 bool Common::end_fight(const std::vector<Monster*>& enemies)
@@ -324,7 +325,7 @@ bool Common::end_fight(const std::vector<Monster*>& enemies)
         if (h->get_hp() != 0)
             heroes_dead = false;
     }
-    battle_status(enemies);
+
     if (heroes_dead == true && monsters_dead == false) {
         std::cout << " All heroes have fainted\n";
         return true;

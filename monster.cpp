@@ -56,19 +56,30 @@ void Monster::debuff(spellType st, int rounds)
     switch (st) {
     case spellType::ICE:
         //only apply the debuff once, if it's casted again only increase debuff duration
-        if (debuffDur[0] == 0)
+        if (debuffDur[0] == 0) {
+            std::cout << "Ice spell debuff: Damage is reduced by 5\n";
             maxDMG -= 5;
+        }
+
         debuffDur[0] += rounds;
+        std::cout << "Debuff lasts for " << debuffDur[0] << '\n';
         break;
     case spellType::FIRE:
-        if (debuffDur[1] == 0)
+        if (debuffDur[1] == 0) {
+            std::cout << " Fire spell debuff: Armor is  reduced by 5\n";
             Defense -= 5;
+        }
+
         debuffDur[1] += rounds;
+        std::cout << "Debuff lasting for " << debuffDur[0] << '\n';
         break;
     case spellType::LIGHTNING:
-        if (debuffDur[2] == 0)
+        if (debuffDur[2] == 0) {
+            std::cout << " Lightning spell debuff: Dodge is reduced by 5\n";
             Dodge -= 5;
+        }
         debuffDur[2] += rounds;
+        std::cout << "Debuff lasting for " << debuffDur[0] << '\n';
         break;
     }
 }
