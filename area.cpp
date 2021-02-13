@@ -44,9 +44,9 @@ void Market::DisplayItems(itemType itype) const
         }
 }
 
-void Market::buy(Hero* MyHero, std::string type, int index)
+void Market::buy(Hero* MyHero, itemType itype, int index)
 {
-    if (type == "Weapon") {
+    if (itype == itemType::WEAPON) {
         if (weapons[index]->getPrice() <= MyHero->getMoney()) {
             std::cout << "\n\n";
             std::cout << "\tPurchased '" << weapons[index]->get_name() << "' Weapon for " << MyHero->get_name() << "\n";
@@ -56,7 +56,7 @@ void Market::buy(Hero* MyHero, std::string type, int index)
         }
         std::cout << "\n\n";
         std::cout << "\tNot enough money\n";
-    } else if (type == "Armor") {
+    } else if (itype == itemType::ARMOR) {
         if (armors[index]->getPrice() <= MyHero->getMoney()) {
             std::cout << "\n\n";
             std::cout << "\tPurchased '" << armors[index]->get_name() << "' Armor for " << MyHero->get_name() << "\n";
@@ -66,7 +66,7 @@ void Market::buy(Hero* MyHero, std::string type, int index)
         }
         std::cout << "\n\n";
         std::cout << "\tNot enough money\n";
-    } else if (type == "Potion") {
+    } else if (itype == itemType::POTION) {
         if (potions[index]->getPrice() <= MyHero->getMoney()) {
             std::cout << "\n\n";
             std::cout << "\tPurchased '" << potions[index]->get_name() << "' Potion for " << MyHero->get_name() << "\n";
@@ -89,22 +89,22 @@ void Market::buy(Hero* MyHero, std::string type, int index)
     }
 }
 
-void Market::sell(Weapon* MyWeapon)
+void Market::acquire(Weapon* MyWeapon)
 {
     weapons.push_back(MyWeapon);
 }
 
-void Market::sell(Armor* MyArmor)
+void Market::acquire(Armor* MyArmor)
 {
     armors.push_back(MyArmor);
 }
 
-void Market::sell(Potion* MyPotion)
+void Market::acquire(Potion* MyPotion)
 {
     potions.push_back(MyPotion);
 }
 
-void Market::sell(Spell* MySpell)
+void Market::acquire(Spell* MySpell)
 {
     spells.push_back(MySpell);
 }
@@ -181,11 +181,11 @@ void Common::fight(std::vector<Monster*>& enemies)
         int option;
         do {
 
-            std::cout << "\n\n1 to view battle status, 2 to view inventory, 3 to attack\n";
+            std::cout << "\n\n1 to view battle status, 2 to view inventory, 3 to attack,4 to escape\n";
             std::cin >> option;
             Game::clearbuffer();
 
-        } while (option != 1 && option != 2 && option != 3);
+        } while (option != 1 && option != 2 && option != 3 && option!=4);
         int pick;
         if (option == 1) {
             battle_status(enemies);
@@ -238,7 +238,7 @@ void Common::fight(std::vector<Monster*>& enemies)
             default:
                 continue;
             }
-        } else {
+        } else if (option == 3) {
             // init  combat
             //circular rotation --- who attacks
             int enemy_at;
@@ -260,6 +260,16 @@ void Common::fight(std::vector<Monster*>& enemies)
             auto heroTarget = std::rand() % Squad.size(); //randomly pick hero target for monster AI
             std::cout << enemies[atk_monster]->get_name() << " attacks " << Squad[heroTarget]->get_name() << '\n';
             enemies[atk_monster]->attack(Squad[heroTarget]);
+        } else {
+            std::cout << " Leave battle? [0 for No, 1 for Yes]\n";
+            int escape;
+            while (!(std::cin >> escape) || (escape != 0 && escape != 1)) {
+                std::cout << "BAD ESCAPE!\n";
+            }
+            if (escape == 1)
+                return;
+            else
+                continue;
         }
 
         for (auto h : Squad) {
@@ -478,31 +488,35 @@ void Market::BuyMenu(Hero* h)
         }
         switch (input) {
         case 1:
+            DisplayItems(itemType::WEAPON);
             if (index > weapons.size() - 1) {
                 std::cout << " There is no such weapon\n";
             } else {
-                buy(h, "Weapons", index);
+                buy(h, itemType::WEAPON, index);
             }
             break;
         case 2:
+            DisplayItems(itemType::ARMOR);
             if (index > armors.size() - 1) {
                 std::cout << " There is no such armor\n";
             } else {
-                buy(h, "Armors", index);
+                buy(h, itemType::ARMOR, index);
             }
             break;
         case 3:
+            DisplayItems(itemType::POTION);
             if (index > potions.size() - 1) {
                 std::cout << "There is no such potion\n";
             } else {
-                buy(h, "Potions", index);
+                buy(h, itemType::POTION, index);
             }
             break;
         case 4:
+            DisplayItems(itemType::SPELL);
             if (index > spells.size() - 1) {
                 std::cout << "There is no such spell\n";
             } else {
-                buy(h, "Spells", index);
+                buy(h, itemType::SPELL, index);
             }
             break;
         }

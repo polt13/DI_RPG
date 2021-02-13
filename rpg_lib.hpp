@@ -143,7 +143,7 @@ protected:
     int Level;
     int MaxHealthPower; //changes on levelup
     int HealthPower;
-    bool Faint;
+    bool faint;
 
 public:
     Living(const std::string&, const int, int = 1);
@@ -340,11 +340,11 @@ public:
     void BuyMenu(Hero*);
     void SellMenu(Hero*);
     void DisplayItems(itemType) const;
-    void buy(Hero*, std::string, int);
-    void sell(Weapon*);
-    void sell(Armor*);
-    void sell(Potion*);
-    void sell(Spell*);
+    void buy(Hero*, itemType, int);
+    void acquire(Weapon*);
+    void acquire(Armor*);
+    void acquire(Potion*);
+    void acquire(Spell*);
     void print() const;
 };
 

@@ -260,28 +260,28 @@ void Hero::sell(Market* MyMarket, itemType itype, int index)
             std::cout << "BAD SELL INDEX\n";
         std::cout << "\tSold " << Name << " '" << WeaponsInv[index]->get_name() << "' Weapon for " << WeaponsInv[index]->getPrice() / 2 << " Gold!\n";
         addMoney(WeaponsInv[index]->getPrice() / 2);
-        MyMarket->sell(WeaponsInv[index]);
+        MyMarket->acquire(WeaponsInv[index]);
         WeaponsInv.erase(WeaponsInv.begin() + index);
     } else if (itype == itemType::ARMOR) {
         if (index < 0 || index > ArmorsInv.size() - 1)
             std::cout << "BAD SELL INDEX\n";
         std::cout << "\tSold " << Name << " '" << ArmorsInv[index]->get_name() << "' Armor for " << ArmorsInv[index]->getPrice() / 2 << " Gold!\n";
         addMoney(ArmorsInv[index]->getPrice() / 2);
-        MyMarket->sell(ArmorsInv[index]);
+        MyMarket->acquire(ArmorsInv[index]);
         ArmorsInv.erase(ArmorsInv.begin() + index);
     } else if (itype == itemType::POTION) {
         if (index < 0 || index > PotionsInv.size() - 1)
             std::cout << "BAD SELL INDEX\n";
         std::cout << "\tSold " << Name << " '" << PotionsInv[index]->get_name() << "' Potion for " << PotionsInv[index]->getPrice() / 2 << " Gold!\n";
         addMoney(PotionsInv[index]->getPrice() / 2);
-        MyMarket->sell(PotionsInv[index]);
+        MyMarket->acquire(PotionsInv[index]);
         PotionsInv.erase(PotionsInv.begin() + index);
     } else {
         if (index < 0 || index > SpellsInv.size() - 1)
             std::cout << "BAD SELL INDEX\n";
         std::cout << "\tSold " << Name << " '" << SpellsInv[index]->get_name() << "' Spell for " << SpellsInv[index]->getPrice() / 2 << " Gold!\n";
         addMoney(SpellsInv[index]->getPrice() / 2);
-        MyMarket->sell(SpellsInv[index]);
+        MyMarket->acquire(SpellsInv[index]);
         SpellsInv.erase(SpellsInv.begin() + index);
     }
 }
