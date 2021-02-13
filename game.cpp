@@ -74,8 +74,8 @@ void Game::InitGame()
     std::cout << ".";
     std::flush(std::cout);
     std::this_thread::sleep_for(std::chrono::milliseconds(500)); */
-    clearscreen();
     NewHeroMenu();
+    clearscreen();
     std::vector<Hero *> temp(MyHeroes);
     Grid[posx][posy]->move(temp);
 }
@@ -83,9 +83,12 @@ void Game::InitGame()
 void Game::InitWeapons()
 {
     std::ifstream inFile;
-    try {
+    try
+    {
         inFile.open("weapons.txt");
-    } catch (std::exception& e) {
+    }
+    catch (std::exception &e)
+    {
         std::cerr << "Exception opening/reading weapons.txt\n";
         std::exit(0);
     }
@@ -95,7 +98,8 @@ void Game::InitWeapons()
     std::string lvl;
     std::string dmg;
     std::string grip;
-    while (!inFile.eof()) {
+    while (!inFile.eof())
+    {
         getline(inFile, name, '\t');
         getline(inFile, price, '\t');
         getline(inFile, lvl, '\t');
@@ -121,9 +125,12 @@ void Game::InitWeapons()
 void Game::InitArmors()
 {
     std::ifstream inFile;
-    try {
+    try
+    {
         inFile.open("armors.txt");
-    } catch (std::exception& e) {
+    }
+    catch (std::exception &e)
+    {
         std::cerr << "Exception opening/reading armors.txt\n";
         std::exit(0);
     }
@@ -156,9 +163,12 @@ void Game::InitArmors()
 void Game::InitPotions()
 {
     std::ifstream inFile;
-    try {
+    try
+    {
         inFile.open("potions.txt");
-    } catch (std::exception& e) {
+    }
+    catch (std::exception &e)
+    {
         std::cerr << "Exception opening/reading potions.txt file\n";
         std::exit(0);
     }
@@ -209,9 +219,12 @@ void Game::InitPotions()
 void Game::InitSpells()
 {
     std::ifstream inFile;
-    try {
+    try
+    {
         inFile.open("spells.txt");
-    } catch (std::exception& e) {
+    }
+    catch (std::exception &e)
+    {
         std::cerr << "Exception opening/reading spells.txt\n";
         std::exit(0);
     }
@@ -264,9 +277,12 @@ void Game::InitSpells()
 void Game::InitMonsters()
 {
     std::ifstream inFile;
-    try {
+    try
+    {
         inFile.open("names.txt");
-    } catch (std::exception& e) {
+    }
+    catch (std::exception &e)
+    {
         std::cerr << "Exception opening/reading names.txt\n";
         std::exit(0);
     }
@@ -444,69 +460,66 @@ void Game::ExitScreen()
 void Game::MainMenu()
 {
     int input;
-    clearscreen();
-    std::cout << "\n\n\tLoading.." << std::endl;
-    clearscreen();
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(36) << "=== Main Menu ===" << std::setw(27) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(28) << "[ 1 ]\tResume Game" << std::setw(32) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(28) << "[ 2 ]\tHeroes Info" << std::setw(32) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(28) << "[ 3 ]\tChange Active Hero" << std::setw(32) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(27) << "[ 4 ]\tDisplay Map" << std::setw(33) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(22) << "[ 0 ]\tQuit Game" << std::setw(38) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-
-    std::cout << "\n";
-
-    std::cout << std::setw(37) << "Input: ";
-
-    while (!(std::cin >> input) || input < 0 || input > 4)
+    bool flag = false;
+    do
     {
+        clearscreen();
+        std::cout << "\n\n\tLoading.." << std::endl;
+        clearscreen();
+
+        std::cout << "\n\n";
+        std::cout << "\t=== Main Menu ===\n\n";
+        std::cout << "\n--------------------------------------------------\n\n";
+        std::cout << "\t[ 1 ]\tResume Game\n";
         std::cout << "\n";
-        std::cout << std::setw(50) << "Invalid input (Must be: 0 - 4)\n";
-        clearbuffer();
-        std::cout << std::setw(37) << "Input: ";
-    }
+        std::cout << "\t[ 2 ]\tHeroes Info\n";
+        std::cout << "\n";
+        std::cout << "\t[ 3 ]\tChange Active Hero\n";
+        std::cout << "\n";
+        std::cout << "\t[ 4 ]\tDisplay Map\n";
+        std::cout << "\n";
+        std::cout << "\t[ 0 ]\tQuit Game\n";
+        std::cout << "\n";
+        std::cout << "--------------------------------------------------\n\n\n";
 
-    switch (input)
-    {
-    case 1:
-        clearbuffer();
-        CommonBlockMenu();
-        break;
-    case 2:
-        clearbuffer();
-        //HeroesInfo();
-        break;
-    case 3:
-        clearbuffer();
-        ChangeActiveHero();
-        break;
-    case 4:
-        clearbuffer();
-        clearscreen();
-        DisplayMap();
-        std::cout << "\tPress ENTER to continue..." << std::endl;
-        std::cin.get();
-        clearscreen();
-        break;
-    case 0:
-        clearbuffer();
-        ExitScreen();
-        break;
-    }
+        std::cout << std::setw(37) << "Input: ";
+
+        while (!(std::cin >> input) || input < 0 || input > 4)
+        {
+            std::cout << "\n";
+            std::cout << std::setw(50) << "Invalid input (Must be: 0 - 4)\n";
+            clearbuffer();
+            std::cout << std::setw(37) << "Input: ";
+        }
+
+        switch (input)
+        {
+        case 1:
+            flag = true;
+            break;
+        case 2:
+            clearbuffer();
+            HeroesInfo();
+            break;
+        case 3:
+            clearbuffer();
+            ChangeActiveHero();
+            break;
+        case 4:
+            clearbuffer();
+            clearscreen();
+            DisplayMap();
+            std::cout << "\tPress ENTER to continue..." << std::endl;
+            std::cin.get();
+            clearscreen();
+            break;
+        case 0:
+            clearbuffer();
+            ExitScreen();
+            flag = true;
+            break;
+        }
+    } while (flag == false);
 }
 
 void Game::MoveMenu()
@@ -547,6 +560,7 @@ void Game::MoveMenu()
         switch (input)
         {
         case 1:
+            clearscreen();
             if (posx - 1 < 0)
             {
                 std::cout << " Out of bounds\n";
@@ -565,6 +579,7 @@ void Game::MoveMenu()
 
             break;
         case 2:
+            clearscreen();
             if (posx + 1 >= Dimension)
             {
                 std::cout << " Out of bounds\n";
@@ -581,6 +596,7 @@ void Game::MoveMenu()
             }
             break;
         case 3:
+            clearscreen();
             if (posy - 1 < 0)
             {
                 std::cout << " Out of bounds\n";
@@ -598,6 +614,7 @@ void Game::MoveMenu()
             }
             break;
         case 4:
+            clearscreen();
             if (posy + 1 >= Dimension)
             {
                 std::cout << " Out of bounds\n";
@@ -622,11 +639,12 @@ void Game::MoveMenu()
 
 void Game::NewHeroMenu()
 {
-    clearscreen();
-    std::cout << "\n\n\tLoading.." << std::endl;
-    clearscreen();
+    bool flag = false;
     do
     {
+        clearscreen();
+        std::cout << "\n\n\tLoading.." << std::endl;
+        clearscreen();
         if (MyHeroes.size() <= 2)
         {
             std::cout << "//////////////////////////////////////////////////////////////////////\n";
@@ -645,7 +663,7 @@ void Game::NewHeroMenu()
             if (MyHeroes.size() != 0)
             {
                 std::cout << "////////" << std::setw(63) << "////////\n";
-                std::cout << "////////" << std::setw(17) << "[ 0 ]\tContinue" << std::setw(43) << "////////\n";
+                std::cout << "////////" << std::setw(21) << "[ 0 ]\tContinue" << std::setw(39) << "////////\n";
             }
             std::cout << "////////" << std::setw(63) << "////////\n";
             std::cout << "////////" << std::setw(63) << "////////\n";
@@ -680,15 +698,15 @@ void Game::NewHeroMenu()
             {
             case 1:
                 clearbuffer();
-                WarriorInfo();
+                flag = WarriorInfo();
                 break;
             case 2:
                 clearbuffer();
-                SorcererInfo();
+                flag = SorcererInfo();
                 break;
             case 3:
                 clearbuffer();
-                PaladinInfo();
+                flag = PaladinInfo();
                 break;
             case 0:
                 clearbuffer();
@@ -705,10 +723,10 @@ void Game::NewHeroMenu()
                 return;
             }
         }
-    } while (MyHeroes.size() < 3);
+    } while (MyHeroes.size() < 3 && flag == false);
 }
 
-void Game::WarriorInfo()
+bool Game::WarriorInfo()
 {
     clearscreen();
     std::cout << "\n\n\tLoading.." << std::endl;
@@ -748,7 +766,7 @@ void Game::WarriorInfo()
     if (MyHeroes.size() != 0)
     {
         std::cout << "////////" << std::setw(63) << "////////\n";
-        std::cout << "////////" << std::setw(17) << "[ 0 ]\tExit" << std::setw(43) << "////////\n";
+        std::cout << "////////" << std::setw(21) << "[ 0 ]\tContinue" << std::setw(39) << "////////\n";
     }
     std::cout << "////////" << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
@@ -787,7 +805,6 @@ void Game::WarriorInfo()
         break;
     case 2:
         clearbuffer();
-        NewHeroMenu();
         break;
     case 0:
         clearbuffer();
@@ -800,10 +817,12 @@ void Game::WarriorInfo()
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         std::cout << "\tSpawning...\n";
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        return true;
     }
+    return false;
 }
 
-void Game::SorcererInfo()
+bool Game::SorcererInfo()
 {
     clearscreen();
     std::cout << "\n\n\tLoading.." << std::endl;
@@ -843,7 +862,7 @@ void Game::SorcererInfo()
     if (MyHeroes.size() != 0)
     {
         std::cout << "////////" << std::setw(63) << "////////\n";
-        std::cout << "////////" << std::setw(17) << "[ 0 ]\tExit" << std::setw(43) << "////////\n";
+        std::cout << "////////" << std::setw(21) << "[ 0 ]\tContinue" << std::setw(39) << "////////\n";
     }
     std::cout << "////////" << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
@@ -882,7 +901,6 @@ void Game::SorcererInfo()
         break;
     case 2:
         clearbuffer();
-        NewHeroMenu();
         break;
     case 0:
         clearbuffer();
@@ -895,10 +913,12 @@ void Game::SorcererInfo()
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         std::cout << "\tSpawning...\n";
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        return true;
     }
+    return false;
 }
 
-void Game::PaladinInfo()
+bool Game::PaladinInfo()
 {
     clearscreen();
     std::cout << "\n\n\tLoading.." << std::endl;
@@ -938,7 +958,7 @@ void Game::PaladinInfo()
     if (MyHeroes.size() != 0)
     {
         std::cout << "////////" << std::setw(63) << "////////\n";
-        std::cout << "////////" << std::setw(17) << "[ 0 ]\tExit" << std::setw(43) << "////////\n";
+        std::cout << "////////" << std::setw(21) << "[ 0 ]\tContinue" << std::setw(39) << "////////\n";
     }
     std::cout << "////////" << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
@@ -977,7 +997,6 @@ void Game::PaladinInfo()
         break;
     case 2:
         clearbuffer();
-        NewHeroMenu();
         break;
     case 0:
         clearbuffer();
@@ -990,7 +1009,9 @@ void Game::PaladinInfo()
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         std::cout << "\tSpawning...\n";
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        return true;
     }
+    return false;
 }
 
 void Game::CreateNewHero(heroType htype)
@@ -1098,13 +1119,14 @@ void Game::CreateNewHero(heroType htype)
     clearscreen();
 }
 
-void Game::CommonBlockMenu()
+void Game::BlockMenu()
 {
     clearscreen();
     std::cout << "\n\n\tLoading.." << std::endl;
     clearscreen();
+
     std::cout << "\n\n";
-    std::cout << "\t=== Common Block Menu ===\n\n";
+    std::cout << "\t=== Block Menu ===\n\n";
     std::cout << "\n--------------------------------------------------\n\n";
     std::cout << "\t[ 1 ]\tInventory\n";
     std::cout << "\n";
@@ -1144,6 +1166,7 @@ void Game::CommonBlockMenu()
         {
             std::cout << "This block doesn't have a market\n";
         }
+        clearscreen();
         Grid[posx][posy]->interact_with();
         break;
     case 0:
@@ -1196,7 +1219,7 @@ void Game::InventoryMenu()
         break;
     default:
 
-        CommonBlockMenu();
+        BlockMenu();
         break;
     }
     clearbuffer();
@@ -1211,6 +1234,7 @@ void Game::ChangeWeapon()
     std::cout << "\n\n";
     std::cout << "\t=== Change Weapon ===\n\n";
     std::cout << "\n--------------------------------------------------\n\n";
+    std::cout << "\tWeapons Inventory\n";
     MyHeroes[ActiveHero]->DisplayItems(itemType::WEAPON);
     std::cout << "\n--------------------------------------------------\n\n";
     std::cout << "\t[ 0 ]\tExit\n\n";
@@ -1230,10 +1254,10 @@ void Game::ChangeWeapon()
 
     std::cout << std::setw(37) << "Input: ";
 
-    while (!(std::cin >> input) || input < 0 || input > MyHeroes[ActiveHero]->inv_size(itemType::WEAPON) + 1)
+    while (!(std::cin >> input) || input < 0 || input >= MyHeroes[ActiveHero]->inv_size(itemType::WEAPON)+1)
     {
         std::cout << "\n";
-        std::cout << std::setw(50) << "Invalid input (Must be: 0 - " << MyHeroes[ActiveHero]->inv_size(itemType::WEAPON) + 1 << ")\n";
+        std::cout << std::setw(50) << "Invalid input (Must be: 0 - " << MyHeroes[ActiveHero]->inv_size(itemType::WEAPON) << ")\n";
         std::cout << std::setw(37) << "Input: ";
     }
 
@@ -1267,6 +1291,7 @@ void Game::ChangeArmor()
     std::cout << "\n\n";
     std::cout << "\t=== Change Armor ===\n\n";
     std::cout << "\n--------------------------------------------------\n\n";
+    std::cout << "\tArmors Inventory\n";
     MyHeroes[ActiveHero]->DisplayItems(itemType::ARMOR);
     std::cout << "\n--------------------------------------------------\n\n";
     std::cout << "\t[ 0 ]\tExit\n\n";
@@ -1281,10 +1306,10 @@ void Game::ChangeArmor()
 
     std::cout << std::setw(37) << "Input: ";
 
-    while (!(std::cin >> input) || input < 0 || input > MyHeroes[ActiveHero]->inv_size(itemType::ARMOR) + 1)
+    while (!(std::cin >> input) || input < 0 || input >= MyHeroes[ActiveHero]->inv_size(itemType::ARMOR) + 1)
     {
         std::cout << "\n";
-        std::cout << std::setw(50) << "Invalid input (Must be: 0 - " << MyHeroes[ActiveHero]->inv_size(itemType::ARMOR) + 1 << ")\n";
+        std::cout << std::setw(50) << "Invalid input (Must be: 0 - " << MyHeroes[ActiveHero]->inv_size(itemType::ARMOR) << ")\n";
         std::cout << std::setw(37) << "Input: ";
     }
 
@@ -1301,35 +1326,30 @@ void Game::UsePotion()
     clearscreen();
     std::cout << "\n\n\tLoading.." << std::endl;
     clearscreen();
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(37) << "=== Use Potion ===" << std::setw(26) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    MyHeroes[ActiveHero]->DisplayItems(itemType::POTION);
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(17) << "[ 0 ]\tExit" << std::setw(43) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(49) << "--------------------------------------------" << std::setw(14) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(20) << "Hero Selected: " << MyHeroes[ActiveHero]->get_name() << std::setw(20) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
 
-    std::cout << "\n";
+    std::cout << "\n\n";
+    std::cout << "\t=== Use Potion ===\n\n";
+    std::cout << "\n--------------------------------------------------\n\n";
+    std::cout << "\tPotions Inventory\n";
+    MyHeroes[ActiveHero]->DisplayItems(itemType::POTION);
+    std::cout << "\n--------------------------------------------------\n\n";
+    std::cout << "\t[ 0 ]\tExit\n\n";
+    std::cout << "--------------------------------------------------\n\n";
+    std::cout << "\tHero Selected: " << MyHeroes[ActiveHero]->get_name() << "\n";
+    std::cout << "\tPotion: ";
+    /* if (MyHeroes[ActiveHero]->get_armor() != nullptr)
+        std::cout << MyHeroes[ActiveHero]->get_armor()->get_name() << "\n";
+    else
+        std::cout << "-\n"; */
+    // need to check if there is active potion
+    std::cout << "\n--------------------------------------------------\n\n\n";
 
     std::cout << std::setw(37) << "Input: ";
 
-    while (!(std::cin >> input) || input < 0 || input > MyHeroes[ActiveHero]->inv_size(itemType::POTION) + 1)
+    while (!(std::cin >> input) || input < 0 || input >= MyHeroes[ActiveHero]->inv_size(itemType::POTION) + 1)
     {
         std::cout << "\n";
-        std::cout << std::setw(50) << "Invalid input (Must be: 0 - " << MyHeroes[ActiveHero]->inv_size(itemType::POTION) + 1 << ")\n";
+        std::cout << std::setw(50) << "Invalid input (Must be: 0 - " << MyHeroes[ActiveHero]->inv_size(itemType::POTION) << ")\n";
         clearbuffer();
         std::cout << std::setw(37) << "Input: ";
     }
@@ -1357,21 +1377,55 @@ bool Game::get_playing() const
     return playing;
 }
 
+void Game::HeroesInfo()
+{
+    clearscreen();
+    std::cout << "\n\n\tLoading.." << std::endl;
+    clearscreen();
+
+    std::cout << "\n\n";
+    std::cout << "\t=== Heroes Info ===\n\n";
+    std::cout << "\n--------------------------------------------------\n\n";
+    //
+    for (int i = 0; i < MyHeroes.size(); i++)
+        std::cout << "\t[ " << i + 1 << " ]\t" << MyHeroes[i]->get_name() << "\n\n";
+    // gotta check this
+    std::cout << "\n--------------------------------------------------\n\n";
+    std::cout << "\t[ 0 ]\tExit\n";
+    std::cout << "\n";
+    std::cout << "--------------------------------------------------\n\n\n";
+
+    std::cout << std::setw(37) << "Input: ";
+
+    while (!(std::cin >> input) || input < 0)
+    {
+        std::cout << "\n";
+        std::cout << std::setw(50) << "Invalid input (Must be: 0 - ?)\n"; // gotta check this
+        clearbuffer();
+        std::cout << std::setw(37) << "Input: ";
+    }
+
+    if (input == 0)
+    {
+        clearbuffer();
+        return;
+    }
+}
+
 void Game::ChangeActiveHero()
 {
     clearscreen();
     std::cout << "\n\n\tLoading.." << std::endl;
     clearscreen();
+
     std::cout << "\n\n";
-    std::cout << "\t=== Change Active Hero ===\n";
-    std::cout << "\n\n";
+    std::cout << "\t=== Change Active Hero ===\n\n";
+    std::cout << "\n--------------------------------------------------\n\n";
     for (int i = 0; i < MyHeroes.size(); i++)
-        std::cout << "\t[ " << i + 1 << " ] " << MyHeroes[i]->get_name() << "\n";
-
+        std::cout << "\t[ " << i + 1 << " ]\t" << MyHeroes[i]->get_name() << "\n\n";
+    std::cout << "\t[ 0 ]\tExit\n";
     std::cout << "\n";
-    std::cout << "\t[ 0 ] Exit\n";
-
-    std::cout << "\n";
+    std::cout << "--------------------------------------------------\n\n\n";
 
     std::cout << std::setw(37) << "Input: ";
 

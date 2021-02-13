@@ -49,7 +49,7 @@ void Living::pass_out()
 {
     std::cout << Name << " passed out!" << std::endl;
     std::cout << "HP: " << HealthPower << std::endl;
-    faint = true;
+    Faint = true;
 }
 
 int Living::getLevel()

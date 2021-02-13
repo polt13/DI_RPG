@@ -143,7 +143,7 @@ protected:
     int Level;
     int MaxHealthPower; //changes on levelup
     int HealthPower;
-    bool faint;
+    bool Faint;
 
 public:
     Living(const std::string&, const int, int = 1);
@@ -337,8 +337,8 @@ public:
     void move(std::vector<Hero*>&);
     void interact_with();
     void Menu(Hero*);
-    void BuyMenu(Hero*);
-    void SellMenu(Hero*);
+    bool BuyMenu(Hero*);
+    bool SellMenu(Hero*);
     void DisplayItems(itemType) const;
     void buy(Hero*, itemType, int);
     void acquire(Weapon*);
@@ -385,13 +385,13 @@ public:
     void InitGrid();
 
     //  New Hero Menu
-    void WarriorInfo();
-    void SorcererInfo();
-    void PaladinInfo();
+    bool WarriorInfo();
+    bool SorcererInfo();
+    bool PaladinInfo();
     void CreateNewHero(heroType);
 
     //  Block Menu
-    void CommonBlockMenu();
+    void BlockMenu();
     void InventoryMenu();
     void MoveMenu();
     void MainMenu();
@@ -417,7 +417,7 @@ public:
     void SellSpells();*/
 
     //  Main Menu
-    /*void HeroesInfoMenu();*/
+    void HeroesInfo();
     void ChangeActiveHero();
     void DisplayMap() const;
 

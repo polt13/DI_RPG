@@ -1,13 +1,13 @@
 #include "rpg_lib.hpp"
 #include <iomanip>
 
-Market::Market(const std::vector<Weapon*>& AllWeapons, const std::vector<Armor*>& AllArmors, const std::vector<Potion*>& AllPotions, const std::vector<Spell*>& AllSpells)
-    : size(5)
-    , Block(blockType::MARKET)
+Market::Market(const std::vector<Weapon *> &AllWeapons, const std::vector<Armor *> &AllArmors, const std::vector<Potion *> &AllPotions, const std::vector<Spell *> &AllSpells)
+    : size(5), Block(blockType::MARKET)
 
 {
     //from universal item pool make market
-    for (int i = 1; i <= size; i++) {
+    for (int i = 1; i <= size; i++)
+    {
         int index = (std::rand() % AllWeapons.size());
         weapons.push_back(AllWeapons[index]);
         index = (std::rand() % AllArmors.size());
@@ -21,33 +21,45 @@ Market::Market(const std::vector<Weapon*>& AllWeapons, const std::vector<Armor*>
 
 void Market::DisplayItems(itemType itype) const
 {
-    int index = 0;
-    if (itype == itemType::WEAPON) {
-        for (const auto w : weapons) {
+    int index = 1;
+    if (itype == itemType::WEAPON)
+    {
+        for (const auto w : weapons)
+        {
             std::cout << "[ " << index++ << " ] ";
             w->print();
         }
-    } else if (itype == itemType::ARMOR) {
-        for (const auto a : armors) {
+    }
+    else if (itype == itemType::ARMOR)
+    {
+        for (const auto a : armors)
+        {
             std::cout << "[ " << index++ << " ] ";
             a->print();
         }
-    } else if (itype == itemType::POTION) {
-        for (const auto p : potions) {
+    }
+    else if (itype == itemType::POTION)
+    {
+        for (const auto p : potions)
+        {
             std::cout << "[ " << index++ << " ] ";
             p->print();
         }
-    } else
-        for (const auto s : spells) {
+    }
+    else
+        for (const auto s : spells)
+        {
             std::cout << "[ " << index++ << " ] ";
             s->print();
         }
 }
 
-void Market::buy(Hero* MyHero, itemType itype, int index)
+void Market::buy(Hero *MyHero, itemType itype, int index)
 {
-    if (itype == itemType::WEAPON) {
-        if (weapons[index]->getPrice() <= MyHero->getMoney()) {
+    if (itype == itemType::WEAPON)
+    {
+        if (weapons[index]->getPrice() <= MyHero->getMoney())
+        {
             std::cout << "\n\n";
             std::cout << "\tPurchased '" << weapons[index]->get_name() << "' Weapon for " << MyHero->get_name() << "\n";
             MyHero->buy(weapons[index]);
@@ -56,8 +68,11 @@ void Market::buy(Hero* MyHero, itemType itype, int index)
         }
         std::cout << "\n\n";
         std::cout << "\tNot enough money\n";
-    } else if (itype == itemType::ARMOR) {
-        if (armors[index]->getPrice() <= MyHero->getMoney()) {
+    }
+    else if (itype == itemType::ARMOR)
+    {
+        if (armors[index]->getPrice() <= MyHero->getMoney())
+        {
             std::cout << "\n\n";
             std::cout << "\tPurchased '" << armors[index]->get_name() << "' Armor for " << MyHero->get_name() << "\n";
             MyHero->buy(armors[index]);
@@ -66,8 +81,11 @@ void Market::buy(Hero* MyHero, itemType itype, int index)
         }
         std::cout << "\n\n";
         std::cout << "\tNot enough money\n";
-    } else if (itype == itemType::POTION) {
-        if (potions[index]->getPrice() <= MyHero->getMoney()) {
+    }
+    else if (itype == itemType::POTION)
+    {
+        if (potions[index]->getPrice() <= MyHero->getMoney())
+        {
             std::cout << "\n\n";
             std::cout << "\tPurchased '" << potions[index]->get_name() << "' Potion for " << MyHero->get_name() << "\n";
             MyHero->buy(potions[index]);
@@ -76,8 +94,11 @@ void Market::buy(Hero* MyHero, itemType itype, int index)
         }
         std::cout << "\n\n";
         std::cout << "\tNot enough money\n";
-    } else {
-        if (spells[index]->getPrice() <= MyHero->getMoney()) {
+    }
+    else
+    {
+        if (spells[index]->getPrice() <= MyHero->getMoney())
+        {
             std::cout << "\n\n";
             std::cout << "\tPurchased '" << spells[index]->get_name() << "' Spell for " << MyHero->get_name() << "\n";
             MyHero->buy(spells[index]);
@@ -89,22 +110,22 @@ void Market::buy(Hero* MyHero, itemType itype, int index)
     }
 }
 
-void Market::acquire(Weapon* MyWeapon)
+void Market::acquire(Weapon *MyWeapon)
 {
     weapons.push_back(MyWeapon);
 }
 
-void Market::acquire(Armor* MyArmor)
+void Market::acquire(Armor *MyArmor)
 {
     armors.push_back(MyArmor);
 }
 
-void Market::acquire(Potion* MyPotion)
+void Market::acquire(Potion *MyPotion)
 {
     potions.push_back(MyPotion);
 }
 
-void Market::acquire(Spell* MySpell)
+void Market::acquire(Spell *MySpell)
 {
     spells.push_back(MySpell);
 }
@@ -115,7 +136,7 @@ Block::Block(blockType btype)
 {
 }
 
-std::vector<Hero*>& Block::getSquad()
+std::vector<Hero *> &Block::getSquad()
 {
     return Squad; //get heroes from current block, so that they can move to next
 }
@@ -131,11 +152,12 @@ Common::Common()
 {
 }
 
-void Common::move(std::vector<Hero*>& toMove)
+void Common::move(std::vector<Hero *> &toMove)
 {
     Squad.insert(Squad.begin(), toMove.begin(), toMove.end()); //copy heroes to new location (this common block)
-    toMove.clear(); //empty previous block
-    if (std::rand() % 100 > 50) {
+    toMove.clear();                                            //empty previous block
+    if (std::rand() % 100 > 50)
+    {
         std::cout << "\n\n";
         std::cout << "\t\tRandom encounter!\n\n";
         interact_with();
@@ -145,22 +167,27 @@ void Common::print() const
 {
     if (Squad.empty())
 
-        std::cout << "   ";
+        std::cout << "     ";
     else
-        std::cout << " H "; //heroes at this block
+        std::cout << "  H  "; //heroes at this block
 }
 
 void Common::interact_with()
 {
     //generate enemy monsters
-    std::vector<Monster*> Enemies;
-    for (auto i = 1; i <= 3; i++) {
+    std::vector<Monster *> Enemies;
+    for (auto i = 1; i <= 3; i++)
+    {
         auto whichMonster = std::rand() % 60;
-        if (whichMonster > 50) {
+        if (whichMonster > 50)
+        {
             Enemies.push_back(new Dragon("Duragon"));
-        } else if (whichMonster > 25) {
+        }
+        else if (whichMonster > 25)
+        {
             Enemies.push_back(new Exoskeleton("Skelly"));
-        } else
+        }
+        else
             Enemies.push_back(new Spirit("Wild Spirit"));
     }
 
@@ -171,45 +198,54 @@ void Common::interact_with()
         delete e;
 }
 
-void Common::fight(std::vector<Monster*>& enemies)
+void Common::fight(std::vector<Monster *> &enemies)
 {
     auto atk_hero = 0;
     auto enemy_lvl = enemies[0]->getLevel();
 
-    while (end_fight(enemies) == false) { //checks if condition to finish battle are met
+    while (end_fight(enemies) == false)
+    { //checks if condition to finish battle are met
         //round starts here
         int option;
-        do {
+        do
+        {
 
             std::cout << "\n\n1 to view battle status, 2 to view inventory, 3 to attack,4 to escape\n";
             std::cin >> option;
             Game::clearbuffer();
 
-        } while (option != 1 && option != 2 && option != 3 && option!=4);
+        } while (option != 1 && option != 2 && option != 3 && option != 4);
         int pick;
-        if (option == 1) {
+        if (option == 1)
+        {
             battle_status(enemies);
             continue;
-        } else if (option == 2) {
+        }
+        else if (option == 2)
+        {
 
             std::cout << "Check inventory of character? [ 0 to " << Squad.size() - 1 << "]\n";
             int HeroPick;
-            while (!(std::cin >> HeroPick) || HeroPick > Squad.size() - 1) {
+            while (!(std::cin >> HeroPick) || HeroPick > Squad.size() - 1)
+            {
                 std::cout << "Not a valid pick\n";
                 Game::clearbuffer();
             }
             Squad[HeroPick]->checkInventory();
             std::cout << "1 for Potion, 2 for Spellcast, 3 to go back";
-            while (!(std::cin >> pick) || option > 3 || option < 1) {
+            while (!(std::cin >> pick) || option > 3 || option < 1)
+            {
                 std::cout << "Not a valid pick\n";
                 Game::clearbuffer();
             }
-            switch (pick) {
+            switch (pick)
+            {
             case 1:
                 int whichPotion;
                 Squad[HeroPick]->DisplayItems(itemType::POTION);
                 std::cout << "Use which potion?\n";
-                while (!(std::cin >> whichPotion)) {
+                while (!(std::cin >> whichPotion))
+                {
                     std::cout << "Not a valid pick\n";
                     Game::clearbuffer();
                 }
@@ -220,17 +256,20 @@ void Common::fight(std::vector<Monster*>& enemies)
                 int whichSpell;
                 Squad[HeroPick]->DisplayItems(itemType::SPELL);
                 std::cout << "Use which spell?\n";
-                while (!(std::cin >> whichSpell)) {
+                while (!(std::cin >> whichSpell))
+                {
                     std::cout << "Not a valid pick\n";
                 }
                 battle_status(enemies);
                 std::cout << " Use spell on: [0 to "
                           << enemies.size() - 1 << "]\n";
-                while (!(std::cin >> enemyTarget) || enemyTarget < 0 || (enemyTarget > enemies.size() - 1)) {
+                while (!(std::cin >> enemyTarget) || enemyTarget < 0 || (enemyTarget > enemies.size() - 1))
+                {
                     std::cout << "Not a valid pick\n";
                 }
                 Squad[HeroPick]->castSpell(enemies[enemyTarget], whichSpell);
-                if (enemies[enemyTarget]->get_hp() == 0) {
+                if (enemies[enemyTarget]->get_hp() == 0)
+                {
                     delete enemies[enemyTarget]; //if monster dead after attack remove it
                     enemies.erase(enemies.begin() + enemyTarget);
                 }
@@ -238,17 +277,21 @@ void Common::fight(std::vector<Monster*>& enemies)
             default:
                 continue;
             }
-        } else if (option == 3) {
+        }
+        else if (option == 3)
+        {
             // init  combat
             //circular rotation --- who attacks
             int enemy_at;
             battle_status(enemies);
             std::cout << Squad[atk_hero]->get_name() << " attacks: [0 to " << enemies.size() - 1 << "]\n";
-            while (!(std::cin >> enemy_at) || (enemy_at > enemies.size() - 1)) {
+            while (!(std::cin >> enemy_at) || (enemy_at > enemies.size() - 1))
+            {
                 std::cout << "No such enemy\n";
             }
             Squad[atk_hero++]->attack(enemies[enemy_at]); //attack and go to next hero
-            if (enemies[enemy_at]->get_hp() == 0) {
+            if (enemies[enemy_at]->get_hp() == 0)
+            {
                 delete enemies[enemy_at]; //if monster dead after attack remove it from battle
                 enemies.erase(enemies.begin() + enemy_at);
                 if (enemies.size() == 0)
@@ -260,10 +303,13 @@ void Common::fight(std::vector<Monster*>& enemies)
             auto heroTarget = std::rand() % Squad.size(); //randomly pick hero target for monster AI
             std::cout << enemies[atk_monster]->get_name() << " attacks " << Squad[heroTarget]->get_name() << '\n';
             enemies[atk_monster]->attack(Squad[heroTarget]);
-        } else {
+        }
+        else
+        {
             std::cout << " Leave battle? [0 for No, 1 for Yes]\n";
             int escape;
-            while (!(std::cin >> escape) || (escape != 0 && escape != 1)) {
+            while (!(std::cin >> escape) || (escape != 0 && escape != 1))
+            {
                 std::cout << "BAD ESCAPE!\n";
             }
             if (escape == 1)
@@ -272,11 +318,13 @@ void Common::fight(std::vector<Monster*>& enemies)
                 continue;
         }
 
-        for (auto h : Squad) {
+        for (auto h : Squad)
+        {
             h->regenHP();
             h->regenMP();
         }
-        for (auto e : enemies) {
+        for (auto e : enemies)
+        {
             e->regenHP();
         }
         end_round(enemies);
@@ -284,10 +332,12 @@ void Common::fight(std::vector<Monster*>& enemies)
     }
     //after either monsters or heroes have died
     bool all_dead = true;
-    for (auto h : Squad) { //find if all heroes dead
-        if (h->get_hp() != 0) {
+    for (auto h : Squad)
+    { //find if all heroes dead
+        if (h->get_hp() != 0)
+        {
             all_dead = false;
-            h->set_xp(enemy_lvl * 5); //get xp based on level of enemy
+            h->set_xp(enemy_lvl * 5);   //get xp based on level of enemy
             h->addMoney(enemy_lvl * 3); //get money based on level of enemy
         }
     }
@@ -295,7 +345,8 @@ void Common::fight(std::vector<Monster*>& enemies)
         return; //not all heroes dead
 
     //if reached here -- all heroes are dead -- revive them with some HP and cost half the money
-    for (auto h : Squad) {
+    for (auto h : Squad)
+    {
         h->moneyLoss();
         //revive with some HP
         h->revive();
@@ -303,40 +354,46 @@ void Common::fight(std::vector<Monster*>& enemies)
     std::cout << "BATTLE LOST!\n";
 }
 
-void Common::end_round(std::vector<Monster*>& enemies)
+void Common::end_round(std::vector<Monster *> &enemies)
 {
     for (auto e : enemies)
         e->finish_round(); //checks when it's time to remove an effect
 }
 
-void Common::battle_status(const std::vector<Monster*>& enemies) const
+void Common::battle_status(const std::vector<Monster *> &enemies) const
 {
-    for (const auto m : enemies) {
+    for (const auto m : enemies)
+    {
         m->displayStats();
     }
     std::cout << "\n\n";
-    for (const auto h : Squad) {
+    for (const auto h : Squad)
+    {
         h->displayStats();
     }
     std::cout << std::endl;
 }
 
-bool Common::end_fight(const std::vector<Monster*>& enemies)
+bool Common::end_fight(const std::vector<Monster *> &enemies)
 {
     //check if all heroes/monsters are dead
     bool heroes_dead = true, monsters_dead = false;
     if (enemies.size() == 0)
         monsters_dead = true;
 
-    for (const auto h : Squad) {
+    for (const auto h : Squad)
+    {
         if (h->get_hp() != 0)
             heroes_dead = false; //at least one alive
     }
 
-    if (heroes_dead == true && monsters_dead == false) {
+    if (heroes_dead == true && monsters_dead == false)
+    {
         std::cout << " All heroes have fainted\n";
         return true;
-    } else if (heroes_dead == false && monsters_dead == true) {
+    }
+    else if (heroes_dead == false && monsters_dead == true)
+    {
         std::cout << " Heroes win! \n";
         return true;
     }
@@ -350,7 +407,7 @@ Inaccessible::Inaccessible()
     //
 }
 
-void Inaccessible::move(std::vector<Hero*>& toMove)
+void Inaccessible::move(std::vector<Hero *> &toMove)
 {
     interact_with();
 }
@@ -363,14 +420,14 @@ void Inaccessible::interact_with()
 
 void Inaccessible::print() const
 {
-    std::cout << " # ";
+    std::cout << "  #  ";
 }
 
-void Market::move(std::vector<Hero*>& toMove)
+void Market::move(std::vector<Hero *> &toMove)
 {
     Squad.insert(Squad.begin(), toMove.begin(), toMove.end()); //copy heroes to new location (this common block)
     toMove.clear();
-    interact_with();
+    //interact_with();
 }
 
 void Market::print() const
@@ -378,199 +435,225 @@ void Market::print() const
 
     if (Squad.empty())
 
-        std::cout << " M "; //heroes at market block
+        std::cout << "  M  "; //heroes at market block
     else
         std::cout << " H-M ";
 }
 
 void Market::interact_with()
 {
-    std::cout << " View market with Hero:\n";
+    std::cout << "\tView market with Hero: ";
     int hero;
-    while (!(std::cin >> hero) || hero > Squad.size() - 1) {
+    while (!(std::cin >> hero) || hero >= Squad.size() + 1 || hero <= 0)
+    {
+        std::cout << "\n";
         std::cout << "BAD INPUT\n";
+        Game::clearbuffer();
+        std::cout << "\tView market with Hero: ";
     }
-    Menu(Squad[hero]);
+    Menu(Squad[hero - 1]);
 }
 
-void Market::Menu(Hero* h)
+void Market::Menu(Hero *h)
 {
     int input;
-    Game::clearscreen();
-    std::cout << "\n\n\tWelcome.." << std::endl;
-    Game::clearscreen();
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(34) << "=== Market Menu ===" << std::setw(29) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(16) << "[ 1 ]\tBuy" << std::setw(44) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(17) << "[ 2 ]\tSell" << std::setw(43) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(17) << "[ 0 ]\tExit" << std::setw(43) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
+    bool flag;
+    do
+    {
+        flag = false;
+        Game::clearscreen();
+        std::cout << "\n\n\tWelcome.." << std::endl;
+        Game::clearscreen();
 
-    std::cout << std::endl;
-
-    std::cout << std::setw(37) << "Input: ";
-
-    while (!(std::cin >> input) || input < 0 || input > 2) {
+        std::cout << "\n\n";
+        std::cout << "\t=== Market Menu ===\n\n";
+        std::cout << "\n--------------------------------------------------\n\n";
+        std::cout << "\t[ 1 ]\tBuy\n";
         std::cout << "\n";
-        std::cout << std::setw(50) << "Invalid input (Must be: 0 - 2)\n";
-        Game::clearbuffer();
+        std::cout << "\t[ 2 ]\tSell\n";
+        std::cout << "\n";
+        std::cout << "\t[ 0 ]\tExit\n";
+        std::cout << "\n";
+        std::cout << "--------------------------------------------------\n\n\n";
+
         std::cout << std::setw(37) << "Input: ";
-    }
-    Game::clearbuffer();
-    while (input != 0) {
-        switch (input) {
+
+        while (!(std::cin >> input) || input < 0 || input > 2)
+        {
+            std::cout << "\n";
+            std::cout << std::setw(50) << "Invalid input (Must be: 0 - 2)\n";
+            Game::clearbuffer();
+            std::cout << std::setw(37) << "Input: ";
+        }
+        Game::clearbuffer();
+        switch (input)
+        {
         case 1:
-            BuyMenu(h);
+            flag = BuyMenu(h);
             break;
         case 2:
-            SellMenu(h);
+            flag = SellMenu(h);
+            break;
+        case 0:
+            flag = true;
+            std::cout << "Exiting Market..\n";
             break;
         }
-    }
-    std::cout << "Exiting Market..\n";
+    } while (flag == false);
 }
 
-void Market::BuyMenu(Hero* h)
+bool Market::BuyMenu(Hero *h)
 {
     int input;
     int index;
     Game::clearscreen();
     std::cout << "\n\n\tLoading.." << std::endl;
     Game::clearscreen();
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(34) << "=== Buy Menu ===" << std::setw(29) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(20) << "[ 1 ]\tWeapons" << std::setw(40) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(19) << "[ 2 ]\tArmors" << std::setw(41) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(20) << "[ 3 ]\tPotions" << std::setw(40) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(19) << "[ 4 ]\tSpells" << std::setw(41) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(17) << "[ 0 ]\tBack" << std::setw(43) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    //std::cout << "////////" << std::setw(17) << "[ 0 ]\tExit" << std::setw(43) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
 
+    std::cout << "\n\n";
+    std::cout << "\t=== Buy Menu ===\n\n";
+    std::cout << "\n--------------------------------------------------\n\n";
+    std::cout << "\tWeapons:\n";
+    DisplayItems(itemType::WEAPON);
     std::cout << "\n";
+    std::cout << "\tArmors:\n";
+    DisplayItems(itemType::ARMOR);
+    std::cout << "\n";
+    std::cout << "\tPotions:\n";
+    DisplayItems(itemType::POTION);
+    std::cout << "\n";
+    std::cout << "\tSpells:\n";
+    DisplayItems(itemType::SPELL);
+    std::cout << "\n--------------------------------------------------\n\n";
+    std::cout << "\t[ 1 ]\tWeapons\n";
+    std::cout << "\n";
+    std::cout << "\t[ 2 ]\tArmors\n";
+    std::cout << "\n";
+    std::cout << "\t[ 3 ]\tPotions\n";
+    std::cout << "\n";
+    std::cout << "\t[ 4 ]\tSpells\n";
+    std::cout << "\n";
+    std::cout << "\t[ 0 ]\tExit\n";
+    std::cout << "\n";
+    std::cout << "--------------------------------------------------\n\n\n";
 
-    std::cout << std::setw(37) << "Input: ";
+    std::cout << std::setw(37) << "What to buy: ";
 
-    do {
-        while (!(std::cin >> input) || input < 0 || input > 4) {
-            std::cout << "\n";
-            std::cout << std::setw(50) << "Invalid input (Must be: 0 - 4)\n";
-            Game::clearbuffer();
-            std::cout << std::setw(37) << "Input: ";
-        }
+    while (!(std::cin >> input) || input < 0 || input > 4)
+    {
+        std::cout << "\n";
+        std::cout << std::setw(50) << "Invalid input (Must be: 0 - 4)\n";
         Game::clearbuffer();
-        std::cout << " Which item would you like?\n";
-        while (!(std::cin >> index) || index < 0) {
-            std::cout << "Bad index\n";
-        }
-        switch (input) {
+        std::cout << std::setw(37) << "What to buy: ";
+    }
+    Game::clearbuffer();
+
+    if (input == 0)
+        return true;
+    else
+    {
+        std::cout << "Select an Item: ";
+
+        switch (input)
+        {
         case 1:
-            DisplayItems(itemType::WEAPON);
-            if (index > weapons.size() - 1) {
-                std::cout << " There is no such weapon\n";
-            } else {
-                buy(h, itemType::WEAPON, index);
+            while (!(std::cin >> index) || index <= 0 || index >= weapons.size() + 1)
+            {
+                std::cout << "\n";
+                std::cout << std::setw(50) << "Invalid input (Must be: 1 - " << weapons.size() << ")\n";
+                Game::clearbuffer();
+                std::cout << std::setw(37) << "What to buy: ";
             }
+            buy(h, itemType::WEAPON, index - 1);
             break;
         case 2:
-            DisplayItems(itemType::ARMOR);
-            if (index > armors.size() - 1) {
-                std::cout << " There is no such armor\n";
-            } else {
-                buy(h, itemType::ARMOR, index);
+            while (!(std::cin >> index) || index <= 0 || index >= armors.size() + 1)
+            {
+                std::cout << "\n";
+                std::cout << std::setw(50) << "Invalid input (Must be: 1 - " << armors.size() << ")\n";
+                Game::clearbuffer();
+                std::cout << std::setw(37) << "What to buy: ";
             }
+            buy(h, itemType::ARMOR, index - 1);
             break;
         case 3:
-            DisplayItems(itemType::POTION);
-            if (index > potions.size() - 1) {
-                std::cout << "There is no such potion\n";
-            } else {
-                buy(h, itemType::POTION, index);
+            while (!(std::cin >> index) || index <= 0 || index >= potions.size() + 1)
+            {
+                std::cout << "\n";
+                std::cout << std::setw(50) << "Invalid input (Must be: 1 - " << potions.size() << ")\n";
+                Game::clearbuffer();
+                std::cout << std::setw(37) << "What to buy: ";
             }
+            buy(h, itemType::POTION, index - 1);
             break;
         case 4:
-            DisplayItems(itemType::SPELL);
-            if (index > spells.size() - 1) {
-                std::cout << "There is no such spell\n";
-            } else {
-                buy(h, itemType::SPELL, index);
+            while (!(std::cin >> index) || index <= 0 || index >= spells.size() + 1)
+            {
+                std::cout << "\n";
+                std::cout << std::setw(50) << "Invalid input (Must be: 1 - " << spells.size() << ")\n";
+                Game::clearbuffer();
+                std::cout << std::setw(37) << "What to buy: ";
             }
+            buy(h, itemType::SPELL, index - 1);
             break;
         }
-    } while (input != 0);
+    }
+    return false;
 }
 
-void Market::SellMenu(Hero* h)
+bool Market::SellMenu(Hero *h)
 {
     int input;
     Game::clearscreen();
     std::cout << "\n\n\tLoading.." << std::endl;
     Game::clearscreen();
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(35) << "=== Sell Menu ===" << std::setw(28) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(20) << "[ 1 ]\tWeapons" << std::setw(40) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(19) << "[ 2 ]\tArmors" << std::setw(41) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(20) << "[ 3 ]\tPotions" << std::setw(40) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(19) << "[ 4 ]\tSpells" << std::setw(41) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(17) << "[ 5 ]\tBack" << std::setw(43) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    //std::cout << "////////" << std::setw(17) << "[ 0 ]\tExit" << std::setw(43) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "////////" << std::setw(63) << "////////\n";
-    std::cout << "//////////////////////////////////////////////////////////////////////\n";
 
+    std::cout << "\n\n";
+    std::cout << "\t=== Sell Menu ===\n\n";
+    std::cout << "\n--------------------------------------------------\n\n";
+    std::cout << "\tWeapons:\n";
+    std::cout << "\tArmors:\n";
+    std::cout << "\tPotions:\n";
+    std::cout << "\tSpells:\n";
+    std::cout << "\n--------------------------------------------------\n\n";
+    std::cout << "\t[ 1 ]\tWeapons\n";
     std::cout << "\n";
+    std::cout << "\t[ 2 ]\tArmors\n";
+    std::cout << "\n";
+    std::cout << "\t[ 3 ]\tPotions\n";
+    std::cout << "\n";
+    std::cout << "\t[ 4 ]\tSpells\n";
+    std::cout << "\n";
+    std::cout << "\t[ 0 ]\tExit\n";
+    std::cout << "\n";
+    std::cout << "--------------------------------------------------\n\n\n";
 
     std::cout << std::setw(37) << "Input: ";
-    do {
-        while (!(std::cin >> input) || input < 0 || input > 5) {
+    do
+    {
+        while (!(std::cin >> input) || input < 0 || input > 5)
+        {
             std::cout << "\n";
             std::cout << std::setw(50) << "Invalid input (Must be: 0 - 5)\n";
             Game::clearbuffer();
             std::cout << std::setw(37) << "Input: ";
         }
+        Game::clearbuffer();
         int index;
+
+        if (input == 0)
+            return true;
+
         std::cout << " Sell which item? (index from 0)\n";
-        while (!(std::cin >> index)) {
+        while (!(std::cin >> index))
+        {
             std::cout << "BAD INPUT\n";
         }
         Game::clearbuffer();
         h->checkInventory();
 
-        switch (input) {
+        switch (input)
+        {
         case 1:
             h->sell(this, itemType::WEAPON, index); //sell to this(market)
             break;
@@ -588,4 +671,5 @@ void Market::SellMenu(Hero* h)
             break;
         }
     } while (input != 5);
+    return false;
 }

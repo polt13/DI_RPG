@@ -15,5 +15,5 @@ int main()
     MyGame.DIRPG();
 
     while (MyGame.get_playing())
-        MyGame.CommonBlockMenu();
+        MyGame.BlockMenu();
 }

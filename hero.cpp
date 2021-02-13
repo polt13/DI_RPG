@@ -453,7 +453,7 @@ void Hero::unequip(gearType equipT)
 
 void Hero::DisplayItems(itemType itype) const
 {
-    int index = 0;
+    int index = 1;
     if (itype == itemType::WEAPON) {
         if (WeaponsInv.size() == 0)
             return;
