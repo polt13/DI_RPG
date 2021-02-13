@@ -10,10 +10,10 @@ using std::string;
 Hero::~Hero() { }
 
 Hero::Hero(const string& MyName, int STR, int DEX, int AG, Weapon* MyWeapon, Armor* MyArmour, Spell* MySpell)
-    : MagicPower(150)
-    , Strength(STR)
-    , Dexterity(DEX)
-    , Agility(AG)
+    : MaxMagicPower(150)
+    , MaxStr(STR)
+    , MaxDex(DEX)
+    , MaxAgil(AG)
     , Money(100)
     , Experience(0)
     , XPmax(125)
@@ -22,7 +22,11 @@ Hero::Hero(const string& MyName, int STR, int DEX, int AG, Weapon* MyWeapon, Arm
     , MyArmor(MyArmour)
     , Living(MyName, 50)
 {
-    SpellsInv.push_back(MySpell); //start with one spell;
+    SpellsInv.push_back(MySpell); //start with one spell
+    MagicPower = MaxMagicPower;
+    Agility = MaxAgil;
+    Dexterity = MaxDex;
+    Strength = MaxStr;
 }
 
 void Hero::set_xp(const int value)
@@ -73,18 +77,18 @@ int Hero::get_max_xp() const
     return XPmax;
 }
 
-int Hero::inv_size(std::string type) const
+int Hero::inv_size(itemType itype) const
 {
-    if (type == "Weapon")
+    if (itype == itemType::WEAPON)
         return WeaponsInv.size();
-    else if (type == "Armor")
+    else if (itype == itemType::ARMOR)
         return ArmorsInv.size();
-    else if (type == "Potion")
+    else if (itype == itemType::POTION)
         return PotionsInv.size();
     return SpellsInv.size();
 }
 
-int& Hero::getStat(potionType potion_t)
+int& Hero::getStat(potionType potion_t) //return stat by reference so that it can be increased
 {
     switch (potion_t) {
     case (potionType::HP):
@@ -165,10 +169,10 @@ void Hero::attack(Monster* MyMonster)
     else
         DMGdealt = Strength - MyMonster->get_defense();
     if (DMGdealt < 0) {
-        std::cout << "Higher defense than dmg\n";
+        std::cout << "No effect: monster has higher defense!\n";
         return;
     }
-    if ((rand() % 100) > MyMonster->get_dodge()) {
+    if ((std::rand() % 100) > MyMonster->get_dodge()) {
         std::cout << get_name() << " dealt " << DMGdealt << " DMG to " << MyMonster->get_name() << "!" << '\n';
         MyMonster->decrease_hp(DMGdealt);
     } else
@@ -191,10 +195,10 @@ void Hero::castSpell(Monster* MyMonster, int whichSpell)
         return;
     }
     if (MagicPower >= s->getMPcost()) {
-        if ((rand() % 100) > MyMonster->get_dodge()) {
+        if ((std::rand() % 100) > MyMonster->get_dodge()) {
             MagicPower -= s->getMPcost();
             MyMonster->decrease_hp(DMGdealt);
-            std::cout << get_name() << " dealt  " << DMGdealt << "magic damage to " << MyMonster->get_name() << '\n';
+            std::cout << get_name() << " dealt  " << DMGdealt << " magic damage to " << MyMonster->get_name() << '\n';
             s->apply_effect(MyMonster);
         } else
             std::cout << MyMonster->get_name() << " DODGED the Spell!" << '\n';
@@ -289,7 +293,11 @@ void Hero::addMoney(int m)
 
 void Hero::regenMP()
 {
-    MagicPower += MagicPower / 2;
+    if (HealthPower > 0) {
+        std::cout << Name << " recovers " << MagicPower / 6 + 1 << " MP\n";
+        MagicPower += (MagicPower / 6) + 1;
+    }
+
     if (MagicPower > MaxMagicPower) {
         MagicPower = MaxMagicPower;
     }
@@ -523,64 +531,6 @@ void Hero::checkInventory() const
         std::cout << '\n';
     }
 }
-
-/* void Hero::sell(market& m)
-{
-    std::string op;
-    int index {};
-    while (std::getline(std::cin, op)) {
-        if (op.size() <= 1)
-            return;
-        index = op[1] - '0';
-        switch (op[0]) {
-
-        case 'w':
-
-            if (index < 0 || (index > WeaponsInv.size() - 1)) {
-                std::cout << "No such weapon\n";
-                return;
-            }
-            m.acquire(WeaponsInv[index]); //market gets item
-            addMoney(WeaponsInv[index]->getPrice() / 2); //hero gets half
-            //the money of the item's price
-            WeaponsInv.erase(WeaponsInv.begin() + index);
-            //delete from hero's inventory
-
-            break;
-        case 'a':
-
-            if (index < 0 || (index > ArmorsInv.size() - 1)) {
-                std::cout << "No such armor\n";
-                return;
-            }
-            m.acquire(ArmorsInv[index]);
-            addMoney(ArmorsInv[index]->getPrice() / 2);
-            ArmorsInv.erase(ArmorsInv.begin() + index);
-            break;
-        case 's':
-            if (index < 0 || (index > SpellsInv.size() - 1)) {
-                std::cout << "No such spell\n";
-                return;
-            }
-            m.acquire(SpellsInv[index]);
-            addMoney(SpellsInv[index]->getPrice() / 2);
-            SpellsInv.erase(SpellsInv.begin() + index);
-            break;
-        case 'p':
-            if (index < 0 || (index > PotionsInv.size() - 1)) {
-                std::cout << "No such potion\n";
-                return;
-            }
-            m.acquire(PotionsInv[index]);
-            addMoney(PotionsInv[index]->getPrice() / 2);
-            PotionsInv.erase(PotionsInv.begin() + index);
-            break;
-        default:
-            std::cout << "Goodbye!\n";
-            return;
-        }
-    }
-} */
 
 void Hero::displayStats() const
 {

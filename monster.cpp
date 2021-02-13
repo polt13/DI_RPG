@@ -37,7 +37,7 @@ void Monster::attack(Hero* MyHero)
     else
         DMGdealt = (std::rand() % (maxDMG - minDMG + 1) + minDMG);
     if (DMGdealt < 0) {
-        std::cout << "Higher defense than dmg\n";
+        std::cout << "Attack has no effect: Hero has higher DEFENSE!\n";
         return;
     }
     if ((std::rand() % 100) > MyHero->get_agility()) {
@@ -62,7 +62,7 @@ void Monster::debuff(spellType st, int rounds)
         }
 
         debuffDur[0] += rounds;
-        std::cout << "Debuff lasts for " << debuffDur[0] << '\n';
+        std::cout << "Debuff lasts for " << debuffDur[0] << "rounds\n";
         break;
     case spellType::FIRE:
         if (debuffDur[1] == 0) {
@@ -71,7 +71,7 @@ void Monster::debuff(spellType st, int rounds)
         }
 
         debuffDur[1] += rounds;
-        std::cout << "Debuff lasting for " << debuffDur[0] << '\n';
+        std::cout << "Debuff lasts for " << debuffDur[1] << "rounds\n";
         break;
     case spellType::LIGHTNING:
         if (debuffDur[2] == 0) {
@@ -79,7 +79,7 @@ void Monster::debuff(spellType st, int rounds)
             Dodge -= 5;
         }
         debuffDur[2] += rounds;
-        std::cout << "Debuff lasting for " << debuffDur[0] << '\n';
+        std::cout << "Debuff lasts for " << debuffDur[2] << "rounds\n";
         break;
     }
 }
@@ -107,6 +107,9 @@ void Monster::finish_round()
 void Monster::displayStats() const
 {
     std::cout << Name << " HP: " << HealthPower << '\t';
+    if (HealthPower == 0) {
+        std::cout << "- Fainted!\n";
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

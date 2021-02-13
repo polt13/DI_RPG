@@ -178,11 +178,12 @@ void Common::fight(std::vector<Monster*>& enemies)
 
     while (end_fight(enemies) == false) { //checks if condition to finish battle are met
         //round starts here
-        int option = 0;
+        int option;
         do {
 
             std::cout << "\n\n1 to view battle status, 2 to view inventory, 3 to attack\n";
             std::cin >> option;
+            Game::clearbuffer();
 
         } while (option != 1 && option != 2 && option != 3);
         int pick;
@@ -203,22 +204,21 @@ void Common::fight(std::vector<Monster*>& enemies)
                 std::cout << "Not a valid pick\n";
                 Game::clearbuffer();
             }
-            int whichItem;
-            int who;
             switch (pick) {
             case 1:
+                int whichPotion;
                 Squad[HeroPick]->DisplayItems(itemType::POTION);
                 std::cout << "Use which potion?\n";
-                while (!(std::cin >> whichItem)) {
+                while (!(std::cin >> whichPotion)) {
                     std::cout << "Not a valid pick\n";
                     Game::clearbuffer();
                 }
-                Squad[HeroPick]->use(whichItem); //use on the hero itself
-
-                break;
+                Squad[HeroPick]->use(whichPotion); //use on the hero itself
+                continue;
             case 2:
                 int enemyTarget;
                 int whichSpell;
+                Squad[HeroPick]->DisplayItems(itemType::SPELL);
                 std::cout << "Use which spell?\n";
                 while (!(std::cin >> whichSpell)) {
                     std::cout << "Not a valid pick\n";
@@ -235,10 +235,9 @@ void Common::fight(std::vector<Monster*>& enemies)
                     enemies.erase(enemies.begin() + enemyTarget);
                 }
                 break;
-            case 3:
+            default:
                 continue;
             }
-            continue;
         } else {
             // init  combat
             //circular rotation --- who attacks
@@ -246,7 +245,7 @@ void Common::fight(std::vector<Monster*>& enemies)
             battle_status(enemies);
             std::cout << Squad[atk_hero]->get_name() << " attacks: [0 to " << enemies.size() - 1 << "]\n";
             while (!(std::cin >> enemy_at) || (enemy_at > enemies.size() - 1)) {
-                std::cout << "Invalid index\n";
+                std::cout << "No such enemy\n";
             }
             Squad[atk_hero++]->attack(enemies[enemy_at]); //attack and go to next hero
             if (enemies[enemy_at]->get_hp() == 0) {
@@ -273,6 +272,7 @@ void Common::fight(std::vector<Monster*>& enemies)
         end_round(enemies);
         //round ends here
     }
+    //after either monsters or heroes have died
     bool all_dead = true;
     for (auto h : Squad) { //find if all heroes dead
         if (h->get_hp() != 0) {
@@ -291,7 +291,6 @@ void Common::fight(std::vector<Monster*>& enemies)
         h->revive();
     }
     std::cout << "BATTLE LOST!\n";
-    return;
 }
 
 void Common::end_round(std::vector<Monster*>& enemies)
@@ -315,15 +314,13 @@ void Common::battle_status(const std::vector<Monster*>& enemies) const
 bool Common::end_fight(const std::vector<Monster*>& enemies)
 {
     //check if all heroes/monsters are dead
-    bool heroes_dead = false, monsters_dead = false;
-    for (const auto monster : enemies) {
-        if (monster->get_hp() != 0)
-            monsters_dead = false;
-    }
+    bool heroes_dead = true, monsters_dead = false;
+    if (enemies.size() == 0)
+        monsters_dead = true;
 
     for (const auto h : Squad) {
         if (h->get_hp() != 0)
-            heroes_dead = false;
+            heroes_dead = false; //at least one alive
     }
 
     if (heroes_dead == true && monsters_dead == false) {

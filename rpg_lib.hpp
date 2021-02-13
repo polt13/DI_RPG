@@ -196,7 +196,7 @@ public:
     Armor* get_armor() const;
     int& getStat(potionType);
     int get_max_xp() const;
-    int inv_size(std::string) const;
+    int inv_size(itemType) const;
 
     void attack(Monster*);
     void castSpell(Monster*, int);

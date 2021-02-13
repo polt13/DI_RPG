@@ -69,6 +69,7 @@ void Armor::print() const
     std::cout << name << " | Price: " << buy_price << " | Defense: " << def << " | Minimum level: " << min_level << std::endl;
 }
 
+// make the enum-type printable
 string Potion::typeToString() const
 {
     switch (potion_type) {
@@ -104,15 +105,22 @@ void Potion::print() const
 void Potion::buff(Hero* h)
 {
     if (potion_type == potionType::HP) {
+
+        std::cout << h->get_name() << " uses potion and replenishes " << buffAmount << " HP\n";
         h->HPbuff(buffAmount);
     } else if (potion_type == potionType::MP) {
+        std::cout << h->get_name() << " uses potion and replenishes " << buffAmount << " MP\n";
         h->MPbuff(buffAmount);
     } else if (potion_type == potionType::AGIL) {
+        std::cout << h->get_name() << " uses potion and replenishes " << buffAmount << " AGILITY\n";
         h->AGILbuff(buffAmount);
     } else if (potion_type == potionType::DEX) {
+        std::cout << h->get_name() << " uses potion and replenishes " << buffAmount << " DEXTERITY\n";
         h->DEXbuff(buffAmount);
-    } else
+    } else {
+        std::cout << h->get_name() << " uses potion and replenishes " << buffAmount << " STRENGTH\n";
         h->STRbuff(buffAmount);
+    }
 }
 
 Spell::Spell(const string& _name, const int price, const int lvl, const int mindmg, const int maxdmg, const int mp, const int dur)

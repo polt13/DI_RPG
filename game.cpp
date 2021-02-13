@@ -1230,10 +1230,10 @@ void Game::ChangeWeapon()
 
     std::cout << std::setw(37) << "Input: ";
 
-    while (!(std::cin >> input) || input < 0 || input > MyHeroes[ActiveHero]->inv_size("Weapon") + 1)
+    while (!(std::cin >> input) || input < 0 || input > MyHeroes[ActiveHero]->inv_size(itemType::WEAPON) + 1)
     {
         std::cout << "\n";
-        std::cout << std::setw(50) << "Invalid input (Must be: 0 - " << MyHeroes[ActiveHero]->inv_size("Weapon") + 1 << ")\n";
+        std::cout << std::setw(50) << "Invalid input (Must be: 0 - " << MyHeroes[ActiveHero]->inv_size(itemType::WEAPON) + 1 << ")\n";
         std::cout << std::setw(37) << "Input: ";
     }
 
@@ -1281,10 +1281,10 @@ void Game::ChangeArmor()
 
     std::cout << std::setw(37) << "Input: ";
 
-    while (!(std::cin >> input) || input < 0 || input > MyHeroes[ActiveHero]->inv_size("Armor") + 1)
+    while (!(std::cin >> input) || input < 0 || input > MyHeroes[ActiveHero]->inv_size(itemType::ARMOR) + 1)
     {
         std::cout << "\n";
-        std::cout << std::setw(50) << "Invalid input (Must be: 0 - " << MyHeroes[ActiveHero]->inv_size("Armor") + 1 << ")\n";
+        std::cout << std::setw(50) << "Invalid input (Must be: 0 - " << MyHeroes[ActiveHero]->inv_size(itemType::ARMOR) + 1 << ")\n";
         std::cout << std::setw(37) << "Input: ";
     }
 
@@ -1326,10 +1326,10 @@ void Game::UsePotion()
 
     std::cout << std::setw(37) << "Input: ";
 
-    while (!(std::cin >> input) || input < 0 || input > MyHeroes[ActiveHero]->inv_size("Potion") + 1)
+    while (!(std::cin >> input) || input < 0 || input > MyHeroes[ActiveHero]->inv_size(itemType::POTION) + 1)
     {
         std::cout << "\n";
-        std::cout << std::setw(50) << "Invalid input (Must be: 0 - " << MyHeroes[ActiveHero]->inv_size("Potion") + 1 << ")\n";
+        std::cout << std::setw(50) << "Invalid input (Must be: 0 - " << MyHeroes[ActiveHero]->inv_size(itemType::POTION) + 1 << ")\n";
         clearbuffer();
         std::cout << std::setw(37) << "Input: ";
     }
