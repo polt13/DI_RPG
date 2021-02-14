@@ -227,7 +227,7 @@ void Common::fight(std::vector<Monster*>& enemies)
                     std::cout << "Not a valid pick\n";
                     Game::clearbuffer();
                 }
-                Squad[HeroPick]->use(whichPotion); //use on the hero itself
+                Squad[HeroPick]->use(whichPotion - 1); //use on the hero itself
                 continue;
             case 2:
                 int enemyTarget;
@@ -243,7 +243,7 @@ void Common::fight(std::vector<Monster*>& enemies)
                 while (!(std::cin >> enemyTarget) || enemyTarget < 0 || (enemyTarget > enemies.size() - 1)) {
                     std::cout << "Not a valid pick\n";
                 }
-                Squad[HeroPick]->castSpell(enemies[enemyTarget], whichSpell);
+                Squad[HeroPick]->castSpell(enemies[enemyTarget], whichSpell - 1);
                 if (enemies[enemyTarget]->get_hp() == 0) {
                     delete enemies[enemyTarget]; //if monster dead after attack remove it
                     enemies.erase(enemies.begin() + enemyTarget);
@@ -322,6 +322,7 @@ void Common::fight(std::vector<Monster*>& enemies)
 
 void Common::end_round(std::vector<Monster*>& enemies)
 {
+    std::cout << "Round ends\n";
     for (auto e : enemies)
         e->finish_round(); //checks when it's time to remove an effect
 }

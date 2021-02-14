@@ -59,10 +59,11 @@ void Monster::debuff(spellType st, int rounds)
         if (debuffDur[0] == 0) {
             std::cout << "Ice spell debuff: Damage is reduced by 5\n";
             maxDMG -= 5;
+            minDMG -= 5;
         }
 
         debuffDur[0] += rounds;
-        std::cout << "Debuff lasts for " << debuffDur[0] << "rounds\n";
+        std::cout << "Debuff lasts for " << debuffDur[0] << " rounds\n";
         break;
     case spellType::FIRE:
         if (debuffDur[1] == 0) {
@@ -71,7 +72,7 @@ void Monster::debuff(spellType st, int rounds)
         }
 
         debuffDur[1] += rounds;
-        std::cout << "Debuff lasts for " << debuffDur[1] << "rounds\n";
+        std::cout << "Debuff lasts for " << debuffDur[1] << " rounds\n";
         break;
     case spellType::LIGHTNING:
         if (debuffDur[2] == 0) {
@@ -79,7 +80,7 @@ void Monster::debuff(spellType st, int rounds)
             Dodge -= 5;
         }
         debuffDur[2] += rounds;
-        std::cout << "Debuff lasts for " << debuffDur[2] << "rounds\n";
+        std::cout << "Debuff lasts for " << debuffDur[2] << " rounds\n";
         break;
     }
 }
@@ -89,12 +90,13 @@ void Monster::finish_round()
     for (auto i = 0; i < debuffDur.size(); i++) {
         if (debuffDur[i] > 0) {
             {
-                debuffDur[i]--;
+                --debuffDur[i];
                 //checks if debuff effect duration has come to an end
                 if (debuffDur[i] == 0) {
                     if (i == 0) {
                         std::cout << "Effect of -DMG has worn out for " << Name << '\n';
                         maxDMG += 5;
+                        minDMG += 5;
                     } else if (i == 1) {
                         std::cout << "Effect of -DEF has worn out for " << Name << '\n';
                         Defense += 5;
@@ -110,7 +112,7 @@ void Monster::finish_round()
 
 void Monster::displayStats() const
 {
-    std::cout << Name << " HP: " << HealthPower << '\t';
+    std::cout << Name << " HP: " << HealthPower << " min/max DMG: " << minDMG << ' ' << maxDMG << " max DEF: " << Defense << " Dodge: " << Dodge << '\t';
     if (HealthPower == 0) {
         std::cout << "- Fainted!\n";
     }
