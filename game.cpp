@@ -511,7 +511,7 @@ void Game::MoveMenu()
         std::cout << "\n";
         if (Grid[posx][posy]->get_type() == blockType::MARKET)
             std::cout << "\t[ 5 ]\tMarket\n\n";
-        std::cout << "\t[ 0 ]\tExit\n";
+        std::cout << "\t[ 0 ]\tMenu\n";
         std::cout << "\n";
         std::cout << "--------------------------------------------------\n\n\n";
 
@@ -1237,11 +1237,6 @@ void Game::UsePotion()
     std::cout << "--------------------------------------------------\n\n";
     std::cout << "\tHero Selected: " << MyHeroes[ActiveHero]->get_name() << "\n";
     std::cout << "\tPotion: ";
-    /* if (MyHeroes[ActiveHero]->get_armor() != nullptr)
-        std::cout << MyHeroes[ActiveHero]->get_armor()->get_name() << "\n";
-    else
-        std::cout << "-\n"; */
-    // need to check if there is active potion
     std::cout << "\n--------------------------------------------------\n\n\n";
 
     std::cout << std::setw(37) << "Input: ";

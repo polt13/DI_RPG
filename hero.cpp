@@ -1,9 +1,11 @@
 //  File Name:  hero.cpp
 
 #include "rpg_lib.hpp"
+#include <chrono>
 #include <cmath>
 #include <iostream>
 #include <map>
+#include <thread>
 
 using std::string;
 
@@ -16,7 +18,7 @@ Hero::Hero(const string& MyName, int STR, int DEX, int AG, Weapon* MyWeapon, Arm
     , MaxAgil(AG)
     , Money(100)
     , Experience(0)
-    , XPmax(125)
+    , XPmax(40)
     , RightHand(MyWeapon)
     , LeftHand(nullptr)
     , MyArmor(MyArmour)
@@ -184,10 +186,15 @@ void Hero::castSpell(Monster* MyMonster, int whichSpell)
 {
     if (MyMonster->get_hp() == 0)
         return;
+    if (SpellsInv.size() == 0) {
+        std::cout << "Spells inventory is empty!\n";
+        return;
+    }
     if (whichSpell > SpellsInv.size() - 1) {
         std::cout << "No such spell exists\n";
         return;
     }
+
     Spell* s = SpellsInv[whichSpell];
     int DMGdealt = s->getSpellDmg() + Dexterity - MyMonster->get_defense();
     if (DMGdealt < 0) {
@@ -220,6 +227,7 @@ void Hero::levelUp(int str, int dex, int ag)
         MaxHealthPower += 8;
         MaxMagicPower += 5;
     }
+    std::cout << Name << " has leveled up to " << Level << "!\n";
     //refill every stat on levelup//
     HealthPower = MaxHealthPower;
     MagicPower = MaxMagicPower;
@@ -256,29 +264,53 @@ void Hero::sell(Market* MyMarket, itemType itype, int index)
 {
     std::cout << "\n\n";
     if (itype == itemType::WEAPON) {
-        if (index < 0 || index > WeaponsInv.size() - 1)
+        if (WeaponsInv.size() == 0) {
+            std::cout << "No available weapons to sell\n";
+            return;
+        }
+        if (index < 0 || index > WeaponsInv.size() - 1) {
             std::cout << "BAD SELL INDEX\n";
+            return;
+        }
         std::cout << "\tSold " << Name << " '" << WeaponsInv[index]->get_name() << "' Weapon for " << WeaponsInv[index]->getPrice() / 2 << " Gold!\n";
         addMoney(WeaponsInv[index]->getPrice() / 2);
         MyMarket->acquire(WeaponsInv[index]);
         WeaponsInv.erase(WeaponsInv.begin() + index);
     } else if (itype == itemType::ARMOR) {
-        if (index < 0 || index > ArmorsInv.size() - 1)
+        if (ArmorsInv.size() == 0) {
+            std::cout << "No available armors to sell\n";
+            return;
+        }
+        if (index < 0 || index > ArmorsInv.size() - 1) {
             std::cout << "BAD SELL INDEX\n";
+            return;
+        }
         std::cout << "\tSold " << Name << " '" << ArmorsInv[index]->get_name() << "' Armor for " << ArmorsInv[index]->getPrice() / 2 << " Gold!\n";
         addMoney(ArmorsInv[index]->getPrice() / 2);
         MyMarket->acquire(ArmorsInv[index]);
         ArmorsInv.erase(ArmorsInv.begin() + index);
     } else if (itype == itemType::POTION) {
-        if (index < 0 || index > PotionsInv.size() - 1)
+        if (PotionsInv.size() == 0) {
+            std::cout << "No available potions to sell\n";
+            return;
+        }
+        if (index < 0 || index > PotionsInv.size() - 1) {
             std::cout << "BAD SELL INDEX\n";
+            return;
+        }
         std::cout << "\tSold " << Name << " '" << PotionsInv[index]->get_name() << "' Potion for " << PotionsInv[index]->getPrice() / 2 << " Gold!\n";
         addMoney(PotionsInv[index]->getPrice() / 2);
         MyMarket->acquire(PotionsInv[index]);
         PotionsInv.erase(PotionsInv.begin() + index);
     } else {
-        if (index < 0 || index > SpellsInv.size() - 1)
+        if (SpellsInv.size() == 0) {
+            std::cout << "No available spells to sell\n";
+            return;
+        }
+        if (index < 0 || index > SpellsInv.size() - 1) {
             std::cout << "BAD SELL INDEX\n";
+            return;
+        }
         std::cout << "\tSold " << Name << " '" << SpellsInv[index]->get_name() << "' Spell for " << SpellsInv[index]->getPrice() / 2 << " Gold!\n";
         addMoney(SpellsInv[index]->getPrice() / 2);
         MyMarket->acquire(SpellsInv[index]);
@@ -295,7 +327,7 @@ void Hero::regenMP()
 {
     if (HealthPower > 0) {
         std::cout << Name << " recovers " << MagicPower / 6 + 1 << " MP\n";
-        MagicPower += (MagicPower / 6) + 1;
+        MagicPower += (MagicPower / 10) + 1;
     }
 
     if (MagicPower > MaxMagicPower) {
@@ -305,7 +337,12 @@ void Hero::regenMP()
 
 void Hero::use(int whichPotion)
 {
-    if (whichPotion < 0 || (whichPotion > PotionsInv.size() - 1)) {
+
+    if (PotionsInv.size() == 0) {
+        std::cout << "Potions inv is empty\n";
+        return;
+    }
+    if ((whichPotion < 0) || (whichPotion > (PotionsInv.size() - 1))) {
         std::cout << "Invalid position of Potion (Must be: 0 - " << PotionsInv.size() - 1 << ")\n ";
         return;
     }
@@ -315,6 +352,10 @@ void Hero::use(int whichPotion)
 
 void Hero::set_weapon(int whichWeapon, int hand)
 {
+    if (WeaponsInv.size() == 0) {
+        std::cout << "No available weapons\n";
+        return;
+    }
     if (whichWeapon < 0 || (whichWeapon > WeaponsInv.size() - 1)) {
         std::cout << "Invalid position of Weapon (Must be: 0 - " << WeaponsInv.size() - 1 << ")\n ";
         std::cout << "Try again\n";
@@ -409,6 +450,10 @@ void Hero::set_weapon(int whichWeapon, int hand)
 
 void Hero::equip(int whichArmor)
 {
+    if (ArmorsInv.size() == 0) {
+        std::cout << "No available armors\n";
+        return;
+    }
     if (whichArmor < 0 || (whichArmor > (ArmorsInv.size() - 1))) {
         std::cout << "Invalid position of Armor (Must be: 0 - " << ArmorsInv.size() - 1 << ")\n ";
         std::cout << "Try again\n";

@@ -143,7 +143,7 @@ void Common::move(std::vector<Hero*>& toMove)
     Squad.insert(Squad.begin(), toMove.begin(), toMove.end()); //copy heroes to new location (this common block)
     toMove.clear(); //empty previous block
     if (spawned == true) { //dont attempt to put in battle immediately after spawning
-        if (std::rand() % 100 > 90) {
+        if (std::rand() % 100 > 80) {
             std::cout << "\n\n";
             std::cout << "\t\tRandom encounter!\n\n";
             interact_with();
@@ -299,10 +299,12 @@ void Common::fight(std::vector<Monster*>& enemies)
     for (auto h : Squad) { //find if all heroes dead
         if (h->get_hp() != 0) {
             all_dead = false;
-            h->set_xp(enemy_lvl * 5); //get xp based on level of enemy
-            h->addMoney(enemy_lvl * 3); //get money based on level of enemy
+            h->set_xp(enemy_lvl * 50); //get xp based on level of enemy
+            h->addMoney(enemy_lvl * 30); //get money based on level of enemy
+            std::cout << h->get_name() << " got " << enemy_lvl * 50 << "XP, " << enemy_lvl * 30 << " in gold!\n";
         }
     }
+
     if (all_dead == false)
         return; //not all heroes dead
 
@@ -325,10 +327,12 @@ void Common::battle_status(const std::vector<Monster*>& enemies) const
 {
     for (const auto m : enemies) {
         m->displayStats();
+        std::cout << "-- ";
     }
     std::cout << "\n\n";
     for (const auto h : Squad) {
         h->displayStats();
+        std::cout << "-- ";
     }
     std::cout << std::endl;
 }

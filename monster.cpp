@@ -93,11 +93,15 @@ void Monster::finish_round()
                 //checks if debuff effect duration has come to an end
                 if (debuffDur[i] == 0) {
                     if (i == 0) {
+                        std::cout << "Effect of -DMG has worn out for " << Name << '\n';
                         maxDMG += 5;
                     } else if (i == 1) {
+                        std::cout << "Effect of -DEF has worn out for " << Name << '\n';
                         Defense += 5;
-                    } else
+                    } else {
+                        std::cout << "Effect of -DODGE has worn out for " << Name << '\n';
                         Dodge += 5;
+                    }
                 }
             }
         }
