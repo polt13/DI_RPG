@@ -1,5 +1,7 @@
 #include "rpg_lib.hpp"
+#include <chrono>
 #include <iomanip>
+#include <thread>
 
 static bool spawned = false; //keep track of whether or not heroes spawned, to avoid immediately entering battle
 
@@ -175,7 +177,7 @@ void Common::interact_with()
         } else
             Enemies.push_back(new Spirit("Wild Spirit"));
     }
-
+    battle_status(Enemies);
     fight(Enemies);
 
     //after battle is done cleanup remaining monsters (if they won)//
@@ -302,6 +304,7 @@ void Common::fight(std::vector<Monster*>& enemies)
             h->set_xp(enemy_lvl * 50); //get xp based on level of enemy
             h->addMoney(enemy_lvl * 30); //get money based on level of enemy
             std::cout << h->get_name() << " got " << enemy_lvl * 50 << "XP, " << enemy_lvl * 30 << " in gold!\n";
+            std::this_thread::sleep_for(std::chrono::milliseconds(5000));
         }
     }
 

@@ -1,11 +1,10 @@
 //  File Name:  hero.cpp
 
 #include "rpg_lib.hpp"
-#include <chrono>
+
 #include <cmath>
 #include <iostream>
 #include <map>
-#include <thread>
 
 using std::string;
 
