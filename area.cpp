@@ -169,19 +169,20 @@ void Common::interact_with()
     //generate enemy monsters
     std::vector<Monster*> Enemies;
     std::string name;
-    int dragon_count = 0, skel_count = 0, spirit_count = 0;
-    int enemy_count = (std::rand() % 3) + 1;
+    auto dragon_count = 0, skel_count = 0, spirit_count = 0;
+    auto enemy_count = (std::rand() % 3) + 1;
+    auto monster_level = Squad[0]->getLevel(); //monster level based on hero level
     for (auto i = 1; i <= enemy_count; i++) {
         auto whichMonster = std::rand() % 60;
         if (whichMonster > 50) {
             name = "Dragon " + std::to_string(dragon_count++);
-            Enemies.push_back(new Dragon(name));
+            Enemies.push_back(new Dragon(name, monster_level));
         } else if (whichMonster > 25) {
             name = "Skeleton " + std::to_string(skel_count++);
-            Enemies.push_back(new Exoskeleton(name));
+            Enemies.push_back(new Exoskeleton(name, monster_level));
         } else {
             name = "Spirit " + std::to_string(spirit_count++);
-            Enemies.push_back(new Spirit(name));
+            Enemies.push_back(new Spirit(name, monster_level));
         }
     }
     battle_status(Enemies);
@@ -194,6 +195,7 @@ void Common::interact_with()
 
 void Common::fight(std::vector<Monster*>& enemies)
 {
+    auto enemy_count = enemies.size();
     auto atk_hero = 0;
     auto enemy_lvl = enemies[0]->getLevel();
 
@@ -305,12 +307,14 @@ void Common::fight(std::vector<Monster*>& enemies)
     }
     //after either monsters or heroes have died
     bool all_dead = true;
+    auto xp_receive = enemy_lvl * enemy_count * 40;
+    auto gold_receive = enemy_lvl * enemy_count * 30;
     for (auto h : Squad) { //find if all heroes dead
         if (h->get_hp() != 0) {
             all_dead = false;
-            h->set_xp(enemy_lvl * 50); //get xp based on level of enemy
-            h->addMoney(enemy_lvl * 30); //get money based on level of enemy
-            std::cout << h->get_name() << " got " << enemy_lvl * 50 << "XP, " << enemy_lvl * 30 << " in gold!\n";
+            h->set_xp(xp_receive); //get xp based on level of enemy
+            h->addMoney(gold_receive); //get money based on level of enemy
+            std::cout << h->get_name() << " got " << xp_receive << "XP, " << gold_receive << " in gold!\n";
             std::this_thread::sleep_for(std::chrono::milliseconds(3000));
         } else {
             h->revive();
@@ -318,16 +322,13 @@ void Common::fight(std::vector<Monster*>& enemies)
         }
     }
 
-    if (all_dead == false)
-        return; //not all heroes dead
-    else {
+    if (all_dead == true) {
         //if reached here -- all heroes are dead -- reduce moneycount
         for (auto h : Squad)
             h->moneyLoss();
+        std::cout << "BATTLE LOST!\n";
         std::this_thread::sleep_for(std::chrono::milliseconds(3000));
     }
-
-    std::cout << "BATTLE LOST!\n";
 }
 
 void Common::end_round(std::vector<Monster*>& enemies)
