@@ -1,119 +1,119 @@
-Caladbolg	100	1	4	0
-Taming Sword	100	1	6	0
-Crystal Sword	100	1	8	0
-Excalibur	100	1	20	0
-Ragnarok	100	1	20	0
-Balmung	100	1	20	0
-Save the Queen	100	1	20	0
-Heartbreaker	100	1	20	0
-Lionheart	100	1	20	0
-Durandal	100	1	20	0
-Ascalon	100	1	20	0
-Ambitious	100	1	20	0
-Hrunting	100	1	20	0
-Astral Sword	100	1	20	0
-Apocalypse	100	1	20	0
-Slowstrike	100	1	20	0
-Master Sword	100	1	20	0
-Rune-Master	100	1	20	0
-Warlock	100	1	20	0
-Arc Sword	100	1	20	0
-Gilventure	100	1	20	0
-Tri-Steel	100	1	20	0
-Helter-Skelter	100	1	20	0
-Vendetta	100	1	20	0
-Avenger	100	1	20	0
-Prism Steel	100	1	20	0
-Mirage Sword	100	1	20	0
-Lifesaver	100	1	20	0
-Sonic Steel	100	1	20	0
-Vigilante	100	1	20	0
-Dance Macabre	100	1	20	0
-Largamente	100	1	20	0
-Gravestone	100	1	20	0
-Sidewinder	100	1	20	0
-Nightmare	100	1	20	0
-Mage Masher	100	1	20	0
-Nightbringer	100	1	20	0
-Knight Sword	100	1	20	0
-Wizard Sword	100	1	20	0
-Double-Edge	100	1	20	0
-Razzmatazz	100	1	20	0
-Deathbringer	100	1	20	0
-Stunning Steel	100	1	20	0
-Basilisk Steel	100	1	20	0
-Poison Steel	100	1	20	0
-Lullaby Steel	100	1	20	0
-Muted Steel	100	1	20	0
-Twilight Steel	100	1	20	0
-Hunter's Sword	100	1	20	0
-Flametongue	100	1	20	0
-Ice Brand	100	1	20	0
-Lightning Steel	100	1	20	0
-Force Saber	100	1	20	0
-Baroque Sword	100	1	20	0
-Sorcery Sword	100	1	20	0
-Soldier's Saber	100	1	20	0
-Rune Steel	100	1	20	0
-Enchanted Sword	100	1	20	0
-Fencing Saber	100	1	20	0
-Slasher	100	1	20	0
-Nirvana	100	1	20	0
-Herding Staff	100	1	20	0
-Arc Arcana	100	1	20	0
-Abraxas	100	1	20	0
-Heavenly Axis	100	1	20	0
-Judgment	100	1	20	0
-Seraphim Rod	100	1	20	0
-Rod of Roses	100	1	20	0
-Nimbus Rod	100	1	20	0
-Wing Wand	100	1	20	0
-Wonder Wand	100	1	20	0
-Laevatein	100	1	20	0
-Astral Rod	100	1	20	0
-Chaos Rod	100	1	20	0
-Power Staff	100	1	20	0
-Shining Staff	100	1	20	0
-Faerie Staff	100	1	20	0
-Magistral Rod	100	1	20	0
-El Dorado	100	1	20	0
-Tri-Rod	100	1	20	0
-Wicked Wand	100	1	20	0
-Nemesis Rod	100	1	20	0
-Defender	100	1	20	0
-Prism Rod	100	1	20	0
-Mirage Rod	100	1	20	0
-Healing Rod	100	1	20	0
-Wind Rod	100	1	20	0
-Conductor	100	1	20	0
-Punisher	100	1	20	0
-Calcite Staff	100	1	20	0
-Bizarre Staff	100	1	20	0
-Staff of Thorns	100	1	20	0
-Reticent Staff	100	1	20	0
-Darkness Staff	100	1	20	0
-Monk Staff	100	1	20	0
-Mage's Staff	100	1	20	0
-Dual Rod	100	1	20	0
-Ominous Rod	100	1	20	0
-Death Wand	100	1	20	0
-Entangling Rod	100	1	20	0
-Break Rod	100	1	20	0
-Belladonna Wand	100	1	20	0
-Lullaby Rod	100	1	20	0
-Rod of Silence	100	1	20	0
-Rod of Darkness	100	1	20	0
-Rod of Wisdom	100	1	20	0
-Rod of Fire	100	1	20	0
-Rod of Ice	100	1	20	0
-Rod of Lightning	100	1	20	0
-Rod of Water	100	1	20	0
-Malleable Staff	100	1	20	0
-Force Rod	100	1	20	0
-Ductile Rod	100	1	20	0
-Sorcery Rod	100	1	20	0
-Full Metal Rod	100	1	20	0
-Rune Rod	100	1	20	0
-Enchanted Rod	100	1	20	0
-Rod of Striking	100	1	20	0
-Spiked Rod	100	1	20	0
+Caladbolg	30	1	4	0
+Taming Sword	35	1	6	0
+Crystal Sword	40	1	8	1
+Excalibur	45	1	20	0
+Ragnarok	50	1	20	1
+Balmung	55	1	20	1
+Save the Queen	60	1	20	1
+Heartbreaker	65	1	20	1
+Lionheart	70	2	20	0
+Durandal	75	2	20	1
+Ascalon	80	2	20	0
+Ambitious	85	2	20	1
+Hrunting	90	2	20	0
+Astral Sword	95	2	20	0
+Apocalypse	100	2	20	0
+Slowstrike	105	2	20	0
+Master Sword	110	3	20	0
+Rune-Master	115	3	20	0
+Warlock	120	3	20	0
+Arc Sword	125	3	20	0
+Gilventure	130	3	20	1
+Tri-Steel	135	3	20	1
+Helter-Skelter	140	3	20	0
+Vendetta	145	3	20	1
+Avenger	150	4	20	1
+Prism Steel	155	4	20	1
+Mirage Sword	160	4	20	1
+Lifesaver	165	4	20	1
+Sonic Steel	170	4	20	0
+Vigilante	175	4	20	0
+Dance Macabre	180	4	20	0
+Largamente	185	4	20	0
+Gravestone	190	4	20	0
+Sidewinder	195	5	20	1
+Nightmare	200	5	20	1
+Mage Masher	205	5	20	1
+Nightbringer	210	5	20	1
+Knight Sword	215	5	20	1
+Wizard Sword	220	5	20	0
+Double-Edge	225	5	20	1
+Razzmatazz	230	5	20	0
+Deathbringer	235	6	20	0
+Stunning Steel	240	6	20	0
+Basilisk Steel	245	6	20	1
+Poison Steel	250	6	20	1
+Lullaby Steel	255	6	20	0
+Muted Steel	260	6	20	1
+Twilight Steel	265	6	20	1
+Hunter's Sword	270	6	20	1
+Flametongue	275	6	20	1
+Ice Brand	280	7	20	1
+Lightning Steel	285	7	20	1
+Force Saber	290	7	20	0
+Baroque Sword	295	7	20	0
+Sorcery Sword	300	7	20	0
+Soldier's Saber	305	7	20	1
+Rune Steel	310	7	20	1
+Enchanted Sword	315	7	20	1
+Fencing Saber	320	7	20	0
+Slasher	325	8	20	1
+Nirvana	330	8	20	1
+Herding Staff	335	8	20	0
+Arc Arcana	340	8	20	0
+Abraxas	345	8	20	0
+Heavenly Axis	350	8	20	0
+Judgment	355	8	20	1
+Seraphim Rod	360	8	20	1
+Rod of Roses	365	8	20	1
+Nimbus Rod	370	9	20	1
+Wing Wand	375	9	20	1
+Wonder Wand	380	9	20	0
+Laevatein	385	9	20	1
+Astral Rod	390	9	20	0
+Chaos Rod	395	9	20	0
+Power Staff	400	9	20	0
+Shining Staff	405	9	20	1
+Faerie Staff	410	10	20	0
+Magistral Rod	415	10	20	1
+El Dorado	420	10	20	1
+Tri-Rod	425	10	20	0
+Wicked Wand	430	10	20	1
+Nemesis Rod	435	10	20	0
+Defender	440	10	20	0
+Prism Rod	445	10	20	0
+Mirage Rod	450	11	20	1
+Healing Rod	455	11	20	1
+Wind Rod	460	11	20	1
+Conductor	465	11	20	0
+Punisher	470	11	20	0
+Calcite Staff	475	11	20	1
+Bizarre Staff	480	11	20	0
+Staff of Thorns	485	11	20	1
+Reticent Staff	490	12	20	1
+Darkness Staff	495	12	20	1
+Monk Staff	500	12	20	1
+Mage's Staff	505	12	20	1
+Dual Rod	510	12	20	0
+Ominous Rod	515	12	20	0
+Death Wand	520	12	20	0
+Entangling Rod	525	12	20	1
+Break Rod	530	13	20	1
+Belladonna Wand	535	13	20	1
+Lullaby Rod	540	13	20	0
+Rod of Silence	545	13	20	1
+Rod of Darkness	550	13	20	0
+Rod of Wisdom	555	13	20	0
+Rod of Fire	560	13	20	0
+Rod of Ice	565	13	20	1
+Rod of Lightning	570	14	20	0
+Rod of Water	575	14	20	1
+Malleable Staff	580	14	20	0
+Force Rod	585	14	20	0
+Ductile Rod	590	14	20	0
+Sorcery Rod	595	15	20	1
+Full Metal Rod	600	15	20	1
+Rune Rod	605	15	20	0
+Enchanted Rod	610	16	20	0
+Rod of Striking	615	16	20	0
+Spiked Rod	620	17	20	1
