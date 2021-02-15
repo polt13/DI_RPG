@@ -1,66 +1,66 @@
-Potion	100	1	4
-Hi-Potion	100	1	2
-X-Potion	100	1	3
-Mega-Potion	100	1	4
-Ether	100	1	3
-Turbo Ether	100	1	5
-Elixir	100	1	5
-Megalixir	100	1	1
-Phoenix Down	100	1	5
-Mega Phoenix	100	1	1
-Antidote	100	1	1
-Echo Screen	100	1	5
-Eye Drops	100	1	2
-Holy Water	100	1	2
-Remedy	100	1	5
-Soft	100	1	4
-Al Bhed Potion	100	1	5
-Healing Water	100	1	4
-Tetra Elemental	100	1	3
-Candle of Life	100	1	3
-Dream Powder	100	1	2
-Farplane Shadow	100	1	3
-Farplane Wind	100	1	4
-Frag Grenade	100	1	5
-Silence Grenade	100	1	2
-Sleeping Powder	100	1	5
-Smoke Bomb	100	1	5
-Petrify Grenade	100	1	2
-Poison Fang	100	1	1
-Blessed Gem	100	1	5
-Dark Matter	100	1	4
-Shadow Gem	100	1	4
-Shining Gem	100	1	4
-Supreme Gem	100	1	2
-Gold Hourglass	100	1	3
-Healing Spring	100	1	5
-Light Curtain	100	1	4
-Lunar Curtain	100	1	4
-Mana Spring	100	1	5
-Mana Tablet	100	1	2
-Mana Tonic	100	1	1
-Purifying Salt	100	1	4
-Silver Hourglass	100	1	4
-Soul Spring	100	1	1
-Stamina Spring	100	1	1
-Stamina Tablet	100	1	1
-Stamina Tonic	100	1	2
-Star Curtain	100	1	3
-Three Stars	100	1	5
-Twin Stars	100	1	1
-Ability Distiller	100	1	3
-Amulet	100	1	5
-Designer Wallet	100	1	2
-Door to Tomorrow	100	1	2
-Gambler's Spirit	100	1	5
-Hypello Potion	100	1	3
-Mana Distiller	100	1	4
-Map	100	1	4
-Musk	100	1	2
-Pendulum	100	1	5
-Power Distiller	100	1	1
-Shining Thorn	100	1	5
-Speed Distiller	100	1	5
-Underdog's Secret	100	1	4
-Wings to Discovery	100	1	4
-Winning Formula	100	1	4
+Potion	20	1	5
+Hi-Potion	25	1	2
+X-Potion	30	1	3
+Mega-Potion	35	1	2
+Ether	40	2	2
+Turbo Ether	45	2	5
+Elixir	50	2	1
+Megalixir	55	2	3
+Phoenix Down	60	3	3
+Mega Phoenix	65	3	2
+Antidote	70	3	3
+Echo Screen	75	3	3
+Eye Drops	80	4	1
+Holy Water	85	4	1
+Remedy	90	4	1
+Soft	95	4	1
+Al Bhed Potion	100	5	4
+Healing Water	105	5	5
+Tetra Elemental	110	5	1
+Candle of Life	115	5	2
+Dream Powder	120	6	2
+Farplane Shadow	125	6	2
+Farplane Wind	130	6	2
+Frag Grenade	135	6	1
+Silence Grenade	140	7	1
+Sleeping Powder	145	7	5
+Smoke Bomb	150	7	4
+Petrify Grenade	155	7	4
+Poison Fang	160	8	3
+Blessed Gem	165	8	5
+Dark Matter	170	8	1
+Shadow Gem	175	8	2
+Shining Gem	180	9	2
+Supreme Gem	185	9	4
+Gold Hourglass	190	9	5
+Healing Spring	195	9	2
+Light Curtain	200	10	3
+Lunar Curtain	205	10	5
+Mana Spring	210	10	2
+Mana Tablet	215	10	5
+Mana Tonic	220	11	5
+Purifying Salt	225	11	2
+Silver Hourglass	230	11	2
+Soul Spring	235	11	4
+Stamina Spring	240	12	2
+Stamina Tablet	245	12	5
+Stamina Tonic	250	12	3
+Star Curtain	255	12	4
+Three Stars	260	13	5
+Twin Stars	265	13	3
+Ability Distiller	270	13	5
+Amulet	275	13	5
+Designer Wallet	280	14	4
+Door to Tomorrow	285	14	4
+Gambler's Spirit	290	14	1
+Hypello Potion	295	14	4
+Mana Distiller	300	15	3
+Map	305	15	1
+Musk	310	15	3
+Pendulum	315	15	2
+Power Distiller	320	16	2
+Shining Thorn	325	16	5
+Speed Distiller	330	16	2
+Underdog's Secret	335	16	2
+Wings to Discovery	340	17	4
+Winning Formula	345	17	5
