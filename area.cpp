@@ -147,7 +147,7 @@ void Common::move(std::vector<Hero*>& toMove)
     if (spawned == true) { //dont attempt to put in battle immediately after spawning
         if (std::rand() % 100 > 80) {
             std::cout << "\n\n";
-            std::cout << "\t\tRandom encounter!\n\n";
+            std::cout << "\t\t\tRandom encounter!\n\n";
             interact_with();
         }
     } else {
@@ -168,14 +168,21 @@ void Common::interact_with()
 {
     //generate enemy monsters
     std::vector<Monster*> Enemies;
-    for (auto i = 1; i <= 3; i++) {
+    std::string name;
+    int dragon_count = 0, skel_count = 0, spirit_count = 0;
+    int enemy_count = (std::rand() % 3) + 1;
+    for (auto i = 1; i <= enemy_count; i++) {
         auto whichMonster = std::rand() % 60;
         if (whichMonster > 50) {
-            Enemies.push_back(new Dragon("Duragon"));
+            name = "Dragon " + std::to_string(dragon_count++);
+            Enemies.push_back(new Dragon(name));
         } else if (whichMonster > 25) {
-            Enemies.push_back(new Exoskeleton("Skelly"));
-        } else
-            Enemies.push_back(new Spirit("Wild Spirit"));
+            name = "Skeleton " + std::to_string(skel_count++);
+            Enemies.push_back(new Exoskeleton(name));
+        } else {
+            name = "Spirit " + std::to_string(spirit_count++);
+            Enemies.push_back(new Spirit(name));
+        }
     }
     battle_status(Enemies);
     fight(Enemies);
@@ -195,7 +202,7 @@ void Common::fight(std::vector<Monster*>& enemies)
         int option;
         do {
 
-            std::cout << "\n\n1 to view battle status, 2 to view inventory, 3 to attack,4 to escape\n";
+            std::cout << "\n\n1 to view battle status, 2 to view inventory, 3 to attack, 4 to escape\n\n";
             std::cin >> option;
             Game::clearbuffer();
 
@@ -222,7 +229,7 @@ void Common::fight(std::vector<Monster*>& enemies)
             case 1:
                 int whichPotion;
                 Squad[HeroPick]->DisplayItems(itemType::POTION);
-                std::cout << "Use which potion?\n";
+                std::cout << "\nUse which potion?\n";
                 while (!(std::cin >> whichPotion)) {
                     std::cout << "Not a valid pick\n";
                     Game::clearbuffer();
@@ -233,7 +240,7 @@ void Common::fight(std::vector<Monster*>& enemies)
                 int enemyTarget;
                 int whichSpell;
                 Squad[HeroPick]->DisplayItems(itemType::SPELL);
-                std::cout << "Use which spell?\n";
+                std::cout << "\nUse which spell?\n";
                 while (!(std::cin >> whichSpell)) {
                     std::cout << "Not a valid pick\n";
                 }
@@ -304,19 +311,22 @@ void Common::fight(std::vector<Monster*>& enemies)
             h->set_xp(enemy_lvl * 50); //get xp based on level of enemy
             h->addMoney(enemy_lvl * 30); //get money based on level of enemy
             std::cout << h->get_name() << " got " << enemy_lvl * 50 << "XP, " << enemy_lvl * 30 << " in gold!\n";
+            std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+        } else {
+            h->revive();
             std::this_thread::sleep_for(std::chrono::milliseconds(5000));
         }
     }
 
     if (all_dead == false)
         return; //not all heroes dead
-
-    //if reached here -- all heroes are dead -- revive them with some HP and cost half the money
-    for (auto h : Squad) {
-        h->moneyLoss();
-        //revive with some HP
-        h->revive();
+    else {
+        //if reached here -- all heroes are dead -- reduce moneycount
+        for (auto h : Squad)
+            h->moneyLoss();
+        std::this_thread::sleep_for(std::chrono::milliseconds(3000));
     }
+
     std::cout << "BATTLE LOST!\n";
 }
 
@@ -601,14 +611,12 @@ bool Market::SellMenu(Hero* h)
 
     if (input == 0)
         return true;
-    else
-    {
+    else {
         std::cout << "Sell which item? (index from 1)\n";
 
         switch (input) {
         case 1:
-            if(h->inv_size(itemType::WEAPON) == 0)
-            {
+            if (h->inv_size(itemType::WEAPON) == 0) {
                 std::cout << "There is nothing to sell\n";
                 std::this_thread::sleep_for(std::chrono::milliseconds(1000));
                 break;
@@ -624,8 +632,7 @@ bool Market::SellMenu(Hero* h)
             std::this_thread::sleep_for(std::chrono::milliseconds(1000));
             break;
         case 2:
-            if(h->inv_size(itemType::ARMOR) == 0)
-            {
+            if (h->inv_size(itemType::ARMOR) == 0) {
                 std::cout << "There is nothing to sell\n";
                 std::this_thread::sleep_for(std::chrono::milliseconds(1000));
                 break;
@@ -641,8 +648,7 @@ bool Market::SellMenu(Hero* h)
             std::this_thread::sleep_for(std::chrono::milliseconds(1000));
             break;
         case 3:
-            if(h->inv_size(itemType::POTION) == 0)
-            {
+            if (h->inv_size(itemType::POTION) == 0) {
                 std::cout << "There is nothing to sell\n";
                 std::this_thread::sleep_for(std::chrono::milliseconds(1000));
                 break;
@@ -658,8 +664,7 @@ bool Market::SellMenu(Hero* h)
             std::this_thread::sleep_for(std::chrono::milliseconds(1000));
             break;
         case 4:
-            if(h->inv_size(itemType::SPELL) == 0)
-            {
+            if (h->inv_size(itemType::SPELL) == 0) {
                 std::cout << "There is nothing to sell\n";
                 std::this_thread::sleep_for(std::chrono::milliseconds(1000));
                 break;

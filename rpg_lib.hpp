@@ -283,7 +283,7 @@ public:
     Spirit(const std::string&, int = 1);
 };
 
-/////////////////////////////////////////////////////////////////////
+// Grid-related//
 
 class Block {
 protected:
@@ -406,15 +406,6 @@ public:
     //  Market Menu
     void BuyMenu();
     void SellMenu();
-    /*
-    void BuyWeapons();
-    void BuyArmors();
-    void BuyPotions();
-    void BuySpells();
-    void SellWeapons();
-    void SellArmors();
-    void SellPotions();
-    void SellSpells();*/
 
     //  Main Menu
     void HeroesInfo();

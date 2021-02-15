@@ -11,7 +11,7 @@
 
 Game::Game()
     : playing(true)
-    , Dimension(8)
+    , Dimension(12)
     , ActiveHero(0)
     , posx(2)
     , posy(1)
@@ -20,6 +20,7 @@ Game::Game()
 
 Game::~Game()
 {
+
     for (auto h : MyHeroes)
         delete h;
     for (auto w : AllWeapons)
@@ -28,8 +29,8 @@ Game::~Game()
         delete a;
     for (auto s : AllSpells)
         delete s;
-    for (auto p : AllPotions)
-        delete p;
+    /*for (auto p : AllPotions)
+        delete p;*/
 
     for (auto i = 0; i < Grid.size(); i++) {
         for (auto j = 0; j < Grid[i].size(); ++j) {
@@ -61,21 +62,7 @@ void Game::InitGame()
     InitArmors();
     InitPotions();
     InitSpells();
-    //InitMonsters();
     InitGrid();
-    /* std::cout << "\n";
-    std::cout << "\tOpening DI_RPG ";
-    std::flush(std::cout);
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    std::cout << ".";
-    std::flush(std::cout);
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    std::cout << ".";
-    std::flush(std::cout);
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    std::cout << ".";
-    std::flush(std::cout);
-    std::this_thread::sleep_for(std::chrono::milliseconds(500)); */
     NewHeroMenu();
     clearscreen();
     std::vector<Hero*> temp(MyHeroes); //copy heroes from Game:: vector so that original isn't affected
@@ -115,9 +102,9 @@ void Game::InitWeapons()
 
     std::cout << "\tInitializing All Weapons... ";
     std::flush(std::cout);
-    /* std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::cout << "Done\n";
-    std::this_thread::sleep_for(std::chrono::milliseconds(200)); */
+    std::this_thread::sleep_for(std::chrono::milliseconds(200));
 }
 
 void Game::InitArmors()
@@ -149,9 +136,9 @@ void Game::InitArmors()
 
     std::cout << "\tInitializing All Armors... ";
     std::flush(std::cout);
-    /* std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::cout << "Done\n";
-    std::this_thread::sleep_for(std::chrono::milliseconds(100)); */
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
 
 void Game::InitPotions()
@@ -200,9 +187,9 @@ void Game::InitPotions()
 
     std::cout << "\tInitializing All Potions... ";
     std::flush(std::cout);
-    /* std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::cout << "Done\n";
-    std::this_thread::sleep_for(std::chrono::milliseconds(100)); */
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
 
 void Game::InitSpells()
@@ -304,23 +291,21 @@ void Game::InitMonsters()
         }
     }
 
-    std::cout << "\tInitializing All Monsters... ";
     std::flush(std::cout);
-    /* std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::cout << "Done\n";
-    std::this_thread::sleep_for(std::chrono::milliseconds(100)); */
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
 
 void Game::InitGrid()
 {
     int MarketCounter = 0;
-    std::cout << "\tInitializing Grid... ";
     for (auto i = 0; i < Grid.size(); i++) {
         for (auto j = 0; j < Grid[i].size(); ++j) {
-            if (j % (Dimension - 1) == 0) {
+            if (std::rand() % 100 > 90 && (i != posx && j != posy)) { //dont make spawn block inaccessible
                 Grid[i][j] = new Inaccessible();
-            } else if (j % (Dimension - 4) == 0 && MarketCounter <= 2) {
-                MarketCounter++;
+            } else if ((std::rand() % 100 > 60) && MarketCounter < 5) {
+                ++MarketCounter;
                 Grid[i][j] = new Market(AllWeapons, AllArmors, AllPotions, AllSpells);
             } else
                 Grid[i][j] = new Common();
@@ -1278,10 +1263,9 @@ void Game::HeroesInfo()
     std::cout << "\t=== Heroes Info ===\n\n";
     std::cout << "\n--------------------------------------------------\n\n";
     //
-    for (int i = 0; i < MyHeroes.size(); i++)
-    {
+    for (int i = 0; i < MyHeroes.size(); i++) {
         std::cout << "\t[ " << i + 1 << " ]\t" << MyHeroes[i]->get_name();
-        if(i == ActiveHero)
+        if (i == ActiveHero)
             std::cout << " - [Active Hero]";
         std::cout << "\n";
         MyHeroes[i]->displayStats();
@@ -1320,10 +1304,9 @@ void Game::ChangeActiveHero()
     std::cout << "\n\n";
     std::cout << "\t=== Change Active Hero ===\n\n";
     std::cout << "\n--------------------------------------------------\n\n";
-    for (int i = 0; i < MyHeroes.size(); i++)
-    {
+    for (int i = 0; i < MyHeroes.size(); i++) {
         std::cout << "\t[ " << i + 1 << " ]\t" << MyHeroes[i]->get_name();
-        if(i == ActiveHero)
+        if (i == ActiveHero)
             std::cout << " - [Active Hero]";
         std::cout << "\n\n";
     }

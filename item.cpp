@@ -205,4 +205,3 @@ void LightningSpell::apply_effect(Monster* m)
 {
     m->debuff(spellType::LIGHTNING, duration);
 }
-///////////////////////////////////

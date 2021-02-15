@@ -112,10 +112,10 @@ void Monster::finish_round()
 
 void Monster::displayStats() const
 {
-    std::cout << Name << " HP: " << HealthPower << " min/max DMG: " << minDMG << ' ' << maxDMG << " max DEF: " << Defense << " Dodge: " << Dodge << '\t';
+    std::cout << Name << " | "
+              << " HP: "
+              << HealthPower << " | DMG: " << minDMG << '-' << maxDMG << " | DEF: " << Defense << " | DODGE: " << Dodge << '\t';
     if (HealthPower == 0) {
         std::cout << "- Fainted!\n";
     }
 }
-
-///////////////////////////////////////////////////////////////////////////////////////////////
