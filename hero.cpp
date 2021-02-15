@@ -191,8 +191,8 @@ void Hero::castSpell(Monster* MyMonster, int whichSpell)
         std::cout << "Spells inventory is empty!\n";
         return;
     }
-    if (whichSpell > SpellsInv.size() - 1) {
-        std::cout << "No such spell exists\n";
+    if ((whichSpell > SpellsInv.size() - 1) || whichSpell < 0) {
+        std::cout << "Invalid position of Potion (Must be: 1 - " << SpellsInv.size() << ")\n ";
         return;
     }
 
@@ -344,7 +344,7 @@ void Hero::use(int whichPotion)
         return;
     }
     if ((whichPotion < 0) || (whichPotion > (PotionsInv.size() - 1))) {
-        std::cout << "Invalid position of Potion (Must be: 0 - " << PotionsInv.size() - 1 << ")\n ";
+        std::cout << "Invalid position of Potion (Must be: 1 - " << PotionsInv.size() << ")\n ";
         return;
     }
     PotionsInv[whichPotion]->buff(this);

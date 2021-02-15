@@ -244,7 +244,7 @@ void Common::fight(std::vector<Monster*>& enemies)
                 int whichSpell;
                 Squad[HeroPick]->DisplayItems(itemType::SPELL);
                 std::cout << "\nUse which spell?\n";
-                while (!(std::cin >> whichSpell)) {
+                while (!(std::cin >> whichSpell) || whichSpell < 1) {
                     std::cout << "Not a valid pick\n";
                 }
                 battle_status(enemies);
@@ -523,42 +523,54 @@ bool Market::BuyMenu(Hero* h)
     if (input == 0)
         return true;
     else {
-        std::cout << "Select an Item: ";
+        std::cout << "Select an Item: (0 for exit) ";
 
         switch (input) {
         case 1:
-            while (!(std::cin >> index) || index <= 0 || index >= weapons.size() + 1) {
+            while (!(std::cin >> index) || index < 0 || index >= weapons.size() + 1) {
                 std::cout << "\n";
-                std::cout << std::setw(50) << "Invalid input (Must be: 1 - " << weapons.size() << ")\n";
+                std::cout << std::setw(50) << "Invalid input (Must be: 0 - " << weapons.size() << ")\n";
                 Game::clearbuffer();
                 std::cout << std::setw(37) << "What to buy: ";
+            }
+            if (!index) {
+                return true;
             }
             buy(h, itemType::WEAPON, index - 1);
             break;
         case 2:
-            while (!(std::cin >> index) || index <= 0 || index >= armors.size() + 1) {
+            while (!(std::cin >> index) || index < 0 || index >= armors.size() + 1) {
                 std::cout << "\n";
-                std::cout << std::setw(50) << "Invalid input (Must be: 1 - " << armors.size() << ")\n";
+                std::cout << std::setw(50) << "Invalid input (Must be: 0 - " << armors.size() << ")\n";
                 Game::clearbuffer();
                 std::cout << std::setw(37) << "What to buy: ";
+            }
+            if (!index) {
+                return true;
             }
             buy(h, itemType::ARMOR, index - 1);
             break;
         case 3:
-            while (!(std::cin >> index) || index <= 0 || index >= potions.size() + 1) {
+            while (!(std::cin >> index) || index < 0 || index >= potions.size() + 1) {
                 std::cout << "\n";
-                std::cout << std::setw(50) << "Invalid input (Must be: 1 - " << potions.size() << ")\n";
+                std::cout << std::setw(50) << "Invalid input (Must be: 0 - " << potions.size() << ")\n";
                 Game::clearbuffer();
                 std::cout << std::setw(37) << "What to buy: ";
+            }
+            if (!index) {
+                return true;
             }
             buy(h, itemType::POTION, index - 1);
             break;
         case 4:
-            while (!(std::cin >> index) || index <= 0 || index >= spells.size() + 1) {
+            while (!(std::cin >> index) || index < 0 || index >= spells.size() + 1) {
                 std::cout << "\n";
-                std::cout << std::setw(50) << "Invalid input (Must be: 1 - " << spells.size() << ")\n";
+                std::cout << std::setw(50) << "Invalid input (Must be: 0 - " << spells.size() << ")\n";
                 Game::clearbuffer();
                 std::cout << std::setw(37) << "What to buy: ";
+            }
+            if (!index) {
+                return true;
             }
             buy(h, itemType::SPELL, index - 1);
             break;
