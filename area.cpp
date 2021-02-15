@@ -326,9 +326,10 @@ void Common::fight(std::vector<Monster*>& enemies)
         //if reached here -- all heroes are dead -- reduce moneycount
         for (auto h : Squad)
             h->moneyLoss();
-        std::cout << "BATTLE LOST!\n";
+        std::cout << " BATTLE LOST!\n";
         std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-    }
+    } else
+        std::cout << " HEROES WIN!\n";
 }
 
 void Common::end_round(std::vector<Monster*>& enemies)
