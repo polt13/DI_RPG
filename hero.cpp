@@ -374,7 +374,16 @@ void Hero::set_weapon(int whichWeapon, int hand)
                 if (input == 'n' || input == 'N')
                     return;
                 unequip(gearType::RWEAPON);
-            } else if ((RightHand != nullptr) && (LeftHand != nullptr)) {
+            }
+            else if ((RightHand == nullptr) && (LeftHand != nullptr))
+            {
+                std::cout << Name << " is already equipped with '" << LeftHand->get_name() << "' Weapon\n";
+                char input = proceed();
+                if(input == 'n' || input == 'N')
+                    return;
+                unequip(gearType::LWEAPON);
+            }
+            else if ((RightHand != nullptr) && (LeftHand != nullptr)) {
                 std::cout << Name << " is already equipped with '" << RightHand->get_name() << "' and '" << LeftHand->get_name() << "' Weapons\n";
                 char input = proceed();
                 if (input == 'n' || input == 'N')
@@ -413,8 +422,17 @@ void Hero::set_weapon(int whichWeapon, int hand)
                 }
                 std::cout << "Equipped '" << MyWeapon->get_name() << "' Weapon!\n";
             } else if ((RightHand == nullptr) && (LeftHand != nullptr)) {
-                if (hand == 1)
+                if (hand == 1){
+                    if(LeftHand->isTwoHanded() == true)
+                    {
+                        std::cout << Name << " is already equipped with '" << LeftHand->get_name() << "' Weapon\n";
+                        char input = proceed();
+                        if (input == 'n' || input == 'N')
+                            return;
+                        unequip(gearType::LWEAPON);
+                    }
                     RightHand = MyWeapon;
+                }
                 else {
                     std::cout << Name << " is already equipped with '" << LeftHand->get_name() << "' Weapon\n";
                     char input = proceed();
@@ -423,7 +441,8 @@ void Hero::set_weapon(int whichWeapon, int hand)
                     unequip(gearType::LWEAPON);
                 }
                 std::cout << "Equipped '" << MyWeapon->get_name() << "' Weapon!\n";
-            } else {
+            }
+            else {
                 if (hand == 1) {
                     std::cout << Name << " is already equipped with '" << RightHand->get_name() << "' Weapon\n";
                     char input = proceed();
@@ -524,7 +543,7 @@ void Hero::DisplayItems(itemType itype) const
             return;
         for (const auto s : SpellsInv) {
             std::cout << "[ " << index++ << " ] ";
-            std::cout << s->get_name() << " | Price: " << s->getPrice() / 2 << " Damage Range: " << s->get_mindmg() << " - " << s->get_maxdmg() << " | MP cost: " << s->getMPcost() << " | Duration: " << s->get_duration() << " | Minimum level: " << s->get_minlvl() << '\n';
+            std::cout << s->get_name() << " | Price: " << s->getPrice() / 2 << " | Damage Range: " << s->get_mindmg() << " - " << s->get_maxdmg() << " | MP cost: " << s->getMPcost() << " | Duration: " << s->get_duration() << " | Minimum level: " << s->get_minlvl() << '\n';
         }
     }
 }
@@ -545,32 +564,32 @@ void Hero::checkInventory() const
         MyArmor->print();
         std::cout << "\t[EQUIPPED]\n";
     }
-    int itemCount = 0;
+    int itemCount = 1;
     //print weapons / armors / potions / spells
     std::cout << "Weapons:\n";
     for (const auto w : WeaponsInv) {
-        std::cout << itemCount++ << ". ";
+        std::cout << "[ " << itemCount++ << " ] ";
         w->print();
         std::cout << '\n';
     }
-    itemCount = 0;
+    itemCount = 1;
     std::cout << "\nArmors:\n";
     for (const auto a : ArmorsInv) {
-        std::cout << itemCount++ << ". ";
+        std::cout << "[ " << itemCount++ << " ] ";
         a->print();
         std::cout << '\n';
     }
-    itemCount = 0;
+    itemCount = 1;
     std::cout << "\nPotions:\n";
     for (const auto p : PotionsInv) {
-        std::cout << itemCount++ << ". ";
+        std::cout << "[ " << itemCount++ << " ] ";
         p->print();
         std::cout << '\n';
     }
-    itemCount = 0;
+    itemCount = 1;
     std::cout << "\nSpells:\n";
     for (const auto s : SpellsInv) {
-        std::cout << itemCount++ << ". ";
+        std::cout << "[ " << itemCount++ << " ] ";
         s->print();
         std::cout << '\n';
     }

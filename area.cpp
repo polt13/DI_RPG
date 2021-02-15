@@ -405,13 +405,13 @@ void Market::print() const
 
 void Market::interact_with()
 {
-    std::cout << "\tView market with Hero: [1 to " << Squad.size() << " ]\n";
+    std::cout << "\tView market with Hero: [ 1 to " << Squad.size() << " ]\n";
     int hero;
     while (!(std::cin >> hero) || hero >= Squad.size() + 1 || hero <= 0) {
         std::cout << "\n";
         std::cout << "BAD INPUT\n";
         Game::clearbuffer();
-        std::cout << "\tView market with Hero: [1 to " << Squad.size() << " ]\n";
+        std::cout << "\tView market with Hero: [ 1 to " << Squad.size() << " ]\n";
     }
     Menu(Squad[hero - 1]);
 }
@@ -421,10 +421,12 @@ void Market::Menu(Hero* h)
     int input;
     bool flag;
     do {
+        Game::clearscreen();
         flag = false;
 
         std::cout << "\n\n\tWelcome.." << std::endl;
-        std::cout << "\n\n\tYou've got " << h->getMoney() << " gold.";
+        std::cout << "\n\n\tYou've got " << h->getMoney() << " gold.\n\n";
+        std::cout << "\n--------------------------------------------------\n";
 
         std::cout << "\n\n";
         std::cout << "\t=== Market Menu ===\n\n";
@@ -555,6 +557,7 @@ bool Market::BuyMenu(Hero* h)
 bool Market::SellMenu(Hero* h)
 {
     int input;
+    int index;
     Game::clearscreen();
     std::cout << "\n\n\tLoading.." << std::endl;
     Game::clearscreen();
@@ -563,9 +566,16 @@ bool Market::SellMenu(Hero* h)
     std::cout << "\t=== Sell Menu ===\n\n";
     std::cout << "\n--------------------------------------------------\n\n";
     std::cout << "\tWeapons:\n";
+    h->DisplayItems(itemType::WEAPON);
+    std::cout << "\n";
     std::cout << "\tArmors:\n";
+    h->DisplayItems(itemType::ARMOR);
+    std::cout << "\n";
     std::cout << "\tPotions:\n";
+    h->DisplayItems(itemType::POTION);
+    std::cout << "\n";
     std::cout << "\tSpells:\n";
+    h->DisplayItems(itemType::SPELL);
     std::cout << "\n--------------------------------------------------\n\n";
     std::cout << "\t[ 1 ]\tWeapons\n";
     std::cout << "\n";
@@ -579,42 +589,92 @@ bool Market::SellMenu(Hero* h)
     std::cout << "\n";
     std::cout << "--------------------------------------------------\n\n\n";
 
-    std::cout << std::setw(37) << "Input: ";
-    do {
-        while (!(std::cin >> input) || input < 0 || input > 4) {
-            std::cout << "\n";
-            std::cout << std::setw(50) << "Invalid input (Must be: 0 - 5)\n";
-            Game::clearbuffer();
-            std::cout << std::setw(37) << "Input: ";
-        }
-        int index;
+    std::cout << std::setw(37) << "Pick category: ";
 
-        if (input == 0)
-            return true;
+    while (!(std::cin >> input) || input < 0 || input > 4) {
+        std::cout << "\n";
+        std::cout << std::setw(50) << "Invalid input (Must be: 0 - 4)\n";
+        Game::clearbuffer();
+        std::cout << std::setw(37) << "Pick category: ";
+    }
+    Game::clearbuffer();
 
-        std::cout << " Sell which item? (index from 0)\n";
-        while (!(std::cin >> index)) {
-            std::cout << "BAD INPUT\n";
-            Game::clearbuffer();
-        }
-        h->checkInventory();
+    if (input == 0)
+        return true;
+    else
+    {
+        std::cout << "Sell which item? (index from 1)\n";
+
         switch (input) {
         case 1:
+            if(h->inv_size(itemType::WEAPON) == 0)
+            {
+                std::cout << "There is nothing to sell\n";
+                std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+                break;
+            }
+            while (!(std::cin >> index) || index <= 0 || index >= h->inv_size(itemType::WEAPON) + 1) {
+                std::cout << "\n";
+                std::cout << std::setw(50) << "Invalid input (Must be: 1 - " << h->inv_size(itemType::WEAPON) << ")\n";
+                Game::clearbuffer();
+                std::cout << std::setw(37) << "Sell which item? (index from 1)\n";
+            }
+            index--;
             h->sell(this, itemType::WEAPON, index); //sell to this(market)
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
             break;
         case 2:
-
+            if(h->inv_size(itemType::ARMOR) == 0)
+            {
+                std::cout << "There is nothing to sell\n";
+                std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+                break;
+            }
+            while (!(std::cin >> index) || index <= 0 || index >= h->inv_size(itemType::ARMOR) + 1) {
+                std::cout << "\n";
+                std::cout << std::setw(50) << "Invalid input (Must be: 1 - " << h->inv_size(itemType::ARMOR) << ")\n";
+                Game::clearbuffer();
+                std::cout << std::setw(37) << "Sell which item? (index from 1)\n";
+            }
+            index--;
             h->sell(this, itemType::ARMOR, index);
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
             break;
         case 3:
-
-            h->sell(this, itemType::SPELL, index);
+            if(h->inv_size(itemType::POTION) == 0)
+            {
+                std::cout << "There is nothing to sell\n";
+                std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+                break;
+            }
+            while (!(std::cin >> index) || index <= 0 || index >= h->inv_size(itemType::POTION) + 1) {
+                std::cout << "\n";
+                std::cout << std::setw(50) << "Invalid input (Must be: 1 - " << h->inv_size(itemType::POTION) << ")\n";
+                Game::clearbuffer();
+                std::cout << std::setw(37) << "Sell which item? (index from 1)\n";
+            }
+            index--;
+            h->sell(this, itemType::POTION, index);
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
             break;
         case 4:
-
-            h->sell(this, itemType::POTION, index);
+            if(h->inv_size(itemType::SPELL) == 0)
+            {
+                std::cout << "There is nothing to sell\n";
+                std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+                break;
+            }
+            while (!(std::cin >> index) || index <= 0 || index >= h->inv_size(itemType::SPELL) + 1) {
+                std::cout << "\n";
+                std::cout << std::setw(50) << "Invalid input (Must be: 1 - " << h->inv_size(itemType::SPELL) << ")\n";
+                Game::clearbuffer();
+                std::cout << std::setw(37) << "Sell which item? (index from 1)\n";
+            }
+            index--;
+            h->sell(this, itemType::SPELL, index);
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
             break;
         }
-    } while (input != 0);
+    }
     return false;
 }

@@ -1180,7 +1180,6 @@ void Game::ChangeWeapon()
     }
     MyHeroes[ActiveHero]->set_weapon(index, input);
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    clearbuffer();
 }
 
 void Game::ChangeArmor()
@@ -1218,7 +1217,6 @@ void Game::ChangeArmor()
 
     MyHeroes[ActiveHero]->equip(input - 1);
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    clearbuffer();
 }
 
 void Game::UsePotion()
@@ -1252,7 +1250,6 @@ void Game::UsePotion()
         return;
     MyHeroes[ActiveHero]->use(input - 1);
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    clearbuffer();
 }
 
 void Game::clearbuffer()
@@ -1282,18 +1279,24 @@ void Game::HeroesInfo()
     std::cout << "\n--------------------------------------------------\n\n";
     //
     for (int i = 0; i < MyHeroes.size(); i++)
-        std::cout << "\t[ " << i + 1 << " ]\t" << MyHeroes[i]->get_name() << "\n\n";
-    // gotta check this
-    std::cout << "\n--------------------------------------------------\n\n";
+    {
+        std::cout << "\t[ " << i + 1 << " ]\t" << MyHeroes[i]->get_name();
+        if(i == ActiveHero)
+            std::cout << " - [Active Hero]";
+        std::cout << "\n";
+        MyHeroes[i]->displayStats();
+        std::cout << "\n\n";
+    }
+    std::cout << "--------------------------------------------------\n\n";
     std::cout << "\t[ 0 ]\tExit\n";
     std::cout << "\n";
     std::cout << "--------------------------------------------------\n\n\n";
 
     std::cout << std::setw(37) << "Input: ";
 
-    while (!(std::cin >> input) || input < 0) {
+    while (!(std::cin >> input) || input < 0 || input > MyHeroes.size()) {
         std::cout << "\n";
-        std::cout << std::setw(50) << "Invalid input (Must be: 0 - ?)\n"; // gotta check this
+        std::cout << std::setw(50) << "Invalid input (Must be: 0 - " << MyHeroes.size() << ")\n"; // gotta check this
         clearbuffer();
         std::cout << std::setw(37) << "Input: ";
     }
@@ -1302,6 +1305,10 @@ void Game::HeroesInfo()
         clearbuffer();
         return;
     }
+
+    ActiveHero = input - 1;
+    std::cout << "Switched Active Hero to " << MyHeroes[ActiveHero]->get_name() << "\n";
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 }
 
 void Game::ChangeActiveHero()
@@ -1314,7 +1321,12 @@ void Game::ChangeActiveHero()
     std::cout << "\t=== Change Active Hero ===\n\n";
     std::cout << "\n--------------------------------------------------\n\n";
     for (int i = 0; i < MyHeroes.size(); i++)
-        std::cout << "\t[ " << i + 1 << " ]\t" << MyHeroes[i]->get_name() << "\n\n";
+    {
+        std::cout << "\t[ " << i + 1 << " ]\t" << MyHeroes[i]->get_name();
+        if(i == ActiveHero)
+            std::cout << " - [Active Hero]";
+        std::cout << "\n\n";
+    }
     std::cout << "\t[ 0 ]\tExit\n";
     std::cout << "\n";
     std::cout << "--------------------------------------------------\n\n\n";
@@ -1334,6 +1346,8 @@ void Game::ChangeActiveHero()
     }
 
     ActiveHero = input - 1;
+    std::cout << "Switched Active Hero to " << MyHeroes[ActiveHero]->get_name() << "\n";
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 }
 
 void Game::DisplayMap() const
