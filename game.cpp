@@ -29,8 +29,8 @@ Game::~Game()
         delete a;
     for (auto s : AllSpells)
         delete s;
-    /*for (auto p : AllPotions)
-        delete p;*/
+    for (auto p : AllPotions)
+        delete p;
 
     for (auto i = 0; i < Grid.size(); i++) {
         for (auto j = 0; j < Grid[i].size(); ++j) {

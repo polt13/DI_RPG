@@ -220,7 +220,7 @@ void Common::fight(std::vector<Monster*>& enemies)
                 Game::clearbuffer();
             }
             Squad[HeroPick]->checkInventory();
-            std::cout << "1 for Potion, 2 for Spellcast, 3 to go back";
+            std::cout << "1 for Potion, 2 for Spellcast, 3 to go back\n";
             while (!(std::cin >> pick) || option > 3 || option < 1) {
                 std::cout << "Not a valid pick\n";
                 Game::clearbuffer();
