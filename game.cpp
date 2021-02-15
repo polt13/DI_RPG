@@ -245,58 +245,6 @@ void Game::InitSpells()
     std::this_thread::sleep_for(std::chrono::milliseconds(100)); */
 }
 
-void Game::InitMonsters()
-{
-    std::ifstream inFile;
-    try {
-        inFile.open("names.txt");
-    } catch (std::exception& e) {
-        std::cerr << "Exception opening/reading names.txt\n";
-        std::exit(0);
-    }
-
-    std::string name;
-    std::string price;
-    std::string lvl;
-    std::string mindmg;
-    std::string maxdmg;
-    std::string mp;
-    std::string dur;
-    std::string type;
-
-    while (!inFile.eof()) {
-        std::getline(inFile, name, '\t');
-        std::getline(inFile, price, '\t');
-        std::getline(inFile, lvl, '\t');
-        std::getline(inFile, mindmg, '\t');
-        std::getline(inFile, maxdmg, '\t');
-        std::getline(inFile, mp, '\t');
-        std::getline(inFile, dur, '\t');
-        std::getline(inFile, type, '\n');
-
-        if (inFile.eof())
-            break;
-
-        int type_num = std::stoi(type);
-        switch (type_num) {
-        case 1:
-            AllSpells.push_back(new IceSpell(name, std::stoi(price), std::stoi(lvl), std::stoi(mindmg), std::stoi(maxdmg), std::stoi(mp), std::stoi(dur)));
-            break;
-        case 2:
-            AllSpells.push_back(new FireSpell(name, std::stoi(price), std::stoi(lvl), std::stoi(mindmg), std::stoi(maxdmg), std::stoi(mp), std::stoi(dur)));
-            break;
-        case 3:
-            AllSpells.push_back(new LightningSpell(name, std::stoi(price), std::stoi(lvl), std::stoi(mindmg), std::stoi(maxdmg), std::stoi(mp), std::stoi(dur)));
-            break;
-        }
-    }
-
-    std::flush(std::cout);
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    std::cout << "Done\n";
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-}
-
 void Game::InitGrid()
 {
     int MarketCounter = 0;
