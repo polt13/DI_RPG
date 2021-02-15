@@ -477,8 +477,6 @@ bool Market::BuyMenu(Hero* h)
     int input;
     int index;
     Game::clearscreen();
-    std::cout << "\n\n\tLoading.." << std::endl;
-    Game::clearscreen();
 
     std::cout << "\n\n";
     std::cout << "\t=== Buy Menu ===\n\n";
@@ -568,8 +566,6 @@ bool Market::SellMenu(Hero* h)
 {
     int input;
     int index;
-    Game::clearscreen();
-    std::cout << "\n\n\tLoading.." << std::endl;
     Game::clearscreen();
 
     std::cout << "\n\n";

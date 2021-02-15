@@ -42,8 +42,6 @@ Game::~Game()
 void Game::StartScreen()
 {
     clearscreen();
-    std::cout << "\n\n\tLoading.." << std::endl;
-    clearscreen();
     std::cout << "\n\n";
     std::cout << "\tWelcome to DI_RPG\n\n";
     std::cout << "\tPress ENTER to continue..." << std::endl;
@@ -53,7 +51,6 @@ void Game::StartScreen()
 
 void Game::InitGame()
 {
-    std::cout << "\n\n\tLoading.." << std::endl;
     clearscreen();
 
     std::cout << "\n\n";
@@ -245,59 +242,6 @@ void Game::InitSpells()
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
 
-void Game::InitMonsters()
-{
-    std::ifstream inFile;
-    try {
-        inFile.open("names.txt");
-    } catch (std::exception& e) {
-        std::cerr << "Exception opening/reading names.txt\n";
-        std::exit(0);
-    }
-
-    std::string name;
-    std::string price;
-    std::string lvl;
-    std::string mindmg;
-    std::string maxdmg;
-    std::string mp;
-    std::string dur;
-    std::string type;
-
-    while (!inFile.eof()) {
-        std::getline(inFile, name, '\t');
-        std::getline(inFile, price, '\t');
-        std::getline(inFile, lvl, '\t');
-        std::getline(inFile, mindmg, '\t');
-        std::getline(inFile, maxdmg, '\t');
-        std::getline(inFile, mp, '\t');
-        std::getline(inFile, dur, '\t');
-        std::getline(inFile, type, '\n');
-
-        if (inFile.eof())
-            break;
-
-        int type_num = std::stoi(type);
-        switch (type_num) {
-        case 1:
-            AllSpells.push_back(new IceSpell(name, std::stoi(price), std::stoi(lvl), std::stoi(mindmg), std::stoi(maxdmg), std::stoi(mp), std::stoi(dur)));
-            break;
-        case 2:
-            AllSpells.push_back(new FireSpell(name, std::stoi(price), std::stoi(lvl), std::stoi(mindmg), std::stoi(maxdmg), std::stoi(mp), std::stoi(dur)));
-            break;
-        case 3:
-            AllSpells.push_back(new LightningSpell(name, std::stoi(price), std::stoi(lvl), std::stoi(mindmg), std::stoi(maxdmg), std::stoi(mp), std::stoi(dur)));
-            break;
-        }
-    }
-
-    std::cout << "\tInitializing All Monsters... ";
-    std::flush(std::cout);
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    std::cout << "Done\n";
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-}
-
 void Game::InitGrid()
 {
     int MarketCounter = 0;
@@ -322,8 +266,6 @@ void Game::InitGrid()
 
 void Game::DIRPG()
 {
-    clearscreen();
-    std::cout << "\n\n\tLoading.." << std::endl;
     clearscreen();
     std::cout << "//////////////////////////////////////////////////////////////////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
@@ -372,8 +314,6 @@ void Game::DIRPG()
 void Game::CreditsScreen()
 {
     clearscreen();
-    std::cout << "\n\n\tLoading.." << std::endl;
-    clearscreen();
     std::cout << "//////////////////////////////////////////////////////////////////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
     std::cout << "////////" << std::setw(35) << "=== Credits ===" << std::setw(28) << "////////\n";
@@ -408,8 +348,6 @@ void Game::CreditsScreen()
 void Game::ExitScreen()
 {
     clearscreen();
-    std::cout << "\n\n\tLoading.." << std::endl;
-    clearscreen();
     std::cout << "\n\n";
     std::cout << "\tThank you for playing DI_RPG\n\n";
     std::cout << "\tQuitting Game...\n\n";
@@ -423,8 +361,6 @@ void Game::MainMenu()
     int input;
     bool flag = false;
     do {
-        clearscreen();
-        std::cout << "\n\n\tLoading.." << std::endl;
         clearscreen();
 
         std::cout << "\n\n";
@@ -484,8 +420,6 @@ void Game::MoveMenu()
 {
     do {
         int input;
-        clearscreen();
-        std::cout << "\n\n\tLoading.." << std::endl;
         clearscreen();
         std::cout << "\n\n";
         std::cout << "\t=== Move Menu ===\n\n";
@@ -591,8 +525,6 @@ void Game::NewHeroMenu()
     bool flag = false;
     do {
         clearscreen();
-        std::cout << "\n\n\tLoading.." << std::endl;
-        clearscreen();
         if (MyHeroes.size() <= 2) {
             std::cout << "//////////////////////////////////////////////////////////////////////\n";
             std::cout << "////////" << std::setw(63) << "////////\n";
@@ -668,8 +600,6 @@ void Game::NewHeroMenu()
 
 bool Game::WarriorInfo()
 {
-    clearscreen();
-    std::cout << "\n\n\tLoading.." << std::endl;
     clearscreen();
     Warrior temp("temp", AllWeapons[2], AllArmors[1], AllSpells[0]);
     std::cout << "//////////////////////////////////////////////////////////////////////\n";
@@ -758,8 +688,6 @@ bool Game::WarriorInfo()
 bool Game::SorcererInfo()
 {
     clearscreen();
-    std::cout << "\n\n\tLoading.." << std::endl;
-    clearscreen();
     Sorcerer temp("temp", AllWeapons[0], AllArmors[1], AllSpells[2]);
     std::cout << "//////////////////////////////////////////////////////////////////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
@@ -847,8 +775,6 @@ bool Game::SorcererInfo()
 bool Game::PaladinInfo()
 {
     clearscreen();
-    std::cout << "\n\n\tLoading.." << std::endl;
-    clearscreen();
     Paladin temp("temp", AllWeapons[1], AllArmors[2], AllSpells[0]);
     std::cout << "//////////////////////////////////////////////////////////////////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
@@ -935,8 +861,6 @@ bool Game::PaladinInfo()
 
 void Game::CreateNewHero(heroType htype)
 {
-    clearscreen();
-    std::cout << "\n\n\tLoading.." << std::endl;
     clearscreen();
     std::cout << "//////////////////////////////////////////////////////////////////////\n";
     std::cout << "////////" << std::setw(63) << "////////\n";
@@ -1033,8 +957,6 @@ void Game::CreateNewHero(heroType htype)
 void Game::BlockMenu()
 {
     clearscreen();
-    std::cout << "\n\n\tLoading.." << std::endl;
-    clearscreen();
 
     std::cout << "\n\n";
     std::cout << "\t=== Block Menu ===\n\n";
@@ -1073,8 +995,6 @@ void Game::BlockMenu()
 
 void Game::InventoryMenu()
 {
-    clearscreen();
-    std::cout << "\n\n\tLoading.." << std::endl;
     clearscreen();
 
     std::cout << "\n\n";
@@ -1121,8 +1041,6 @@ void Game::InventoryMenu()
 
 void Game::ChangeWeapon()
 {
-    clearscreen();
-    std::cout << "\n\n\tLoading.." << std::endl;
     clearscreen();
 
     std::cout << "\n\n";
@@ -1176,8 +1094,6 @@ void Game::ChangeWeapon()
 void Game::ChangeArmor()
 {
     clearscreen();
-    std::cout << "\n\n\tLoading.." << std::endl;
-    clearscreen();
 
     std::cout << "\n\n";
     std::cout << "\t=== Change Armor ===\n\n";
@@ -1213,8 +1129,6 @@ void Game::ChangeArmor()
 void Game::UsePotion()
 {
     clearscreen();
-    std::cout << "\n\n\tLoading.." << std::endl;
-    clearscreen();
 
     std::cout << "\n\n";
     std::cout << "\t=== Use Potion ===\n\n";
@@ -1225,7 +1139,6 @@ void Game::UsePotion()
     std::cout << "\t[ 0 ]\tExit\n\n";
     std::cout << "--------------------------------------------------\n\n";
     std::cout << "\tHero Selected: " << MyHeroes[ActiveHero]->get_name() << "\n";
-    std::cout << "\tPotion: ";
     std::cout << "\n--------------------------------------------------\n\n\n";
 
     std::cout << std::setw(37) << "Input: ";
@@ -1261,8 +1174,6 @@ bool Game::get_playing() const
 
 void Game::HeroesInfo()
 {
-    clearscreen();
-    std::cout << "\n\n\tLoading.." << std::endl;
     clearscreen();
 
     std::cout << "\n\n";
@@ -1303,8 +1214,6 @@ void Game::HeroesInfo()
 
 void Game::ChangeActiveHero()
 {
-    clearscreen();
-    std::cout << "\n\n\tLoading.." << std::endl;
     clearscreen();
 
     std::cout << "\n\n";

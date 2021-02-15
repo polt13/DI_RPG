@@ -356,7 +356,7 @@ private:
     int posx;
     int posy;
     int ActiveHero;
-    std::array<std::array<Block*, 8>, 8> Grid;
+    std::array<std::array<Block*, 12>, 12> Grid;
     std::vector<Weapon*> AllWeapons;
     std::vector<Armor*> AllArmors;
     std::vector<Potion*> AllPotions;
