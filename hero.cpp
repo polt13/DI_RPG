@@ -327,8 +327,8 @@ void Hero::addMoney(int m)
 void Hero::regenMP()
 {
     if (HealthPower > 0) {
-        std::cout << Name << " recovers " << MagicPower / 6 + 1 << " MP\n";
-        MagicPower += (MagicPower / 10) + 1;
+        std::cout << Name << " recovers " << (MagicPower / 12) + 1 << " MP\n";
+        MagicPower += (MagicPower / 12) + 1;
     }
 
     if (MagicPower > MaxMagicPower) {
