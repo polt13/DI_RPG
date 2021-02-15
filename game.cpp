@@ -240,9 +240,9 @@ void Game::InitSpells()
 
     std::cout << "\tInitializing All Spells... ";
     std::flush(std::cout);
-    /* std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::cout << "Done\n";
-    std::this_thread::sleep_for(std::chrono::milliseconds(100)); */
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
 
 void Game::InitMonsters()
@@ -291,6 +291,7 @@ void Game::InitMonsters()
         }
     }
 
+    std::cout << "\tInitializing All Monsters... ";
     std::flush(std::cout);
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     std::cout << "Done\n";
@@ -311,7 +312,12 @@ void Game::InitGrid()
                 Grid[i][j] = new Common();
         }
     }
+
+    std::cout << "\tInitializing Grid... ";
     std::flush(std::cout);
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    std::cout << "Done\n";
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
 
 void Game::DIRPG()
