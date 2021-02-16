@@ -4,18 +4,6 @@
 
 using std::string;
 
-Monster::~Monster()
-{
-    std::cout << Name << '\n';
-    std::cout << "Level: " << Level << '\n';
-    std::cout << "HP: " << HealthPower
-              << "\n\n";
-    std::cout << "DMG: " << minDMG << " - " << maxDMG << '\n';
-    std::cout << "DEF: " << Defense << '\n';
-    std::cout << "DODGE: " << Dodge << "%" << '\n';
-    std::cout << std::endl;
-}
-
 Monster::Monster(const string& MyName, int LowDMG, int HighDMG, int DEF, int MissChance, int LvL)
     : minDMG(LowDMG)
     , maxDMG(HighDMG)
@@ -26,6 +14,8 @@ Monster::Monster(const string& MyName, int LowDMG, int HighDMG, int DEF, int Mis
 {
     debuffDur.fill(0); //spelltype and round duration
 }
+
+Monster::~Monster() { }
 
 int Monster::get_defense() const
 {
@@ -47,10 +37,10 @@ void Monster::attack(Hero* MyHero)
     else
         DMGdealt = (std::rand() % (maxDMG - minDMG + 1) + minDMG);
     if (DMGdealt < 0) {
-        std::cout << "Higher defense than dmg\n";
+        std::cout << "Attack has no effect: Hero has higher DEFENSE!\n";
         return;
     }
-    if (rand() % 100 > MyHero->get_agility()) {
+    if ((std::rand() % 100) > MyHero->get_agility()) {
         std::cout << get_name() << " dealt " << DMGdealt << " DMG to " << MyHero->get_name() << "!" << '\n';
         MyHero->decrease_hp(DMGdealt);
     } else
@@ -65,19 +55,32 @@ void Monster::debuff(spellType st, int rounds)
 
     switch (st) {
     case spellType::ICE:
-        if (debuffDur[0] == 0)
+        //only apply the debuff once, if it's casted again only increase debuff duration
+        if (debuffDur[0] == 0) {
+            std::cout << "Ice spell debuff: Damage is reduced by 5\n";
             maxDMG -= 5;
+            minDMG -= 5;
+        }
+
         debuffDur[0] += rounds;
+        std::cout << "Debuff lasts for " << debuffDur[0] << " rounds\n";
         break;
     case spellType::FIRE:
-        if (debuffDur[1] == 0)
+        if (debuffDur[1] == 0) {
+            std::cout << " Fire spell debuff: Armor is  reduced by 5\n";
             Defense -= 5;
+        }
+
         debuffDur[1] += rounds;
+        std::cout << "Debuff lasts for " << debuffDur[1] << " rounds\n";
         break;
     case spellType::LIGHTNING:
-        if (debuffDur[2] == 0)
+        if (debuffDur[2] == 0) {
+            std::cout << " Lightning spell debuff: Dodge is reduced by 5\n";
             Dodge -= 5;
+        }
         debuffDur[2] += rounds;
+        std::cout << "Debuff lasts for " << debuffDur[2] << " rounds\n";
         break;
     }
 }
@@ -87,14 +90,20 @@ void Monster::finish_round()
     for (auto i = 0; i < debuffDur.size(); i++) {
         if (debuffDur[i] > 0) {
             {
-                debuffDur[i]--;
+                --debuffDur[i];
+                //checks if debuff effect duration has come to an end
                 if (debuffDur[i] == 0) {
                     if (i == 0) {
+                        std::cout << "Effect of -DMG has worn out for " << Name << '\n';
                         maxDMG += 5;
+                        minDMG += 5;
                     } else if (i == 1) {
+                        std::cout << "Effect of -DEF has worn out for " << Name << '\n';
                         Defense += 5;
-                    } else
+                    } else {
+                        std::cout << "Effect of -DODGE has worn out for " << Name << '\n';
                         Dodge += 5;
+                    }
                 }
             }
         }
@@ -103,7 +112,10 @@ void Monster::finish_round()
 
 void Monster::displayStats() const
 {
-    std::cout << Name << " HP: " << HealthPower << '\t';
+    std::cout << Name << " | "
+              << " HP: "
+              << HealthPower << " | DMG: " << minDMG << '-' << maxDMG << " | DEF: " << Defense << " | DODGE: " << Dodge << '\t';
+    if (HealthPower == 0) {
+        std::cout << "- Fainted!\n";
+    }
 }
-
-///////////////////////////////////////////////////////////////////////////////////////////////

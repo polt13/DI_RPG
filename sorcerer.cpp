@@ -1,11 +1,6 @@
 //  File Name:  sorcerer_constr.cpp
 
 #include "rpg_lib.hpp"
-#include <iostream>
-
-Sorcerer::~Sorcerer()
-{
-}
 
 Sorcerer::Sorcerer(const std::string& MyName, Weapon* MyWeapon, Armor* MyArmour, Spell* MySpell)
     : Hero(MyName, 2, 4, 3, MyWeapon, MyArmour, MySpell)

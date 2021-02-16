@@ -5,10 +5,6 @@
 
 using std::string;
 
-Living::~Living()
-{
-}
-
 Living::Living(const string& MyName, const int HP, int LvL)
     : Name(MyName)
     , Level(LvL)
@@ -21,7 +17,10 @@ Living::Living(const string& MyName, const int HP, int LvL)
 
 void Living::regenHP()
 {
-    HealthPower += HealthPower / 8; //if HP = 0 don't regen
+    if (HealthPower > 0) {
+        std::cout << Name << " recovers " << (HealthPower / 12) + 1 << " HP\n";
+        HealthPower += (HealthPower / 12) + 1; //if HP = 0 don't regen
+    }
     if (HealthPower > MaxHealthPower) { //dont overheal
         HealthPower = MaxHealthPower;
     }
