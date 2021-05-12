@@ -167,7 +167,7 @@ IceSpell::IceSpell(const string& _name, const int price, const int lvl, const in
 
 void IceSpell::apply_effect(Monster* m)
 {
-    m->debuff(spellType::ICE, duration);
+    m->ice_debuff(duration);
 }
 
 void IceSpell::print() const
@@ -188,7 +188,7 @@ void FireSpell::print() const
 
 void FireSpell::apply_effect(Monster* m)
 {
-    m->debuff(spellType::FIRE, duration); //debuff type and how long it lasts
+    m->fire_debuff(duration);
 }
 
 LightningSpell::LightningSpell(const string& _name, const int price, const int lvl, const int mindmg, const int maxdmg, const int mp, const int dur)
@@ -203,5 +203,5 @@ void LightningSpell::print() const
 }
 void LightningSpell::apply_effect(Monster* m)
 {
-    m->debuff(spellType::LIGHTNING, duration);
+    m->li_debuff(duration);
 }

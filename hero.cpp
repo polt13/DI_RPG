@@ -192,7 +192,7 @@ void Hero::castSpell(Monster* MyMonster, int whichSpell)
         return;
     }
     if ((whichSpell > SpellsInv.size() - 1) || whichSpell < 0) {
-        std::cout << "Invalid position of Potion (Must be: 1 - " << SpellsInv.size() << ")\n ";
+        std::cout << "Invalid position of spell (Must be: 1 - " << SpellsInv.size() << ")\n ";
         return;
     }
 

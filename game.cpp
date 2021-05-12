@@ -1181,7 +1181,7 @@ void Game::HeroesInfo()
     std::cout << "\n--------------------------------------------------\n\n";
     //
     for (int i = 0; i < MyHeroes.size(); i++) {
-        std::cout << "\t[ " << i + 1 << " ]\t" << MyHeroes[i]->get_name();
+        std::cout << "\t[ " << i + 1 << " ]\t" << MyHeroes[i]->get_name() << ", level: " << MyHeroes[i]->getLevel() << ' ';
         if (i == ActiveHero)
             std::cout << " - [Active Hero]";
         std::cout << "\n";

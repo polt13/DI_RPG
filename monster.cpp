@@ -48,41 +48,37 @@ void Monster::attack(Hero* MyHero)
     std::cout << MyHero->get_name() << " HP is: " << MyHero->get_hp() << std::endl;
 }
 
-void Monster::debuff(spellType st, int rounds)
+void Monster::ice_debuff(int rounds)
 {
-    //debuff lasts for + rounds
-    // i = 0 for dur of ice, i =1 dur of fire, i=2 dur of lightning
-
-    switch (st) {
-    case spellType::ICE:
-        //only apply the debuff once, if it's casted again only increase debuff duration
-        if (debuffDur[0] == 0) {
-            std::cout << "Ice spell debuff: Damage is reduced by 5\n";
-            maxDMG -= 5;
-            minDMG -= 5;
-        }
-
-        debuffDur[0] += rounds;
-        std::cout << "Debuff lasts for " << debuffDur[0] << " rounds\n";
-        break;
-    case spellType::FIRE:
-        if (debuffDur[1] == 0) {
-            std::cout << " Fire spell debuff: Armor is  reduced by 5\n";
-            Defense -= 5;
-        }
-
-        debuffDur[1] += rounds;
-        std::cout << "Debuff lasts for " << debuffDur[1] << " rounds\n";
-        break;
-    case spellType::LIGHTNING:
-        if (debuffDur[2] == 0) {
-            std::cout << " Lightning spell debuff: Dodge is reduced by 5\n";
-            Dodge -= 5;
-        }
-        debuffDur[2] += rounds;
-        std::cout << "Debuff lasts for " << debuffDur[2] << " rounds\n";
-        break;
+    if (debuffDur[0] == 0) {
+        std::cout << "Ice spell debuff: Damage is reduced by 5\n";
+        maxDMG -= 5;
+        minDMG -= 5;
     }
+
+    debuffDur[0] += rounds;
+    std::cout << "Debuff lasts for " << debuffDur[0] << " rounds\n";
+}
+
+void Monster::fire_debuff(int rounds)
+{
+    if (debuffDur[1] == 0) {
+        std::cout << " Fire spell debuff: Armor is  reduced by 5\n";
+        Defense -= 5;
+    }
+
+    debuffDur[1] += rounds;
+    std::cout << "Debuff lasts for " << debuffDur[1] << " rounds\n";
+}
+
+void Monster::li_debuff(int rounds)
+{
+    if (debuffDur[2] == 0) {
+        std::cout << " Lightning spell debuff: Dodge is reduced by 5\n";
+        Dodge -= 5;
+    }
+    debuffDur[2] += rounds;
+    std::cout << "Debuff lasts for " << debuffDur[2] << " rounds\n";
 }
 
 void Monster::finish_round()

@@ -2,7 +2,6 @@
 #define RPG_H
 #include <array>
 #include <iostream>
-#include <map>
 #include <string>
 #include <vector>
 
@@ -10,29 +9,29 @@ class Hero;
 class Monster;
 class Market;
 
+
+
+//for determining whether the current block is Market in the Grid and therefore
+//displaying Market option in Menu
 enum class blockType {
     COMMON,
     INACCESSIBLE,
     MARKET
 };
 
+//for creating the proper hero type in Game class
 enum class heroType {
     WARRIOR,
     SORCERER,
     PALADIN
 };
 
+// determine what stat to boost
 enum class potionType { DEX,
     STR,
     AGIL,
     HP,
     MP };
-
-enum class spellType {
-    ICE,
-    FIRE,
-    LIGHTNING
-};
 
 enum class gearType {
     ARMOR,
@@ -40,6 +39,7 @@ enum class gearType {
     LWEAPON
 };
 
+// item type: for sell/buy in Market
 enum class itemType {
     WEAPON,
     ARMOR,
@@ -101,7 +101,6 @@ class Spell : public Item { //make abstract
 protected:
     const int min_dmg, max_dmg, mp_cost;
     const int duration;
-    std::string typeToString();
 
 public:
     virtual void print() const;
@@ -263,7 +262,10 @@ public:
     int get_defense() const;
     int get_dodge() const;
 
-    void debuff(spellType, int);
+    void fire_debuff(int);
+    void ice_debuff(int);
+    void li_debuff(int);
+
     void attack(Hero*);
     void finish_round();
 };
@@ -356,7 +358,7 @@ private:
     int posx;
     int posy;
     int ActiveHero;
-    std::array<std::array<Block*, 12>, 12> Grid;
+    std::array<std::array<Block*, 12>, 12> Grid {};
     std::vector<Weapon*> AllWeapons;
     std::vector<Armor*> AllArmors;
     std::vector<Potion*> AllPotions;
